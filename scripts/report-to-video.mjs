@@ -17,6 +17,10 @@
 //   --strict            Pass --strict to hyperframes (warnings become errors).
 //   --preview           Open the HyperFrames studio for the rendered HTML
 //                       instead of producing an MP4.
+//   --bundle <dir>      Produce a portable renderable folder instead of an
+//                       MP4 (CoWork-friendly; no FFmpeg/Chromium needed).
+//   --force-bundle      Force bundle mode even if local render is possible.
+//   --force-render      Force render even if env-detect recommends bundle.
 //   --dry-run           Write the resolved composition.html into ./.tmp/ and exit.
 //   --help              Show this help.
 
@@ -29,6 +33,8 @@ import {
   renderComposition,
   previewComposition,
 } from "./lib/hyperframes-runner.mjs";
+import { detectRenderEnv } from "./lib/env-detect.mjs";
+import { writeBundle } from "./lib/bundle.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -42,6 +48,8 @@ function parseArgs(argv) {
     else if (tok === "--preview") args.flags.preview = true;
     else if (tok === "--strict") args.flags.strict = true;
     else if (tok === "--dry-run") args.flags.dryRun = true;
+    else if (tok === "--force-bundle") args.flags.forceBundle = true;
+    else if (tok === "--force-render") args.flags.forceRender = true;
     else if (tok.startsWith("--")) {
       const key = tok.slice(2);
       const next = argv[i + 1];
@@ -75,6 +83,9 @@ Options:
   --risk     <level>    low | medium | high
   --strict              Treat HyperFrames warnings as errors
   --preview             Open HyperFrames studio instead of rendering
+  --bundle <dir>        Write a portable renderable folder (CoWork-friendly)
+  --force-bundle        Use bundle mode even if local render is possible
+  --force-render        Try to render even if env-detect recommends bundle
   --dry-run             Emit resolved composition.html to ./.tmp and exit
   -h, --help            This help
 
@@ -147,14 +158,49 @@ async function main() {
   }
 
   const format = args.flags.format || "mp4";
-  const outputPath = deriveOutput(reportPath, args.flags.output, format);
+  const fps = Number(args.flags.fps) || 30;
+  const quality = args.flags.quality || "standard";
 
+  // Decide: render here, or write a portable bundle for offline rendering.
+  const env = await detectRenderEnv();
+  const explicitBundle = !!args.flags.bundle || !!args.flags.forceBundle;
+  const bundleMode =
+    !args.flags.forceRender && (explicitBundle || !env.canRender);
+
+  if (bundleMode) {
+    const base = basename(reportPath, extname(reportPath));
+    const bundleDir =
+      typeof args.flags.bundle === "string"
+        ? args.flags.bundle
+        : join(REPO_ROOT, "renders", `bundle-${base}`);
+    if (!explicitBundle) {
+      console.log(
+        `[exchekvideo] env: ${env.reasons.join("; ")} → falling back to bundle mode.`,
+      );
+    }
+    const out = await writeBundle({
+      outDir: bundleDir,
+      reportPath,
+      resolvedHtml: html,
+      templateName,
+      view,
+      renderHints: { format, fps, quality },
+    });
+    console.log(`[exchekvideo] bundle : ${out.dir}`);
+    console.log(`[exchekvideo] render : see ${out.readmePath}`);
+    if (view.docxBasename) {
+      console.log(`[exchekvideo] pair-of-record: ${view.docxBasename}`);
+    }
+    return;
+  }
+
+  const outputPath = deriveOutput(reportPath, args.flags.output, format);
   const { outputPath: finalPath } = await renderComposition({
     html,
     outputPath,
     format,
-    fps: Number(args.flags.fps) || 30,
-    quality: args.flags.quality || "standard",
+    fps,
+    quality,
     strict: !!args.flags.strict,
   });
 

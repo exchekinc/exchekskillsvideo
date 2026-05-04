@@ -89,6 +89,17 @@ user's tier permits it.
   to override the auto-derivation.
 
 ## Compatibility note
-Designed for Claude Code first; also runnable on Claude desktop and CoWork
-when the workstation has Node ≥22 and FFmpeg available. The HyperFrames
-render step requires a local Chrome/Chromium (Puppeteer brings one).
+Designed for Claude Code first; also runnable on Claude desktop and CoWork.
+
+- **Claude Code / Claude desktop (local)** — full render path. Requires
+  Node ≥22 and FFmpeg locally; HyperFrames brings Chromium via Puppeteer.
+- **Claude CoWork (sandbox)** — invocation works, but the render step's
+  native dependencies (FFmpeg, Chromium) are not reliably present. The
+  bridge auto-detects this and switches to **bundle mode**: it writes a
+  portable `renders/bundle-<basename>/` folder containing the resolved
+  composition, a manifest, the source report, and `RENDER.md` instructions.
+  The user downloads the folder and renders it on any host with FFmpeg.
+  See [`references/cowork.md`](references/cowork.md) for the full workflow.
+
+If auto-detection guesses wrong, force a path with `--force-bundle` or
+`--force-render`.

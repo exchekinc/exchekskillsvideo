@@ -87,6 +87,13 @@ Render-free dry run (writes resolved composition HTML to `.tmp/`):
 node scripts/report-to-video.mjs report.json --dry-run
 ```
 
+Bundle for offline render (auto-selected in CoWork; force with `--force-bundle`):
+
+```bash
+node scripts/report-to-video.mjs report.json --force-bundle
+# → renders/bundle-<basename>/{composition.html, manifest.json, source.json, RENDER.md}
+```
+
 ---
 
 ## How it works
@@ -104,6 +111,21 @@ node scripts/report-to-video.mjs report.json --dry-run
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the full flow.
 
 ---
+
+## Running in Claude CoWork
+
+CoWork is a sandboxed cloud workspace. It has Node, but **does not reliably
+have FFmpeg or Chromium**, so a direct render isn't possible there. The
+bridge auto-detects this and switches to **bundle mode** — it produces a
+portable folder (`composition.html`, `manifest.json`, `source.json`,
+`RENDER.md`) that the user downloads and renders on any host with FFmpeg.
+
+The bundle preserves the source report's `input_hash`, so the eventual MP4
+is reproducible: same bundle → same video, byte-for-byte (modulo FFmpeg
+encoder version). That property matters for audit reproducibility.
+
+See [`skills/exchek-video-summary/references/cowork.md`](skills/exchek-video-summary/references/cowork.md)
+for the full CoWork workflow.
 
 ## Compliance scope
 

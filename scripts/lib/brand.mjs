@@ -12,8 +12,13 @@ export const BRAND = {
     surfaceMuted: "#1F2950",
     text: "#F5F7FF",
     textMuted: "#A8B0D6",
-    accent: "#5B8DEF",
-    accentSecondary: "#9B6CF2",
+    // ExChek brand purple is the canonical accent. A lighter tint is used
+    // wherever pure brand has too little contrast on the dark navy stage
+    // (small text, fine strokes, gradient end-stops).
+    accent: "#411992",
+    accentTint: "#7C4FE0",
+    accentGlow: "#A584FF",
+    accentSecondary: "#7C4FE0",
     success: "#3DD68C",
     warn: "#F6B73C",
     danger: "#FF5C7A",

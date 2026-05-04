@@ -77,6 +77,21 @@ HyperFrames' deterministic seek model is preserved end-to-end:
 - Same input JSON → same MP4, frame-for-frame. Verifiable via
   `generated.input_hash` displayed in the video.
 
+## CoWork & environments without FFmpeg/Chromium
+
+`scripts/lib/env-detect.mjs` checks for FFmpeg/ffprobe on PATH and looks
+for CoWork environment signals. If either check fails, the bridge falls
+back to bundle mode automatically.
+
+**Bundle mode** writes a portable folder (`composition.html`, `manifest.json`,
+`source.json`, `RENDER.md`) instead of an MP4. The user transfers the
+folder to a host that does have FFmpeg/Chromium and runs the `npx
+hyperframes render` command from `RENDER.md`. The bundle's `manifest.json`
+preserves the source `input_hash`, so the produced MP4 is reproducible —
+matters for audit re-runs.
+
+Force the choice explicitly with `--force-bundle` or `--force-render`.
+
 ## Failure modes
 
 | Failure                            | Surface                                           |

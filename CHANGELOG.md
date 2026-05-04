@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.1.1] — 2026-05-04
+
+### Changed
+- Brand color set to ExChek purple **#411992** across `brand.mjs` and
+  `templates/shared/styles.css`. A lighter tint `#7C4FE0` companions on
+  dark surfaces where pure brand has insufficient contrast (small text,
+  fine strokes, gradient end-stops).
+
+### Added
+- `scripts/lib/env-detect.mjs` — detects FFmpeg/ffprobe on PATH and
+  CoWork environment signals.
+- `scripts/lib/bundle.mjs` — writes a portable rendering bundle
+  (composition + manifest + source + RENDER.md) for offline render.
+- `--bundle <dir>`, `--force-bundle`, `--force-render` flags on the CLI.
+- Auto-fallback to bundle mode when render dependencies are unavailable
+  (typical CoWork sandbox path).
+- `skills/exchek-video-summary/references/cowork.md` — CoWork workflow.
+- 18 new smoke-test assertions covering bundle round-trip and
+  env-detect contract.
+
 ## [0.1.0] — 2026-05-04
 
 Initial scaffold.

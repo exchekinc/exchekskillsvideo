@@ -7,8 +7,13 @@
   --surface-muted: #1F2950;
   --text: #F5F7FF;
   --text-muted: #A8B0D6;
-  --accent: #5B8DEF;
-  --accent-2: #9B6CF2;
+  /* ExChek brand purple. Pure --accent is the canonical brand mark
+     (dot, headline emphasis, primary CTA). --accent-tint is the readable
+     companion for gradient text, glows, and small details on dark bg. */
+  --accent: #411992;
+  --accent-tint: #7C4FE0;
+  --accent-glow: #A584FF;
+  --accent-2: var(--accent-tint);
   --success: #3DD68C;
   --warn: #F6B73C;
   --danger: #FF5C7A;
@@ -34,8 +39,8 @@ html, body {
   width: 1920px;
   height: 1080px;
   background:
-    radial-gradient(1200px 800px at 80% 0%, rgba(155, 108, 242, 0.18), transparent 60%),
-    radial-gradient(1000px 700px at 0% 100%, rgba(91, 141, 239, 0.18), transparent 60%),
+    radial-gradient(1200px 800px at 80% 0%, rgba(124, 79, 224, 0.22), transparent 60%),
+    radial-gradient(1000px 700px at 0% 100%, rgba(65, 25, 146, 0.28), transparent 60%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-end) 100%);
 }
 
@@ -74,8 +79,8 @@ html, body {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  box-shadow: 0 0 30px rgba(91,141,239,0.6);
+  background: linear-gradient(135deg, var(--accent), var(--accent-tint));
+  box-shadow: 0 0 30px rgba(124, 79, 224, 0.6);
 }
 .brand-bar .meta {
   font-family: var(--font-mono);
@@ -139,7 +144,7 @@ html, body {
 .pill.low      { background: rgba(61, 214, 140, 0.14); color: var(--success); border: 1px solid rgba(61, 214, 140, 0.4); }
 .pill.medium   { background: rgba(246, 183, 60, 0.14); color: var(--warn);    border: 1px solid rgba(246, 183, 60, 0.4); }
 .pill.high     { background: rgba(255, 92, 122, 0.14); color: var(--danger);  border: 1px solid rgba(255, 92, 122, 0.4); }
-.pill.review   { background: rgba(91, 141, 239, 0.14); color: var(--accent);  border: 1px solid rgba(91, 141, 239, 0.4); }
+.pill.review   { background: rgba(124, 79, 224, 0.16); color: var(--accent-tint); border: 1px solid rgba(124, 79, 224, 0.4); }
 
 .list {
   list-style: none;
@@ -162,12 +167,12 @@ html, body {
   height: 14px;
   margin-top: 14px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-tint);
 }
 .list li.flag-high .marker    { background: var(--danger); }
 .list li.flag-medium .marker  { background: var(--warn); }
 .list li.flag-low .marker     { background: var(--success); }
-.list li.flag-info .marker    { background: var(--accent); }
+.list li.flag-info .marker    { background: var(--accent-tint); }
 .list li .body { flex: 1 1 auto; }
 .list li .title { font-weight: 600; }
 .list li .detail { color: var(--text-muted); font-size: 20px; margin-top: 4px; }

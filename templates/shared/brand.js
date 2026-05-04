@@ -33,7 +33,7 @@
       var c = 2 * Math.PI * r;
       fill.setAttribute("stroke-dasharray", String(c));
       fill.setAttribute("stroke-dashoffset", String(c * (1 - pct)));
-      var color = lvl === "high" ? "#FF5C7A" : lvl === "medium" ? "#F6B73C" : lvl === "low" ? "#3DD68C" : "#5B8DEF";
+      var color = lvl === "high" ? "#FF5C7A" : lvl === "medium" ? "#F6B73C" : lvl === "low" ? "#3DD68C" : "#7C4FE0";
       fill.setAttribute("stroke", color);
     }
   }
