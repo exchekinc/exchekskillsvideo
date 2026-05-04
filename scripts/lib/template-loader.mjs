@@ -61,7 +61,7 @@ export function renderTemplate({ html, css, js, logo }, view) {
   // would silently corrupt the inlined script.
   let out = html;
   if (out.includes(HF_LOGO_MARKER)) {
-    // Inline the SVG markup directly — browsers render it natively, and
+    // Inline the SVG markup directly. browsers render it natively, and
     // there's no relative-path footgun under Puppeteer headless.
     out = out.replace(HF_LOGO_MARKER, () => logo || "");
   }

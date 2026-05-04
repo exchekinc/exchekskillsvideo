@@ -96,7 +96,7 @@ async function main() {
     assert(readme.includes("npx --yes hyperframes render"), "RENDER.md instructions present");
   }
 
-  // Env detection smoke — must return a structured object regardless of host.
+  // Env detection smoke. must return a structured object regardless of host.
   const env = await detectRenderEnv();
   assert(typeof env.canRender === "boolean", `env-detect canRender (=${env.canRender})`);
   assert(["render", "bundle"].includes(env.recommendation), `env-detect recommends ${env.recommendation}`);
@@ -106,8 +106,54 @@ async function main() {
   assert(audioTest.spokenCode("6A993.a") === "6 A 993 dot a", "spokenCode pads ECCN");
   assert(audioTest.clampWords("a b c d e f", 3).split(" ").length === 3, "clampWords budget");
 
-  console.log(`\n${failures === 0 ? "PASS" : "FAIL"} — ${failures} failure(s)`);
+  // No em-dashes / en-dashes hard rule (CONTRIBUTING.md). Scan every
+  // repo source file. Upstream exchekskills JSON outputs are out of
+  // scope; we only own files we author.
+  console.log(`\n[no-em-dashes]`);
+  await checkNoFancyDashes(REPO);
+
+  console.log(`\n${failures === 0 ? "PASS" : "FAIL"}. ${failures} failure(s)`);
   process.exit(failures === 0 ? 0 : 1);
+}
+
+async function checkNoFancyDashes(root) {
+  const { readdir, readFile, stat } = await import("node:fs/promises");
+  const { join, relative, extname } = await import("node:path");
+  const skipDirs = new Set(["node_modules", ".git", ".tmp", "renders", ".cache"]);
+  const exts = new Set([".md", ".mjs", ".js", ".json", ".html", ".css", ".sh", ".yaml", ".yml", ".txt"]);
+  // Files we don't author; don't enforce the rule on them.
+  const skipFiles = new Set([
+    // Upstream-canonical license (the upstream LICENSE happens to be
+    // em-dash-free, so it's safe to leave in scope.)
+  ]);
+
+  // Use Unicode escapes so this source file itself stays dash-free.
+  const EM = /\u2014/g;
+  const EN = /\u2013/g;
+
+  async function walk(dir) {
+    const entries = await readdir(dir, { withFileTypes: true });
+    for (const ent of entries) {
+      if (skipDirs.has(ent.name)) continue;
+      const full = join(dir, ent.name);
+      if (ent.isDirectory()) {
+        await walk(full);
+      } else if (ent.isFile() && exts.has(extname(ent.name))) {
+        const rel = relative(root, full);
+        if (skipFiles.has(rel)) continue;
+        const content = await readFile(full, "utf8");
+        const em = (content.match(EM) || []).length;
+        const en = (content.match(EN) || []).length;
+        if (em === 0 && en === 0) {
+          // OK
+        } else {
+          assert(false, `${rel}: ${em} em-dash, ${en} en-dash (should be 0)`);
+        }
+      }
+    }
+  }
+  await walk(root);
+  if (failures === 0) console.log(`  ✓ no em-dashes or en-dashes anywhere`);
 }
 
 main().catch((e) => {

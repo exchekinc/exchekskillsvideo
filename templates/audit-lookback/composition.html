@@ -94,21 +94,21 @@
   </h1>
 
   <div id="tile" class="clip big-num fadein" data-start="0.9" data-duration="30" data-track-index="4">
-    <div class="n" id="totalCount">—</div>
+    <div class="n" id="totalCount"></div>
     <div class="cap" id="windowLabel">transactions re-screened</div>
   </div>
 
   <div id="rstack" class="clip right-stack stagger" data-start="1.4" data-duration="30" data-track-index="5">
     <div class="card">
       <div class="label">New hits flagged</div>
-      <div class="value" id="hitCount">—</div>
+      <div class="value" id="hitCount"></div>
     </div>
     <div class="card">
       <div class="label">Severity breakdown</div>
       <div class="sev-bars">
-        <div class="row high"><span class="name">High</span><span class="bar"><span class="fill" id="sevHigh"></span></span><span class="count" id="sevHighN">—</span></div>
-        <div class="row medium"><span class="name">Medium</span><span class="bar"><span class="fill" id="sevMed"></span></span><span class="count" id="sevMedN">—</span></div>
-        <div class="row low"><span class="name">Low</span><span class="bar"><span class="fill" id="sevLow"></span></span><span class="count" id="sevLowN">—</span></div>
+        <div class="row high"><span class="name">High</span><span class="bar"><span class="fill" id="sevHigh"></span></span><span class="count" id="sevHighN"></span></div>
+        <div class="row medium"><span class="name">Medium</span><span class="bar"><span class="fill" id="sevMed"></span></span><span class="count" id="sevMedN"></span></div>
+        <div class="row low"><span class="name">Low</span><span class="bar"><span class="fill" id="sevLow"></span></span><span class="count" id="sevLowN"></span></div>
       </div>
     </div>
   </div>
@@ -129,7 +129,7 @@
       var dets = d.determinations || [];
       function find(rx) { return (dets.find(function (x) { return rx.test(x.label || ""); }) || {}).value; }
       function num(v) { var n = parseInt(String(v).replace(/[^\d]/g, ""), 10); return Number.isFinite(n) ? n : 0; }
-      function setT(id, v) { var el = document.getElementById(id); if (el) el.textContent = v == null || v === "" ? "—" : v; }
+      function setT(id, v) { var el = document.getElementById(id); if (el) el.textContent = v == null || v === "" ? "" : v; }
 
       var total = find(/transactions|screened|count|total/i);
       var win   = find(/window|period|lookback/i);

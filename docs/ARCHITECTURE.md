@@ -71,7 +71,7 @@ Every visible non-`<video>` clip needs `class="clip"` plus
 
 HyperFrames' deterministic seek model is preserved end-to-end:
 
-- The bridge does **no** runtime randomness — view object is a pure
+- The bridge does **no** runtime randomness. view object is a pure
   function of input JSON + CLI overrides.
 - Templates avoid `Date.now()` / `Math.random()` at runtime.
 - Same input JSON → same MP4, frame-for-frame. Verifiable via
@@ -87,7 +87,7 @@ back to bundle mode automatically.
 `source.json`, `RENDER.md`) instead of an MP4. The user transfers the
 folder to a host that does have FFmpeg/Chromium and runs the `npx
 hyperframes render` command from `RENDER.md`. The bundle's `manifest.json`
-preserves the source `input_hash`, so the produced MP4 is reproducible —
+preserves the source `input_hash`, so the produced MP4 is reproducible 
 matters for audit re-runs.
 
 Force the choice explicitly with `--force-bundle` or `--force-render`.
@@ -116,5 +116,5 @@ Add a new template (e.g. `deemed-export`):
 6. Optionally ship a wrapper SKILL.md under
    `skills/exchek-video-deemed-export/`.
 
-That's the entire surface — no framework lock-in beyond HyperFrames'
+That's the entire surface. no framework lock-in beyond HyperFrames'
 HTML schema.

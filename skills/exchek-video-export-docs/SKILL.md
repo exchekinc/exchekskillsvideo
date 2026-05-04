@@ -1,12 +1,12 @@
 ---
 name: exchek-video-export-docs
-description: Render an export-documentation readiness video (MP4) from an exchek-export-docs JSON sibling. Three document cards in a row — Commercial Invoice, Shipper's Letter (SLI), and AES filing — each populated with key fields and a status badge (READY / DRAFT / TODO). Use when the user wants a quick audit-ready packet preview before vessel sailing or AES submission.
+description: Render an export-documentation readiness video (MP4) from an exchek-export-docs JSON sibling. Three document cards in a row. Commercial Invoice, Shipper's Letter (SLI), and AES filing. each populated with key fields and a status badge (READY / DRAFT / TODO). Use when the user wants a quick audit-ready packet preview before vessel sailing or AES submission.
 compatibility: Claude Code, Claude desktop, Claude CoWork, Claude web
 ---
 
 # exchek-video-export-docs
 
-Specialized wrapper that forces the `export-docs` template — three
+Specialized wrapper that forces the `export-docs` template. three
 document cards (Commercial Invoice, SLI, AES Filing) in a row, each
 populated from the source determinations.
 
@@ -29,7 +29,7 @@ populated from the source determinations.
    ```
 4. The three cards inherit a single status badge (`status` determination
    on the source). For per-document statuses, use determinations named
-   like "Commercial Invoice status", "SLI status", "AES status" — the
+   like "Commercial Invoice status", "SLI status", "AES status". the
    template will surface them.
 
 ## Outputs

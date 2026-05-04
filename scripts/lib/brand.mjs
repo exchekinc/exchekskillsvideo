@@ -43,6 +43,6 @@ export const BRAND = {
   // separately from the audit-of-record line so the regulatory pointer
   // doesn't get diluted.
   aiDisclaimer() {
-    return "AI can make mistakes — please double-check responses.";
+    return "AI can make mistakes. Please double-check responses.";
   },
 };

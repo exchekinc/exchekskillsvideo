@@ -8,7 +8,7 @@ compatibility: Claude Code, Claude desktop, Claude CoWork, Claude web
 
 ## Purpose
 Turn the structured JSON sibling that every ExChekSkills report emits
-(`<basename>.json`, schema 1.0.0) into a 6–12 second branded MP4 suitable for
+(`<basename>.json`, schema 1.0.0) into a 6-12 second branded MP4 suitable for
 executive briefings, client deliverables, or compliance training libraries.
 
 This skill is a thin orchestration layer over the
@@ -22,30 +22,30 @@ this repo, which itself wraps HeyGen HyperFrames.
 - "Create a shareable video version of the red-flag assessment"
 
 ## Inputs
-1. **Required** — path to an ExChekSkills JSON sibling file (the one that
+1. **Required**. path to an ExChekSkills JSON sibling file (the one that
    lives next to the .docx output of any other exchekskills skill).
-2. **Optional** — explicit template override
+2. **Optional**. explicit template override
    (`risk-triage`, `classification`, `red-flag`, `compliance-report-card`,
    `training`).
-3. **Optional** — output path. Default is `renders/<basename>.mp4` in this
+3. **Optional**. output path. Default is `renders/<basename>.mp4` in this
    repo, or wherever the user's `~/Documents/ExChek-Reports` is configured.
-4. **Optional** — format (`mp4`, `webm`, `mov`), fps (`24|30|60`), quality
+4. **Optional**. format (`mp4`, `webm`, `mov`), fps (`24|30|60`), quality
    (`draft|standard|high`).
 
 ## Steps
 
-### Step 0 — CUI / classified gate
+### Step 0. CUI / classified gate
 Inherit from upstream `exchekskills`: refuse if the report's
 `cui_check.cui` or `cui_check.classified` is true and `on_prem_required` is
 true. Video output is intended for executive consumption, not classified
 material.
 
-### Step 0.5 — Narration preflight (ElevenLabs)
+### Step 0.5. Narration preflight (ElevenLabs)
 
 Before any rendering, decide narration vs silent and resolve credentials
 **up front** so the user isn't surprised mid-render.
 
-**Step 0.5a — ask the user (only on first run per session):**
+**Step 0.5a. ask the user (only on first run per session):**
 
 > "ExChek videos can be rendered silent or with ElevenLabs narration.
 > Narrated videos are ~10× more shareable for executive briefings. Want
@@ -58,7 +58,7 @@ quote ~1 cent per video (see
 [`references/elevenlabs-setup.md`](references/elevenlabs-setup.md)) and
 ask again.
 
-**Step 0.5b — detect what's available:**
+**Step 0.5b. detect what's available:**
 
 ```javascript
 // Pseudocode for the skill loop, not literal:
@@ -74,7 +74,7 @@ if (mcp_tool_available("mcp__ElevenLabs_Player__generate_tts")) {
 }
 ```
 
-**Step 0.5c — if `needs-setup`, prompt by surface:**
+**Step 0.5c. if `needs-setup`, prompt by surface:**
 
 The runtime determines which message to show:
 
@@ -93,10 +93,10 @@ The runtime determines which message to show:
   > Then say 'ready'. Or say 'silent' to render without narration."
 
 **Do not proceed to step 1 until the user picks one of: configured, silent, or cancel.**
-This is the central UX requirement — the user should never get partway
+This is the central UX requirement. the user should never get partway
 through a render and find out they need to install something.
 
-### Step 0.6 — Generate narration audio (only if narration enabled)
+### Step 0.6. Generate narration audio (only if narration enabled)
 
 Get the script the bridge will read:
 
@@ -107,21 +107,21 @@ node scripts/report-to-video.mjs <report.json> --audio-script-only
 Show the script to the user, ask to confirm or edit. Once approved,
 generate the audio:
 
-- **MCP path** — call `mcp__ElevenLabs_Player__generate_tts` with the
+- **MCP path**. call `mcp__ElevenLabs_Player__generate_tts` with the
   approved script, save to `~/.cache/exchek/vo-<input_hash>.wav`.
-- **Direct API path** — POST to `api.elevenlabs.io/v1/text-to-speech/<voice_id>`
+- **Direct API path**. POST to `api.elevenlabs.io/v1/text-to-speech/<voice_id>`
   with the script, save to the same cache path.
 
 The cache is keyed on `input_hash`, so re-renders of the same report
 reuse the audio (deterministic).
 
-### Step 1 — Locate the JSON
+### Step 1. Locate the JSON
 If the user names a skill but not a file, look in their configured ExChek
 output folder (default `~/Documents/ExChek-Reports`) for the most recent
 matching `ExChek-<Kind>-YYYY-MM-DD-*.json`. Confirm the chosen file with
 the user before rendering.
 
-### Step 2 — Pick the template
+### Step 2. Pick the template
 Run the bridge in dry-run mode first to confirm template auto-selection:
 ```bash
 node scripts/report-to-video.mjs <report.json> --dry-run
@@ -130,7 +130,7 @@ This writes `.tmp/<template>-resolved.html` so the user can sanity-check the
 mapping without burning a render. Show the user the chosen template; offer
 the four named templates if they want to override.
 
-### Step 3 — Render
+### Step 3. Render
 With narration:
 ```bash
 node scripts/report-to-video.mjs <report.json> \
@@ -144,23 +144,23 @@ node scripts/report-to-video.mjs <report.json> --no-audio \
   [--template <name>] [--output <path>]
 ```
 
-On a typical workstation this takes 15–60 seconds depending on quality.
+On a typical workstation this takes 15-60 seconds depending on quality.
 Surface the HyperFrames render output to the user; do not silently swallow
 warnings.
 
-### Step 4 — Pair with the audit-of-record
+### Step 4. Pair with the audit-of-record
 Always remind the user that the `.docx` is the document of record per
 15 CFR § 762.6. The MP4 is a summary visualization; it does not satisfy
 recordkeeping on its own. Place the MP4 in the same folder as the source
 `.docx`/`.json` pair so they travel together.
 
-### Step 5 — Privacy attestation (inherited)
+### Step 5. Privacy attestation (inherited)
 The video inherits the source report's `privacy_attestation` block. Do not
 upload the MP4 to a third-party hosting service without confirming the
 user's tier permits it.
 
 ## Outputs
-- `<basename>.mp4` — the rendered video.
+- `<basename>.mp4`. the rendered video.
 - The original `.docx` and `.json` remain unchanged.
 
 ## Failure modes
@@ -176,9 +176,9 @@ user's tier permits it.
 ## Compatibility note
 Designed for Claude Code first; also runnable on Claude desktop and CoWork.
 
-- **Claude Code / Claude desktop (local)** — full render path. Requires
+- **Claude Code / Claude desktop (local)**. full render path. Requires
   Node ≥22 and FFmpeg locally; HyperFrames brings Chromium via Puppeteer.
-- **Claude CoWork (sandbox)** — invocation works, but the render step's
+- **Claude CoWork (sandbox)**. invocation works, but the render step's
   native dependencies (FFmpeg, Chromium) are not reliably present. The
   bridge auto-detects this and switches to **bundle mode**: it writes a
   portable `renders/bundle-<basename>/` folder containing the resolved

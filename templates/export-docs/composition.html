@@ -135,7 +135,7 @@
         var card = document.createElement("div");
         card.className = "card doc-card";
         var rows = doc.fields.map(function (f) {
-          return '<div class="row"><span class="k">' + escapeHtml(f[0]) + '</span><span class="v">' + escapeHtml(f[1] || "—") + '</span></div>';
+          return '<div class="row"><span class="k">' + escapeHtml(f[0]) + '</span><span class="v">' + escapeHtml(f[1] || "") + '</span></div>';
         }).join("");
         card.innerHTML =
           '<div class="status ' + statusCls + '">' + statusCls + '</div>' +

@@ -6,7 +6,7 @@ compatibility: Claude Code, Claude desktop, Claude CoWork, Claude web
 
 # exchek-video-ecp
 
-Specialized wrapper that forces the `ecp` template — large overall
+Specialized wrapper that forces the `ecp` template. large overall
 maturity grade tile + an 8-element coverage grid mapping to BIS's
 ECP guidance (15 CFR 732 Supp. 2).
 
@@ -18,13 +18,13 @@ ECP guidance (15 CFR 732 Supp. 2).
 ## Inputs
 1. Path to an `exchek-ecp` JSON sibling. Determinations should include
    the eight ECP element names (or close variants) so the template can
-   match them — the data-mapper does fuzzy matching on the first word
+   match them. the data-mapper does fuzzy matching on the first word
    of each element name.
 
 ## Steps
 1. CUI gate (inherited).
 2. Narration preflight (inherited). For a board-level deliverable,
-   narration is recommended — the spoken summary surfaces the maturity
+   narration is recommended. the spoken summary surfaces the maturity
    grade and top gap right at the start.
 3. Run:
    ```bash

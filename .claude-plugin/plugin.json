@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "exchekskillsvideo",
   "version": "1.1.0",
-  "description": "ExChek Engine (Video) — render branded, narrated, audit-traceable compliance video summaries (.mp4) from any ExChekSkills .json sibling. Twelve templates covering every upstream skill: risk-triage, classification, red-flag, compliance-report-card, training, encryption, deemed-export, export-docs, ecp, audit-lookback, partner-compliance, recordkeeping. Optional ElevenLabs narration. The .docx remains the audit-of-record. Companion to the exchekskills plugin.",
+  "description": "ExChek Engine (Video). render branded, narrated, audit-traceable compliance video summaries (.mp4) from any ExChekSkills .json sibling. Twelve templates covering every upstream skill: risk-triage, classification, red-flag, compliance-report-card, training, encryption, deemed-export, export-docs, ecp, audit-lookback, partner-compliance, recordkeeping. Optional ElevenLabs narration. The .docx remains the audit-of-record. Companion to the exchekskills plugin.",
   "author": {
     "name": "ExChek, Inc.",
     "email": "matt@exchek.us",
@@ -40,13 +40,13 @@
     "elevenlabs_voice_id": {
       "type": "string",
       "title": "ElevenLabs voice ID (optional)",
-      "description": "ElevenLabs voice for narration. Defaults to Sarah (EXAVITQu4vr4xnSDxMaL) — clear, professional. Other recommended voices: Rachel (21m00Tcm4TlvDq8ikWAM), Adam (pNInz6obpgDQGcFmaJgB), Juniper (aMSt68OGf4xUZAnLpTU8). Only used when you opt into narration.",
+      "description": "ElevenLabs voice for narration. Defaults to Sarah (EXAVITQu4vr4xnSDxMaL). clear, professional. Other recommended voices: Rachel (21m00Tcm4TlvDq8ikWAM), Adam (pNInz6obpgDQGcFmaJgB), Juniper (aMSt68OGf4xUZAnLpTU8). Only used when you opt into narration.",
       "default": "EXAVITQu4vr4xnSDxMaL"
     },
     "elevenlabs_api_key": {
       "type": "string",
       "title": "ElevenLabs API key (sensitive, optional)",
-      "description": "Required only if you opt into narration AND you don't already have the ElevenLabs MCP plugin or the ElevenLabs connector installed. Stored in your OS keychain — never in plain text. Get a key at https://elevenlabs.io. Cost is ~1¢ per video.",
+      "description": "Required only if you opt into narration AND you don't already have the ElevenLabs MCP plugin or the ElevenLabs connector installed. Stored in your OS keychain. never in plain text. Get a key at https://elevenlabs.io. Cost is ~1¢ per video.",
       "sensitive": true
     },
     "default_quality": {

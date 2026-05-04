@@ -1,4 +1,4 @@
-# Security — ExChek Skills Video
+# Security. ExChek Skills Video
 
 Plain-English security model for the SMB manufacturer who owns this
 install. No security background assumed.
@@ -38,7 +38,7 @@ skills already produced and audit-stamped. This document covers what
 
 ## What changed vs. upstream `exchekskills`
 
-The upstream skills make exactly two outbound calls — `www.ecfr.gov`
+The upstream skills make exactly two outbound calls. `www.ecfr.gov`
 and `data.trade.gov`. This repo is more permissive **only when you ask
 for narration or avatars**:
 
@@ -58,7 +58,7 @@ everything else locally.
 
 ## Where your data lives
 
-Same convention as upstream — owner-only files, deletable on uninstall.
+Same convention as upstream. owner-only files, deletable on uninstall.
 This repo adds two cache directories you should know about:
 
 | OS                          | Path                                                                  | What's there                                |
@@ -66,8 +66,8 @@ This repo adds two cache directories you should know about:
 | macOS (Cowork)              | `~/Library/Application Support/Claude-3p/plugins/data/exchekskillsvideo-*/` | Plugin runtime data (mirrors upstream)      |
 | macOS (Claude Code)         | `~/.claude/plugins/data/exchekskillsvideo-*/`                         | Plugin runtime data (mirrors upstream)      |
 | Windows                     | `%LOCALAPPDATA%\Claude-3p\plugins\data\exchekskillsvideo-*\`           | Plugin runtime data (mirrors upstream)      |
-| **All OS — narration cache**| `~/.cache/exchek/vo-<input_hash>.mp3`                                | Cached ElevenLabs audio (per source report) |
-| **All OS — temp render dir**| `$TMPDIR/exchekvideo-<rand>/`                                         | The resolved `index.html` + audio for one render. Auto-deleted on success; left intact on failure for inspection. |
+| **All OS. narration cache**| `~/.cache/exchek/vo-<input_hash>.mp3`                                | Cached ElevenLabs audio (per source report) |
+| **All OS. temp render dir**| `$TMPDIR/exchekvideo-<rand>/`                                         | The resolved `index.html` + audio for one render. Auto-deleted on success; left intact on failure for inspection. |
 
 Files are owner-only (`0600` for keys, `0644` for non-secret artifacts).
 Other accounts on the same machine cannot read them.
@@ -78,7 +78,7 @@ audio. Re-rendering the same report does not re-charge ElevenLabs.
 
 If you uninstall the plugin, the runtime data folder is deleted unless
 you pass `--keep-data`. The `~/.cache/exchek/` audio cache is **not**
-deleted automatically — clear it with `rm -rf ~/.cache/exchek` if you
+deleted automatically. clear it with `rm -rf ~/.cache/exchek` if you
 want to invalidate cached narrations or revoke any audio that was
 generated for a sensitive report.
 
@@ -90,7 +90,7 @@ When narration is enabled, the bridge derives a short script from the
 source report's view-model and POSTs it to `api.elevenlabs.io`. What
 gets sent:
 
-- **The narration script** — typically 15–35 words. Examples:
+- **The narration script**. typically 15-35 words. Examples:
     - Risk-triage: `Risk triage. Overall risk Medium. Hold for review. Recommendation: Request signed end-use certificate from Acme Robotics GmbH.`
     - Classification: `Export classification. Code 6 A 993 dot a. EAR jurisdiction. License No (NLR).`
 - **A voice ID and model ID** (e.g., `EXAVITQu4vr4xnSDxMaL` + `eleven_turbo_v2_5`).
@@ -124,7 +124,7 @@ the user explicitly opts in.
 
 ---
 
-## Prompt injection — inherited defenses
+## Prompt injection. inherited defenses
 
 Every report this video tool consumes was already produced by upstream
 `exchekskills`, which:
@@ -135,8 +135,8 @@ Every report this video tool consumes was already produced by upstream
 3. Stamps every report with an AI-disclosure block.
 
 The video skills add one defense on top: every rendered video shows
-an **AI disclaimer** in ExChek purple at the bottom of the frame —
-"AI can make mistakes — please double-check responses" — followed by
+an **AI disclaimer** in ExChek purple at the bottom of the frame 
+"AI can make mistakes. please double-check responses". followed by
 the regulatory pointer back to the `.docx` audit-of-record. This is
 hard-coded in the brand layer; templates cannot suppress it.
 
@@ -155,28 +155,28 @@ auditor to:
 3. Re-render the bundle to verify the MP4 reproduces byte-for-byte
    (modulo FFmpeg encoder version).
 
-If the chain breaks — `input_hash` on the video doesn't match any
-audit entry, or re-rendering produces a different MP4 — that's a
+If the chain breaks. `input_hash` on the video doesn't match any
+audit entry, or re-rendering produces a different MP4. that's a
 signal worth investigating.
 
 ---
 
-## Trade.gov API key — same as upstream
+## Trade.gov API key. same as upstream
 
 Inherits upstream's keychain handling. This repo doesn't read or write
 the Trade.gov key.
 
-## ElevenLabs API key — handling
+## ElevenLabs API key. handling
 
 If you choose to enable narration:
 
-- **Claude Code CLI** — store the key in your shell profile
+- **Claude Code CLI**. store the key in your shell profile
   (`export ELEVENLABS_API_KEY=sk_...`) **or** install the
   ElevenLabs MCP plugin (`claude mcp add elevenlabs npx -y
   @elevenlabs/elevenlabs-mcp --env ELEVENLABS_API_KEY=sk_...`).
   The MCP plugin scopes the key to the Claude process and never
   exposes it to your shell history.
-- **Claude.ai web / CoWork** — add the **ElevenLabs connector** in the
+- **Claude.ai web / CoWork**. add the **ElevenLabs connector** in the
   sidebar. The connector handles auth; no key passes through your
   workspace files.
 
@@ -187,7 +187,7 @@ layer (or the user, via shell). This separation keeps the bridge
 narration-agnostic and prevents key handling from creeping into
 committed code.
 
-## HeyGen API key — handling (planned v0.4)
+## HeyGen API key. handling (planned v0.4)
 
 When the avatar feature ships, it will follow the same pattern as
 ElevenLabs above. Same keychain / MCP / connector options, same
@@ -199,7 +199,7 @@ bridge-layer separation.
 
 - HyperFrames runs **headless Chromium** during render. This Chromium
   instance binds to localhost only, lasts the duration of the render
-  (typically 8–15 seconds), and has no persistent profile. It can
+  (typically 8-15 seconds), and has no persistent profile. It can
   load remote assets that the composition references (e.g.,
   `cdn.jsdelivr.net` for GSAP). The bundled templates only load GSAP
   from CDN; if you author a custom template that loads from elsewhere,
@@ -219,7 +219,7 @@ bridge-layer separation.
 ## Things you should still do
 
 - **Read the report before publishing the video.** The video summarizes
-  4–5 fields from a 5–15 page audit document. If you wouldn't put the
+  4-5 fields from a 5-15 page audit document. If you wouldn't put the
   determination in the lobby of your office, don't put it in a 9-second
   video.
 - **Review the narration script before TTS.** `--audio-script-only`

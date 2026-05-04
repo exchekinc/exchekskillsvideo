@@ -1,4 +1,4 @@
-/* ExChekSkills Video — shared styles.
+/* ExChekSkills Video. shared styles.
    Light theme matching the ExChek website (white surfaces, black headlines,
    ExChek purple #411992 as accent). Inlined into every composition by
    template-loader.mjs at render time. */
@@ -154,7 +154,7 @@ html, body {
   box-shadow: var(--shadow);
   padding: 28px 32px;
 }
-/* Cards used as grid items must participate in layout — drop absolute. */
+/* Cards used as grid items must participate in layout. drop absolute. */
 .controls > .card,
 .scores > .card,
 .lesson-body > .card,

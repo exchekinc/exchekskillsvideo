@@ -8,7 +8,7 @@ compatibility: Claude Code, Claude desktop, Claude CoWork, Claude web
 
 ## Purpose
 Specialized wrapper that forces the `red-flag` template. The visual treatment
-is intentionally louder than the other templates — designed for incident-style
+is intentionally louder than the other templates. designed for incident-style
 attention, not for relaxed exec consumption.
 
 ## When to invoke
@@ -25,14 +25,14 @@ attention, not for relaxed exec consumption.
 2. Narration preflight (inherited from `exchek-video-summary` step 0.5):
    ask the user about ElevenLabs narration up-front. For red-flag videos
    the narration is especially impactful ("4 indicators tripped, 2 high
-   severity") — recommend it unless the user specifically asks for silent.
+   severity"). recommend it unless the user specifically asks for silent.
 3. Run:
    ```bash
    node scripts/report-to-video.mjs <report.json> --template red-flag \
      [--output <path>]
    ```
 4. Verify the severity color-coding lines up with the source determinations.
-5. The video is **not an alert delivery mechanism** — actual alerting belongs
+5. The video is **not an alert delivery mechanism**. actual alerting belongs
    in the channel/SIEM the report's metadata routes to. The MP4 is for human
    consumption when the alert is opened.
 

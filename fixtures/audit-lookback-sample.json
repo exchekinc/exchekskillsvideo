@@ -10,7 +10,7 @@
   },
   "privacy_attestation": { "tier": "standard", "attested_by": "matt@exchek.us", "attested_at": "2026-05-04T22:15:30Z", "minimum_met": true },
   "cui_check": { "cui": false, "classified": false, "itar_126_18": false, "on_prem_required": false },
-  "inputs": { "lookback_window": "Q1-2026 (Jan 1 — Mar 31)", "screening_lists_refresh": "2026-05-04T20:00:00Z" },
+  "inputs": { "lookback_window": "Q1-2026 (Jan 1. Mar 31)", "screening_lists_refresh": "2026-05-04T20:00:00Z" },
   "regulatory_currency": {
     "ecfr_pulled_at": "2026-05-04T21:00:00Z",
     "cfr_parts": ["15 CFR 744", "15 CFR 762.6"],
@@ -23,11 +23,11 @@
     { "label": "Screening lists used", "value": "CSL · OFAC SDN · UVL · Entity List" }
   ],
   "risk_flags": [
-    { "severity": "high", "label": "Vossberg GmbH — UVL match", "detail": "Distributor placed on Unverified List 2026-04-12. Three prior shipments need post-screening review." },
-    { "severity": "high", "label": "Bei Hai Tech — new SDN entry", "detail": "Counterparty appeared on OFAC SDN list 2026-03-28. One prior shipment Feb 2026." },
-    { "severity": "medium", "label": "Two consignees with name variants", "detail": "Trade.gov CSL fuzzy match — needs manual disambiguation before clearing." },
-    { "severity": "medium", "label": "One Iran routing detected", "detail": "Freight forwarder routed Q1 shipment via Tehran transit hub — review for §746.7 implications." },
-    { "severity": "low", "label": "Address-only change for one buyer", "detail": "Same legal entity, address moved from Frankfurt to Munich — log only." }
+    { "severity": "high", "label": "Vossberg GmbH. UVL match", "detail": "Distributor placed on Unverified List 2026-04-12. Three prior shipments need post-screening review." },
+    { "severity": "high", "label": "Bei Hai Tech. new SDN entry", "detail": "Counterparty appeared on OFAC SDN list 2026-03-28. One prior shipment Feb 2026." },
+    { "severity": "medium", "label": "Two consignees with name variants", "detail": "Trade.gov CSL fuzzy match. needs manual disambiguation before clearing." },
+    { "severity": "medium", "label": "One Iran routing detected", "detail": "Freight forwarder routed Q1 shipment via Tehran transit hub. review for §746.7 implications." },
+    { "severity": "low", "label": "Address-only change for one buyer", "detail": "Same legal entity, address moved from Frankfurt to Munich. log only." }
   ],
   "citations": [
     { "cfr": "15 CFR 744 (end-use/end-user)", "url": "https://www.ecfr.gov/current/title-15/part-744", "pulled_at": "2026-05-04T21:00:00Z" },

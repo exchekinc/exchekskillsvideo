@@ -15,7 +15,7 @@ const SKILL_TO_TEMPLATE = {
   "exchek-license": "classification",
   "exchek-jurisdiction": "classification",
   "exchek-country-risk": "red-flag",
-  // v1.1 templates (the v0.5 milestone — 7 remaining ExChekSkills)
+  // v1.1 templates (the v0.5 milestone. 7 remaining ExChekSkills)
   "exchek-encryption": "encryption",
   "exchek-deemed-export": "deemed-export",
   "exchek-export-docs": "export-docs",
@@ -41,7 +41,7 @@ function topDeterminations(report, n = 4) {
   const dets = Array.isArray(report?.determinations) ? report.determinations : [];
   return dets.slice(0, n).map((d) => ({
     label: d.field || d.label || d.kind || "Determination",
-    value: d.value || d.result || d.code || "—",
+    value: d.value || d.result || d.code || "",
     confidence: d.confidence ?? null,
     citation: d.citation || (Array.isArray(d.citations) ? d.citations[0] : null) || null,
   }));
@@ -108,6 +108,14 @@ export function mapReportToView(report, opts = {}) {
     },
     meta: {
       skill: skillName,
+      // Human-readable form of the skill name, no hyphens. The font-mono +
+      // letter-spacing display in some templates makes hyphens visually
+      // resemble em-dashes, which violates the no-em-dashes hard rule.
+      // Stripping "exchek-" / "exchek-training-" prefix too since it adds
+      // noise without adding meaning for end-users.
+      skillDisplay: skillName
+        .replace(/^exchek-(training-)?/, "")
+        .replace(/-/g, " "),
       platform,
       model,
       generatedAt,
@@ -156,10 +164,10 @@ function titleCase(s) {
 
 function deriveHeadline(report, dets, risk) {
   const skill = pluck(report, "skill.name", "");
-  if (skill === "exchek-risk-triage") return `Risk Triage — ${titleCase(risk)}`;
+  if (skill === "exchek-risk-triage") return `Risk Triage. ${titleCase(risk)}`;
   if (skill === "exchek-classify") {
     const eccn = dets.find((d) => /eccn/i.test(d.label));
-    return eccn ? `Classification — ${eccn.value}` : "Export Classification";
+    return eccn ? `Classification. ${eccn.value}` : "Export Classification";
   }
   if (skill === "exchek-red-flag-assessment") return "Red-Flag Assessment";
   if (skill === "exchek-compliance-report") return "Compliance Report Card";

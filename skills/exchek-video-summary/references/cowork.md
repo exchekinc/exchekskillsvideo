@@ -2,7 +2,7 @@
 
 CoWork is a sandboxed cloud workspace. The bridge **invocation** runs there
 fine (Node ≥22 is available), but the **render step** depends on FFmpeg and
-Puppeteer's Chromium — neither of which is reliably available in CoWork.
+Puppeteer's Chromium. neither of which is reliably available in CoWork.
 
 The bridge handles this automatically. When it detects a CoWork-like
 environment (or when FFmpeg is missing), it falls back to **bundle mode**:
@@ -45,7 +45,7 @@ node scripts/report-to-video.mjs <report.json> --force-render
 ## Determinism note
 
 Because the bundle preserves the source `input_hash` from the original
-exchekskills report, the MP4 produced from it is **reproducible** — re-render
+exchekskills report, the MP4 produced from it is **reproducible**. re-render
 the same bundle on any host and you should get a byte-identical file
 (modulo FFmpeg encoder version). This matters for audits: a video that
 shipped to a customer can be reproduced from its bundle for evidence.
@@ -54,7 +54,7 @@ shipped to a customer can be reproduced from its bundle for evidence.
 
 - **Cannot render in-CoWork** without external infrastructure. If you need
   CoWork to deliver a finished MP4, the path is to invoke a render service
-  from CoWork (HTTP POST the bundle, retrieve the MP4) — not implemented
+  from CoWork (HTTP POST the bundle, retrieve the MP4). not implemented
   in v0.1.
-- **Cannot use `--preview`** — that opens an interactive HyperFrames studio
+- **Cannot use `--preview`**. that opens an interactive HyperFrames studio
   that needs a browser pointing at localhost. CoWork has no display.

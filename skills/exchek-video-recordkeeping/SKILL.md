@@ -6,13 +6,13 @@ compatibility: Claude Code, Claude desktop, Claude CoWork, Claude web
 
 # exchek-video-recordkeeping
 
-Specialized wrapper that forces the `recordkeeping` template — focuses
+Specialized wrapper that forces the `recordkeeping` template. focuses
 on the 5-year retention window under 15 CFR 762.6 with a visual
 timeline showing how close any records are to expiry.
 
 ## When to invoke
 - "Make a quarterly recordkeeping summary video for the audit committee"
-- "I need a video showing our 762 retention status — we have records expiring next month"
+- "I need a video showing our 762 retention status. we have records expiring next month"
 - "Render the recordkeeping review for the SharePoint compliance evidence library"
 
 ## Inputs

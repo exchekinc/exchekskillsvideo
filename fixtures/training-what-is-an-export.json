@@ -26,7 +26,7 @@
   },
   "inputs": {
     "audience": "All employees who handle controlled items, technology, or software",
-    "lesson_kind": "Foundational — module 1 of the export-controls primer"
+    "lesson_kind": "Foundational. module 1 of the export-controls primer"
   },
   "regulatory_currency": {
     "ecfr_pulled_at": "2026-05-04T15:00:00Z",
@@ -42,7 +42,7 @@
   "determinations": [
     {
       "label": "Physical shipment",
-      "value": "Sending an item from the U.S. to anywhere else — by sea, air, vehicle, or hand-carry.",
+      "value": "Sending an item from the U.S. to anywhere else. by sea, air, vehicle, or hand-carry.",
       "citation": "15 CFR 734.13(a)(1)"
     },
     {
@@ -52,12 +52,12 @@
     },
     {
       "label": "Cloud or electronic transfer",
-      "value": "Sending controlled technology across a border by email, upload, or shared drive — \"sending\" includes the cloud.",
+      "value": "Sending controlled technology across a border by email, upload, or shared drive. \"sending\" includes the cloud.",
       "citation": "15 CFR 734.13(a)(1), 734.18"
     },
     {
       "label": "Re-export",
-      "value": "Moving an item, technology, or software from one foreign country to another — still counts as a U.S. export.",
+      "value": "Moving an item, technology, or software from one foreign country to another. still counts as a U.S. export.",
       "citation": "15 CFR 734.14"
     }
   ],
@@ -95,12 +95,12 @@
     "docx_path_relative": "ExChek-Training-WhatIsAnExport-2026-05-04.docx"
   },
   "next_actions": [
-    "Classify items and technology before any release — silence is not consent",
+    "Classify items and technology before any release. silence is not consent",
     "Screen the foreign recipient and destination against CSL / OFAC / Entity List",
     "Log every controlled-tech release: who, what, when, how"
   ],
   "caveats": [
-    "ITAR (defense articles) has parallel definitions in 22 CFR 120.17 — same flow, different list. Always check whether the item is EAR or ITAR first.",
+    "ITAR (defense articles) has parallel definitions in 22 CFR 120.17. same flow, different list. Always check whether the item is EAR or ITAR first.",
     "A few narrow carve-outs exist in 15 CFR 734.20 (e.g., transit, US-person-to-US-person inside the U.S.). Don't rely on them without confirming."
   ]
 }

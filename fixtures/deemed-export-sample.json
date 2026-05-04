@@ -26,11 +26,11 @@
     { "label": "Foreign national", "value": "Yes (PRC national)" },
     { "label": "Country of nationality", "value": "China (Country Group D:1)" },
     { "label": "Technology ECCN", "value": "3E001 (NS Col 1, AT Col 1)", "citation": "15 CFR 774 Cat. 3" },
-    { "label": "License required?", "value": "YES — submit BIS-748P", "citation": "15 CFR 742.4" }
+    { "label": "License required?", "value": "YES. submit BIS-748P", "citation": "15 CFR 742.4" }
   ],
   "risk_flags": [
     { "severity": "high", "label": "PRC nationality + dual-use 3E", "detail": "China is Country Group D:1 for NS controls. Deemed export license required before any technology release." },
-    { "severity": "medium", "label": "Use-of-license-exception check", "detail": "TSU and other exceptions are typically unavailable for D:1 destinations on 3E001 — verify before relying on any exception." }
+    { "severity": "medium", "label": "Use-of-license-exception check", "detail": "TSU and other exceptions are typically unavailable for D:1 destinations on 3E001. verify before relying on any exception." }
   ],
   "citations": [
     { "cfr": "15 CFR 734.2(b)(2)(ii)", "url": "https://www.ecfr.gov/current/title-15/section-734.2", "pulled_at": "2026-05-04T18:00:00Z" },
@@ -46,6 +46,6 @@
     "Brief HR + Engineering on the access restriction"
   ],
   "caveats": [
-    "Permanent residents (green card) and protected individuals are NOT 'foreign nationals' under EAR — verify status before applying this determination."
+    "Permanent residents (green card) and protected individuals are NOT 'foreign nationals' under EAR. verify status before applying this determination."
   ]
 }

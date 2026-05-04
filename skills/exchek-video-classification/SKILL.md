@@ -8,7 +8,7 @@ compatibility: Claude Code, Claude desktop, Claude CoWork, Claude web
 
 ## Purpose
 Specialized wrapper around `exchek-video-summary` that forces the
-`classification` template — large animated ECCN/USML code reveal, supported
+`classification` template. large animated ECCN/USML code reveal, supported
 by jurisdiction, RFC, license-req, and exception cards.
 
 ## When to invoke
@@ -33,7 +33,7 @@ by jurisdiction, RFC, license-req, and exception cards.
    ```
 4. Confirm the rendered ECCN/USML code matches the determination in the
    source `.docx`. Mismatch usually means the bridge picked the wrong
-   determination row — re-run with `--headline "ECCN: XXXXXX"` and
+   determination row. re-run with `--headline "ECCN: XXXXXX"` and
    `--subhead "..."` to pin the values.
 
 ## Outputs

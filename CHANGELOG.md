@@ -1,45 +1,45 @@
 # Changelog
 
-## [1.1.0] — 2026-05-04 — **All ExChekSkills covered (the v0.5 milestone)**
+## [1.1.0]. 2026-05-04. **All ExChekSkills covered (the v0.5 milestone)**
 
 This release ships the seven new templates that bring **every** upstream
 ExChekSkill within reach of a video deliverable. The library moves from
 5 → 12 templates and from 5 → 12 skill wrappers.
 
-### Added — 7 new templates
-- **`encryption`** — animated 5A992 / 5D992 ECCN reveal + three status
+### Added. 7 new templates
+- **`encryption`**. animated 5A992 / 5D992 ECCN reveal + three status
   cards (ENC notification, mass-market eligibility, semi-annual
   reporting) with green/amber/purple badges. Maps from
   `exchek-encryption`.
-- **`deemed-export`** — color-coded YES/NO/REVIEW verdict tile (green
+- **`deemed-export`**. color-coded YES/NO/REVIEW verdict tile (green
   for "no/exempt", red for "yes/required", purple for "review") + four
   supporting cards (foreign-national status, country of nationality,
   technology ECCN, license requirement). Maps from
   `exchek-deemed-export`. Cites 15 CFR 734.2(b)(2)(ii) / 734.13.
-- **`export-docs`** — three-document grid (Commercial Invoice, SLI,
+- **`export-docs`**. three-document grid (Commercial Invoice, SLI,
   AES Filing) each populated with key fields and a status badge
   (READY / DRAFT / TODO). Maps from `exchek-export-docs`.
-- **`ecp`** — large maturity-grade tile + 8-element coverage grid
+- **`ecp`**. large maturity-grade tile + 8-element coverage grid
   (management commitment · risk assessment · authorization ·
   recordkeeping · training · audits · reporting violations · CAPA)
   with per-element animated progress bars color-coded green/amber/red.
   Maps from `exchek-ecp`. Cites BIS guidance (15 CFR 732 Supp. 2).
-- **`audit-lookback`** — large "X transactions re-screened" tile +
+- **`audit-lookback`**. large "X transactions re-screened" tile +
   new-hits count + animated severity-breakdown bars (high / medium /
   low) computed from `risk_flags[].severity`. Maps from
   `exchek-audit-lookback`.
-- **`partner-compliance`** — partner identity card (name · country ·
+- **`partner-compliance`**. partner identity card (name · country ·
   status · last-review · re-screen due) + flow-down checklist with
   per-item green/amber/red checkmarks (EUC, distributor flow-down
   agreement, annual screening, sanctions watchlist re-check, training
   acknowledgement, ECP attestation). Maps from
   `exchek-partner-compliance`.
-- **`recordkeeping`** — color-coded retention-status tile (compliant /
+- **`recordkeeping`**. color-coded retention-status tile (compliant /
   at-risk / gap) + three secondary cards (records covered, oldest
   record, days to expiry) + animated 5-year retention-window timeline.
   Maps from `exchek-recordkeeping`. Cites 15 CFR 762.6.
 
-### Added — 7 new skill wrappers
+### Added. 7 new skill wrappers
 - `exchek-video-encryption`
 - `exchek-video-deemed-export`
 - `exchek-video-export-docs`
@@ -51,26 +51,26 @@ ExChekSkill within reach of a video deliverable. The library moves from
 All seven inherit the standard SKILL.md preflight (CUI gate +
 ElevenLabs narration credential resolution).
 
-### Added — supporting changes
-- `scripts/lib/data-mapper.mjs` — `SKILL_TO_TEMPLATE` now covers all
+### Added. supporting changes
+- `scripts/lib/data-mapper.mjs`. `SKILL_TO_TEMPLATE` now covers all
   upstream skill names that emit JSON siblings.
-- `scripts/lib/audio-script.mjs` — per-template narration writers and
+- `scripts/lib/audio-script.mjs`. per-template narration writers and
   word budgets for all 7 new templates. ECCN spell-out reused for
   encryption.
-- `scripts/render-all-narrated.sh` — batch renders all 12 demo videos.
+- `scripts/render-all-narrated.sh`. batch renders all 12 demo videos.
 - 7 new fixtures with realistic schema-1.0.0 data.
 - Plugin manifest description and `package.json` updated to reflect
   full 12-template coverage.
 
 ### Roadmap impact
-- v0.5 (template expansion) — **shipped** in this release.
+- v0.5 (template expansion). **shipped** in this release.
 - Next milestones unchanged: v0.2 captions, v0.3 portrait/square,
   v0.4 HeyGen avatars, v0.6 batch mode, v0.7 hosted render service,
   v0.8 multi-language.
 
 ---
 
-## [1.0.0] — 2026-05-04 — **ExChek Engine (Video)**
+## [1.0.0]. 2026-05-04. **ExChek Engine (Video)**
 
 First production release. Claude-plugin-ready, marketplace-installable,
 license + security ported from upstream `exchekskills`.
@@ -105,11 +105,11 @@ license + security ported from upstream `exchekskills`.
 
 ### Shipping in v1.0.0
 - Five video templates, all rendering at 1920×1080 H.264:
-    - `risk-triage` — animated risk gauge + determinations + flag cards
-    - `classification` — large ECCN/USML reveal + 4 control fields
-    - `red-flag` — high-contrast indicator alert grid (BIS Supp. 3)
-    - `compliance-report-card` — grade tile + score progress bars
-    - `training` — lesson-card layout with citations + actions
+    - `risk-triage`. animated risk gauge + determinations + flag cards
+    - `classification`. large ECCN/USML reveal + 4 control fields
+    - `red-flag`. high-contrast indicator alert grid (BIS Supp. 3)
+    - `compliance-report-card`. grade tile + score progress bars
+    - `training`. lesson-card layout with citations + actions
 - Five Claude skill wrappers, all with the shared SKILL.md preflight
   pattern (CUI gate inherited from upstream + ElevenLabs narration
   preflight that resolves credentials before any render).
@@ -140,17 +140,17 @@ license + security ported from upstream `exchekskills`.
 
 ### Roadmap (post-v1)
 See [ROADMAP.md](ROADMAP.md). Headline items:
-- v0.2 — Captions (mute-friendly + accessibility + SRT sidecar)
-- v0.3 — Portrait + square aspects for Slack / mobile / Reels
-- **v0.4 — HeyGen Avatars** (talking-head over the motion-graphic layout)
-- v0.5 — Templates for the 7 remaining ExChekSkills
-- v0.6 — Native batch mode for training-library generation
-- v0.7 — Hosted render service (closes the CoWork bundle hand-off)
-- v0.8 — Multi-language narration
+- v0.2. Captions (mute-friendly + accessibility + SRT sidecar)
+- v0.3. Portrait + square aspects for Slack / mobile / Reels
+- **v0.4. HeyGen Avatars** (talking-head over the motion-graphic layout)
+- v0.5. Templates for the 7 remaining ExChekSkills
+- v0.6. Native batch mode for training-library generation
+- v0.7. Hosted render service (closes the CoWork bundle hand-off)
+- v0.8. Multi-language narration
 
 ---
 
-## [0.1.3] — 2026-05-04
+## [0.1.3]. 2026-05-04
 
 ### Changed (theme overhaul to match exchek.us)
 - Inverted color theme: white/light surfaces, near-black text, ExChek
@@ -158,7 +158,7 @@ See [ROADMAP.md](ROADMAP.md). Headline items:
   (mirrors the website's "EXPORT COMPLIANCE FOR SMB MANUFACTURERS"
   treatment).
 - Typography: `Outfit` for display headings, `Inter` for body,
-  `JetBrains Mono` for hashes/CFR codes — all in HyperFrames'
+  `JetBrains Mono` for hashes/CFR codes. all in HyperFrames'
   deterministic font map.
 - New brand-mark: actual ExChek logo SVG inlined into every composition
   via the new `<!-- @hf-logo -->` marker, paired with "ExChek" wordmark
@@ -167,7 +167,7 @@ See [ROADMAP.md](ROADMAP.md). Headline items:
   headline (single-line, 80px Outfit), subhead, content cards with
   subtle border + shadow.
 
-### Added (voice — verified end-to-end)
+### Added (voice. verified end-to-end)
 - ElevenLabs narration rendered into the MP4. POST to
   `api.elevenlabs.io/v1/text-to-speech/<voice>` with the
   `eleven_turbo_v2_5` model, mp3 saved to
@@ -176,13 +176,13 @@ See [ROADMAP.md](ROADMAP.md). Headline items:
   mp3/wav/ogg all work.
 
 ### Verified
-- `renders/risk-triage-light.mp4` — silent, new theme, 600 KB / 9.0s
-- `renders/risk-triage-narrated.mp4` — narrated, 869 KB / 10.5s,
+- `renders/risk-triage-light.mp4`. silent, new theme, 600 KB / 9.0s
+- `renders/risk-triage-narrated.mp4`. narrated, 869 KB / 10.5s,
   H.264 video + AAC stereo 48kHz audio
-- `renders/classification-light.mp4` — 558 KB / 9.0s
-- `renders/red-flag-light.mp4` — 422 KB / 9.0s
+- `renders/classification-light.mp4`. 558 KB / 9.0s
+- `renders/red-flag-light.mp4`. 422 KB / 9.0s
 
-## [0.1.2] — 2026-05-04
+## [0.1.2]. 2026-05-04
 
 ### Added
 - **ElevenLabs narration support.** New `scripts/lib/audio-script.mjs`
@@ -198,9 +198,9 @@ See [ROADMAP.md](ROADMAP.md). Headline items:
 - New reference doc `skills/exchek-video-summary/references/elevenlabs-setup.md`
   walks through Claude.ai web/CoWork connector setup and Claude Code
   CLI API-key/MCP setup.
-- New SKILL.md "Step 0.5 — Narration preflight" pattern across all five
+- New SKILL.md "Step 0.5. Narration preflight" pattern across all five
   video skills. Skills must resolve narration credentials **before**
-  rendering — UX requirement so users never get partway through a render
+  rendering. UX requirement so users never get partway through a render
   and find out they need to install something.
 
 ### Fixed
@@ -222,7 +222,7 @@ See [ROADMAP.md](ROADMAP.md). Headline items:
   color (#411992) lands correctly across the brand mark, list markers,
   and ambient gradient. Output: `renders/risk-triage-demo.mp4`.
 
-## [0.1.1] — 2026-05-04
+## [0.1.1]. 2026-05-04
 
 ### Changed
 - Brand color set to ExChek purple **#411992** across `brand.mjs` and
@@ -231,32 +231,32 @@ See [ROADMAP.md](ROADMAP.md). Headline items:
   fine strokes, gradient end-stops).
 
 ### Added
-- `scripts/lib/env-detect.mjs` — detects FFmpeg/ffprobe on PATH and
+- `scripts/lib/env-detect.mjs`. detects FFmpeg/ffprobe on PATH and
   CoWork environment signals.
-- `scripts/lib/bundle.mjs` — writes a portable rendering bundle
+- `scripts/lib/bundle.mjs`. writes a portable rendering bundle
   (composition + manifest + source + RENDER.md) for offline render.
 - `--bundle <dir>`, `--force-bundle`, `--force-render` flags on the CLI.
 - Auto-fallback to bundle mode when render dependencies are unavailable
   (typical CoWork sandbox path).
-- `skills/exchek-video-summary/references/cowork.md` — CoWork workflow.
+- `skills/exchek-video-summary/references/cowork.md`. CoWork workflow.
 - 18 new smoke-test assertions covering bundle round-trip and
   env-detect contract.
 
-## [0.1.0] — 2026-05-04
+## [0.1.0]. 2026-05-04
 
 Initial scaffold.
 
 ### Added
-- `scripts/report-to-video.mjs` — bridge CLI from `exchekskills` JSON
+- `scripts/report-to-video.mjs`. bridge CLI from `exchekskills` JSON
   sibling (schema 1.0.0) to MP4 via HyperFrames.
 - `scripts/lib/{brand,data-mapper,template-loader,hyperframes-runner}.mjs`
-  — reusable bridge layer.
+ . reusable bridge layer.
 - Five templates: `risk-triage`, `classification`, `red-flag`,
   `compliance-report-card`, `training`.
 - Five Claude skill wrappers: `exchek-video-{summary,risk-triage,
   classification,red-flag,training}`.
 - Four fixtures covering all auto-mapped skill names.
-- Smoke test (`npm test`) — 48 assertions, 0 deps beyond Node stdlib.
+- Smoke test (`npm test`). 48 assertions, 0 deps beyond Node stdlib.
 - Documentation: README, ARCHITECTURE, CONTRIBUTING, template-mapping
   reference, marketplace.json.
 

@@ -45,7 +45,7 @@
     {
       "severity": "low",
       "label": "MIL-STD-810 qualification",
-      "detail": "Mil-spec qualification is a hint, not a determinant — confirm no proprietary military feature."
+      "detail": "Mil-spec qualification is a hint, not a determinant. confirm no proprietary military feature."
     }
   ],
   "citations": [

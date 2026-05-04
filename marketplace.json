@@ -3,7 +3,7 @@
   "plugins": [
     {
       "name": "exchekskillsvideo",
-      "description": "ExChek Engine (Video) — render branded, narrated, audit-traceable compliance video summaries (.mp4) from any ExChekSkills .json sibling. Companion to exchekskills.",
+      "description": "ExChek Engine (Video). render branded, narrated, audit-traceable compliance video summaries (.mp4) from any ExChekSkills .json sibling. Companion to exchekskills.",
       "source": {
         "source": "github",
         "repo": "exchekinc/exchekskillsvideo"

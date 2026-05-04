@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// report-to-video.mjs — bridge from an exchekskills JSON sibling to an MP4.
+// report-to-video.mjs. bridge from an exchekskills JSON sibling to an MP4.
 //
 // Usage:
 //   node scripts/report-to-video.mjs <report.json> [options]
@@ -79,7 +79,7 @@ function parseArgs(argv) {
 }
 
 function help() {
-  console.log(`exchek-video — render compliance video summaries from exchekskills JSON output
+  console.log(`exchek-video. render compliance video summaries from exchekskills JSON output
 
 Usage:
   exchek-video <report.json> [options]

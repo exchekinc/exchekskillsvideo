@@ -58,7 +58,7 @@
     {
       "severity": "low",
       "label": "Country watch",
-      "detail": "Germany is a Country Group A:1 destination — low base risk, but proximity routing has been observed."
+      "detail": "Germany is a Country Group A:1 destination. low base risk, but proximity routing has been observed."
     },
     {
       "severity": "medium",

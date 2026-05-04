@@ -6,7 +6,7 @@ compatibility: Claude Code, Claude desktop, Claude CoWork, Claude web
 
 # exchek-video-partner-compliance
 
-Specialized wrapper that forces the `partner-compliance` template —
+Specialized wrapper that forces the `partner-compliance` template 
 partner identity card on the left + flow-down checklist on the right.
 
 ## When to invoke
@@ -20,7 +20,7 @@ partner identity card on the left + flow-down checklist on the right.
 ## Steps
 1. CUI gate (inherited).
 2. Narration preflight (inherited). Strongly recommended for partner-
-   facing deliverables — the partner name reads first, status second.
+   facing deliverables. the partner name reads first, status second.
 3. Run:
    ```bash
    node scripts/report-to-video.mjs <report.json> --template partner-compliance \

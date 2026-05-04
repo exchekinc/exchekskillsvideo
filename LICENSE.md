@@ -56,7 +56,7 @@ All rights not expressly granted in this LICENSE are reserved to ExChek, Inc. No
 
 ExChek, Inc. may assign this LICENSE and its rights and obligations hereunder, and may transfer or sublicense its rights in the Materials, in connection with a merger, acquisition, reorganization, or sale of all or substantially all of its assets, or to any affiliate or successor entity. Such assignment does not expand the rights granted to you under this LICENSE.
 
-Title and full ownership of the Materials — including all intellectual property rights, trade secrets, know-how, and derivative works — remain at all times with ExChek, Inc. (or its assignee). Your use of the Materials does not give you any ownership, security interest, or equity of any kind.
+Title and full ownership of the Materials. including all intellectual property rights, trade secrets, know-how, and derivative works. remain at all times with ExChek, Inc. (or its assignee). Your use of the Materials does not give you any ownership, security interest, or equity of any kind.
 
 5. Intellectual Property and Trade Secrets
 
@@ -92,7 +92,7 @@ For full disclaimers and limitation of liability, see the ExChek Terms and Condi
 
 (c) ExChek reserves all remedies available at law and in equity for any breach of this LICENSE, including but not limited to injunctive relief, damages, and recovery of attorneys' fees and costs.
 
-(d) Sections that by their nature should survive termination — including Restrictions, Intellectual Property and Trade Secrets, Indemnification, Disclaimers and Limitation of Liability, Reservation of Rights, Security and Responsible Disclosure, and General — will survive termination.
+(d) Sections that by their nature should survive termination. including Restrictions, Intellectual Property and Trade Secrets, Indemnification, Disclaimers and Limitation of Liability, Reservation of Rights, Security and Responsible Disclosure, and General. will survive termination.
 
 10. Enforcement and Monitoring
 
@@ -116,7 +116,7 @@ ExChek, Inc., Dover, DE. Questions: matt@exchek.us. Terms and Conditions: https:
 
 ---
 
-## Appendix A — Third-Party Components Used by `exchekskillsvideo`
+## Appendix A. Third-Party Components Used by `exchekskillsvideo`
 
 This repository is the video-rendering companion to `exchekskills`. The
 license terms above govern this repository and its outputs in the same
@@ -124,7 +124,7 @@ manner they govern the upstream skills. The components listed below are
 **runtime dependencies**; they are not modified, redistributed, or
 re-licensed by this repository.
 
-### A.1 — HeyGen HyperFrames
+### A.1. HeyGen HyperFrames
 
 `exchekskillsvideo` invokes the [HeyGen HyperFrames](https://github.com/heygen-com/hyperframes)
 CLI (`npx hyperframes`) to render HTML compositions into MP4 video.
@@ -133,7 +133,7 @@ license text is available at the HyperFrames source repository. No
 HyperFrames source is vendored or modified in this repository; it is
 pulled at install time via `npm` and executed as a child process.
 
-### A.2 — ElevenLabs Text-to-Speech (optional)
+### A.2. ElevenLabs Text-to-Speech (optional)
 
 When narration is enabled, the rendering skill submits a derived
 narration script to the [ElevenLabs API](https://elevenlabs.io/) and
@@ -142,15 +142,15 @@ by its own terms of service. The user is responsible for:
 
 - Holding a valid ElevenLabs account and API key (or the equivalent
   Claude connector authorization).
-- Ensuring the narration script — which is derived from the source
-  ExChekSkills report's view-model — does not contain CUI, classified,
+- Ensuring the narration script. which is derived from the source
+  ExChekSkills report's view-model. does not contain CUI, classified,
   or other content prohibited under their ElevenLabs subscription
   tier.
 
 The skill-layer preflight refuses to submit narration scripts when the
 source report has `cui_check.cui` or `cui_check.classified` set true.
 
-### A.3 — HeyGen Avatar API (planned, v0.4 — see ROADMAP.md)
+### A.3. HeyGen Avatar API (planned, v0.4. see ROADMAP.md)
 
 When avatar video is enabled, the rendering skill will submit the
 narration script (and a chosen `avatar_id` / `voice_id`) to the
@@ -159,14 +159,14 @@ returned avatar MOV into the final MP4. HeyGen Avatars are governed
 by their own terms of service. Same CUI/classified gate as A.2 will
 apply.
 
-### A.4 — Open-source dependencies
+### A.4. Open-source dependencies
 
 Additional open-source dependencies pulled via `npm` retain their
 respective licenses (`Apache-2.0`, `MIT`, `BSD-2-Clause`, `BSD-3-Clause`).
 See `package.json` and `package-lock.json` for the full dependency
 graph and `node_modules/<pkg>/LICENSE` for individual terms.
 
-### A.5 — User-supplied content
+### A.5. User-supplied content
 
 The video output **inherits the privacy and licensing posture of the
 source ExChekSkills report**. Distribution restrictions on the source

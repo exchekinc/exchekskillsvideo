@@ -26,7 +26,7 @@ classification, and emphasizes the escalation recommendation.
    from [`exchek-video-summary`](../exchek-video-summary/SKILL.md). The
    preflight asks the user about narration up-front and walks them
    through connector / API-key setup if they want it. Do not skip
-   straight to render — the user should never discover mid-pipeline that
+   straight to render. the user should never discover mid-pipeline that
    they need to install something.
 2. Confirm the JSON skill name is `exchek-risk-triage` or
    `exchek-compliance-report` (acceptable substitute). Warn otherwise.
@@ -44,5 +44,5 @@ classification, and emphasizes the escalation recommendation.
 - `<basename>.mp4` (default: `renders/<basename>.mp4`)
 
 ## See also
-- [`exchek-video-summary`](../exchek-video-summary/SKILL.md) — the generic
+- [`exchek-video-summary`](../exchek-video-summary/SKILL.md). the generic
   variant that auto-selects template.

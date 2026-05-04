@@ -6,7 +6,7 @@ compatibility: Claude Code, Claude desktop, Claude CoWork, Claude web
 
 # exchek-video-deemed-export
 
-Specialized wrapper that forces the `deemed-export` template — focused
+Specialized wrapper that forces the `deemed-export` template. focused
 on the binary determination ("Is this a deemed export?") with the four
 fields that drive it.
 

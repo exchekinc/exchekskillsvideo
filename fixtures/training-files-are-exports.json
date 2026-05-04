@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "skill": {
+    "name": "exchek-training-files-are-exports",
+    "version": "1.0.0",
+    "commit_sha7": "a1b2c3d"
+  },
+  "generated": {
+    "at": "2026-05-04T16:15:00Z",
+    "model": "claude-sonnet-4-6",
+    "platform": "Claude Code",
+    "environment": "macos-darwin25",
+    "input_hash": "files1a2b3c4d"
+  },
+  "privacy_attestation": {
+    "tier": "standard",
+    "attested_by": "matt@exchek.us",
+    "attested_at": "2026-05-04T16:14:50Z",
+    "minimum_met": true
+  },
+  "cui_check": {
+    "cui": false,
+    "classified": false,
+    "itar_126_18": false,
+    "on_prem_required": false
+  },
+  "inputs": {
+    "audience": "Engineering, R&D, Sales, IT, and anyone who owns a SharePoint folder",
+    "lesson_kind": "Foundational. module 2 of the export-controls primer (technical data)"
+  },
+  "regulatory_currency": {
+    "ecfr_pulled_at": "2026-05-04T16:00:00Z",
+    "cfr_parts": [
+      "15 CFR 734.7",
+      "15 CFR 734.13",
+      "15 CFR 734.15",
+      "22 CFR 120.10",
+      "22 CFR 120.17"
+    ],
+    "data_source": "eCFR API"
+  },
+  "determinations": [
+    {
+      "label": "Technical data is a controlled item",
+      "value": "Drawings, schematics, PDFs, CAD files, source code, manuals, BOMs, and test results are \"technology\" under the EAR (or \"technical data\" under ITAR). Many have ECCNs or USML categories.",
+      "citation": "15 CFR 734.7, 22 CFR 120.10"
+    },
+    {
+      "label": "Sharing equals exporting",
+      "value": "Emailing a controlled PDF abroad, granting cloud access to a foreign person, or letting them view it on a screen all count as a \"release.\" Same posture as a physical shipment.",
+      "citation": "15 CFR 734.13(a)(2), 734.15"
+    },
+    {
+      "label": "Nationality matters, location doesn't",
+      "value": "Sharing controlled tech with a foreign national inside the U.S. is a deemed export. The recipient's passport, not the meeting room, drives the determination.",
+      "citation": "15 CFR 734.13(a)(2), 734.20 (carve-outs)"
+    },
+    {
+      "label": "Cloud and shared storage count",
+      "value": "Putting controlled tech on a server, SharePoint, GitHub, Dropbox, or any system accessible from abroad can be an export the moment a foreign person opens the link.",
+      "citation": "15 CFR 734.18 (limited carve-out for end-to-end encrypted)"
+    }
+  ],
+  "risk_flags": [],
+  "citations": [
+    {
+      "cfr": "15 CFR 734.7 (technology defined)",
+      "url": "https://www.ecfr.gov/current/title-15/section-734.7",
+      "pulled_at": "2026-05-04T16:00:00Z"
+    },
+    {
+      "cfr": "15 CFR 734.13 (export defined)",
+      "url": "https://www.ecfr.gov/current/title-15/section-734.13",
+      "pulled_at": "2026-05-04T16:00:00Z"
+    },
+    {
+      "cfr": "15 CFR 734.15 (release defined)",
+      "url": "https://www.ecfr.gov/current/title-15/section-734.15",
+      "pulled_at": "2026-05-04T16:00:00Z"
+    },
+    {
+      "cfr": "22 CFR 120.10 (ITAR technical data)",
+      "url": "https://www.ecfr.gov/current/title-22/section-120.10",
+      "pulled_at": "2026-05-04T16:00:00Z"
+    }
+  ],
+  "injection_attempts": [],
+  "hitl_confirmation": {
+    "confirmed": true,
+    "confirmed_at": "2026-05-04T16:14:55Z",
+    "determinations_confirmed": ["Technical data is a controlled item", "Sharing equals exporting", "Nationality matters, location doesn't", "Cloud and shared storage count"]
+  },
+  "report": {
+    "docx_basename": "ExChek-Training-FilesAreExports-2026-05-04.docx",
+    "docx_path_relative": "ExChek-Training-FilesAreExports-2026-05-04.docx"
+  },
+  "next_actions": [
+    "Classify technical data before sharing. Even an internal CAD file may need an ECCN or USML category.",
+    "Restrict access by nationality on every controlled-tech repo, drive, and Git org.",
+    "Log every release: who received it, when, what authority (license, exception, or NLR)."
+  ],
+  "caveats": [
+    "Some narrow carve-outs exist (e.g., published information under 15 CFR 734.7(a), end-to-end-encrypted-in-transit under 734.18). Don't rely on them without confirming the specific facts.",
+    "ITAR technical data has stricter posture. when in doubt, treat ITAR-controlled drawings as if foreign-person access requires DDTC license."
+  ]
+}

@@ -79,24 +79,24 @@
   </h1>
 
   <div id="enc" class="clip enc-display fadein" data-start="0.9" data-duration="30" data-track-index="4">
-    <div class="code" id="encCode">—</div>
+    <div class="code" id="encCode"></div>
     <div class="control" id="encControl">EAR · ENCRYPTION CONTROLLED</div>
   </div>
 
   <div id="cards" class="clip enc-cards stagger" data-start="2.0" data-duration="30" data-track-index="5">
     <div class="card">
       <div class="label">ENC notification</div>
-      <div class="value" id="notif">—</div>
+      <div class="value" id="notif"></div>
       <div id="notifBadge"></div>
     </div>
     <div class="card">
       <div class="label">Mass market eligible</div>
-      <div class="value" id="mass">—</div>
+      <div class="value" id="mass"></div>
       <div id="massBadge"></div>
     </div>
     <div class="card">
       <div class="label">Semi-annual report</div>
-      <div class="value" id="sar">—</div>
+      <div class="value" id="sar"></div>
       <div id="sarBadge"></div>
     </div>
   </div>
@@ -116,7 +116,7 @@
       var d = window.__hfData || {};
       var dets = d.determinations || [];
       function find(rx) { return (dets.find(function (x) { return rx.test(x.label || ""); }) || {}).value; }
-      function setT(id, v) { var el = document.getElementById(id); if (el) el.textContent = v == null || v === "" ? "—" : v; }
+      function setT(id, v) { var el = document.getElementById(id); if (el) el.textContent = v == null || v === "" ? "" : v; }
       function setBadge(id, v) {
         var el = document.getElementById(id); if (!el || !v) return;
         var s = String(v).toLowerCase();

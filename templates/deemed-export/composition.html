@@ -91,15 +91,15 @@
   </h1>
 
   <div id="tile" class="clip det-tile fadein" data-start="0.9" data-duration="30" data-track-index="4">
-    <div class="verdict" id="verdict">—</div>
+    <div class="verdict" id="verdict"></div>
     <div class="cap">deemed export determination</div>
   </div>
 
   <div id="cards" class="clip det-cards stagger" data-start="1.6" data-duration="30" data-track-index="5">
-    <div class="card"><div class="label">Foreign national</div><div class="value" id="fn">—</div></div>
-    <div class="card"><div class="label">Country of nationality</div><div class="value" id="con">—</div></div>
-    <div class="card"><div class="label">Technology ECCN</div><div class="value" id="tec">—</div></div>
-    <div class="card"><div class="label">License required?</div><div class="value" id="lic">—</div></div>
+    <div class="card"><div class="label">Foreign national</div><div class="value" id="fn"></div></div>
+    <div class="card"><div class="label">Country of nationality</div><div class="value" id="con"></div></div>
+    <div class="card"><div class="label">Technology ECCN</div><div class="value" id="tec"></div></div>
+    <div class="card"><div class="label">License required?</div><div class="value" id="lic"></div></div>
   </div>
 
   <footer id="disclose" class="clip disclosure fadein" data-start="2.6" data-duration="30" data-track-index="6">
@@ -117,7 +117,7 @@
       var d = window.__hfData || {};
       var dets = d.determinations || [];
       function find(rx) { return (dets.find(function (x) { return rx.test(x.label || ""); }) || {}).value; }
-      function setT(id, v) { var el = document.getElementById(id); if (el) el.textContent = v == null || v === "" ? "—" : v; }
+      function setT(id, v) { var el = document.getElementById(id); if (el) el.textContent = v == null || v === "" ? "" : v; }
 
       var verdict = find(/deemed/i) || (dets[0] && dets[0].value) || "REVIEW";
       var verdictUpper = String(verdict).toUpperCase();

@@ -7,7 +7,7 @@ compatibility: Claude Code, Claude desktop, Claude CoWork, Claude web
 # exchek-video-training
 
 ## Purpose
-Specialized wrapper that forces the `training` template — designed for
+Specialized wrapper that forces the `training` template. designed for
 internal training libraries rather than exec briefings. Layout emphasizes
 the CFR citation and the action list so each video doubles as a quick
 reference.
@@ -25,7 +25,7 @@ reference.
 ## Steps
 1. CUI gate (inherited from `exchek-video-summary`).
 2. Narration preflight (inherited from `exchek-video-summary` step 0.5).
-   Training videos are the highest-ROI use case for narration — strongly
+   Training videos are the highest-ROI use case for narration. strongly
    recommend the user enable ElevenLabs unless they specifically want silent.
 3. Run:
    ```bash

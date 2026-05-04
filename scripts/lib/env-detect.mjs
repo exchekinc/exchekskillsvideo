@@ -9,7 +9,7 @@
 //
 // CoWork (Claude's sandboxed cloud workspace) typically has Node available
 // but not FFmpeg, and may restrict child-process or network behavior. The
-// bridge falls back to bundle mode in those environments — it produces a
+// bridge falls back to bundle mode in those environments. it produces a
 // portable folder the user can download and render on a host that does
 // have the binaries.
 

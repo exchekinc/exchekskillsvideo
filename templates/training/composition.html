@@ -8,7 +8,7 @@
   .lesson-num {
     position: absolute;
     left: 80px;
-    top: 200px;
+    top: 188px;
     font-family: var(--font-mono);
     font-size: 18px;
     letter-spacing: 0.2em;
@@ -20,28 +20,34 @@
     position: absolute;
     left: 80px;
     right: 80px;
-    top: 246px;
+    top: 230px;
     font-family: var(--font-display);
-    font-size: 88px;
+    font-size: 84px;
     font-weight: 700;
     letter-spacing: -0.025em;
-    line-height: 1.0;
+    line-height: 1.02;
     color: var(--text);
   }
+  /* Body anchors slightly higher and leaves more clearance above the
+     disclosure footer so dense lessons (4 key points + citations +
+     3 actions) don't crowd the footer line. */
   .lesson-body {
     position: absolute;
     left: 80px;
     right: 80px;
-    top: 500px;
-    bottom: 130px;
+    top: 400px;
+    bottom: 160px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
   }
-  .key-points { padding: 28px 32px; }
-  .citation-card { padding: 28px 32px; }
-  .key-points li { font-size: 24px; }
-  .citation-card .row { font-size: 18px; }
+  .key-points { padding: 24px 28px; overflow: hidden; }
+  .citation-card { padding: 24px 28px; overflow: hidden; }
+  .lesson-body .list li { padding: 8px 0; font-size: 22px; }
+  .lesson-body .list li .detail { font-size: 17px; -webkit-line-clamp: 2; }
+  .lesson-body #actList li { font-size: 20px; padding: 7px 0; }
+  .citation-card .row { font-size: 17px; padding: 4px 0; }
+  .citation-card .label[style] { margin-top: 16px !important; }
 </style>
 </head>
 <body>
@@ -64,7 +70,7 @@
   </header>
 
   <div id="lessonNum" class="clip lesson-num fadein" data-start="0.2" data-duration="30" data-track-index="2">
-    Lesson · {{meta.skill}}
+    Lesson · {{meta.skillDisplay}}
   </div>
 
   <h1 id="lessonTitle" class="clip lesson-title fadein" data-start="0.4" data-duration="30" data-track-index="3">
@@ -111,7 +117,7 @@
       (d.citations || []).slice(0, 4).forEach(function (c) {
         var row = document.createElement("div");
         row.className = "row";
-        row.innerHTML = '<span class="cfr">' + escape(c.cfr) + '</span><span>pulled ' + escape((d.meta && d.meta.ecfrPulledAtPretty) || c.pulled_at || "—") + '</span>';
+        row.innerHTML = '<span class="cfr">' + escape(c.cfr) + '</span><span>pulled ' + escape((d.meta && d.meta.ecfrPulledAtPretty) || c.pulled_at || "") + '</span>';
         ccRoot.appendChild(row);
       });
 

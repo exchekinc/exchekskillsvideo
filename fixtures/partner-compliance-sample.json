@@ -22,16 +22,16 @@
     { "label": "Status", "value": "At-risk" },
     { "label": "Last review", "value": "2025-08-12" },
     { "label": "Re-screen due", "value": "2026-05-31" },
-    { "label": "End-Use Certificate (EUC) on file", "value": "Yes — signed 2025-08" },
-    { "label": "Distributor flow-down agreement", "value": "Yes — v3.1 (2024)" },
+    { "label": "End-Use Certificate (EUC) on file", "value": "Yes. signed 2025-08" },
+    { "label": "Distributor flow-down agreement", "value": "Yes. v3.1 (2024)" },
     { "label": "Annual screening current", "value": "Overdue (252 days)" },
-    { "label": "Sanctions watchlist re-check", "value": "No — last 2024-09" },
-    { "label": "Diversion-risk training acknowledged", "value": "Yes — 2025-Q2" },
-    { "label": "ECP attestation signed", "value": "Yes — 2025-08" }
+    { "label": "Sanctions watchlist re-check", "value": "No. last 2024-09" },
+    { "label": "Diversion-risk training acknowledged", "value": "Yes. 2025-Q2" },
+    { "label": "ECP attestation signed", "value": "Yes. 2025-08" }
   ],
   "risk_flags": [
     { "severity": "high", "label": "Annual screening 8 months overdue", "detail": "Trade.gov CSL was last re-checked 2024-09. Required cadence is annual." },
-    { "severity": "medium", "label": "Flow-down agreement aging", "detail": "v3.1 from 2024 predates the 2025-Q3 amendment to Country Group D:1 controls — refresh recommended." }
+    { "severity": "medium", "label": "Flow-down agreement aging", "detail": "v3.1 from 2024 predates the 2025-Q3 amendment to Country Group D:1 controls. refresh recommended." }
   ],
   "citations": [
     { "cfr": "15 CFR 744.6 (knowledge)", "url": "https://www.ecfr.gov/current/title-15/section-744.6", "pulled_at": "2026-05-04T22:00:00Z" },

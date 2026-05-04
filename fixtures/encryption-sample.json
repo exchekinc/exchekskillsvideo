@@ -43,6 +43,6 @@
     "Document any source-code changes touching crypto modules"
   ],
   "caveats": [
-    "Mass-market eligibility relies on the product being sold without restriction in retail channels — verify before each annual review."
+    "Mass-market eligibility relies on the product being sold without restriction in retail channels. verify before each annual review."
   ]
 }

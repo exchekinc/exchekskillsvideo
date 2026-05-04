@@ -1,5 +1,5 @@
 // Shared runtime helpers. Inlined into every composition.
-// Kept tiny on purpose — animation lives in the per-template GSAP timeline.
+// Kept tiny on purpose. animation lives in the per-template GSAP timeline.
 (function () {
   function $(sel, root) { return (root || document).querySelector(sel); }
   function $$(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }

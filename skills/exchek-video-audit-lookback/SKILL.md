@@ -6,7 +6,7 @@ compatibility: Claude Code, Claude desktop, Claude CoWork, Claude web
 
 # exchek-video-audit-lookback
 
-Specialized wrapper that forces the `audit-lookback` template —
+Specialized wrapper that forces the `audit-lookback` template 
 emphasis on volume (transactions re-screened) and severity breakdown of
 any newly-flagged hits.
 
@@ -21,7 +21,7 @@ any newly-flagged hits.
 ## Steps
 1. CUI gate (inherited).
 2. Narration preflight (inherited). Strongly recommended for this
-   template — the volume number is the headline and reads naturally.
+   template. the volume number is the headline and reads naturally.
 3. Run:
    ```bash
    node scripts/report-to-video.mjs <report.json> --template audit-lookback \
@@ -29,7 +29,7 @@ any newly-flagged hits.
    ```
 4. Severity bars are computed from `risk_flags[].severity` counts. If
    the source report's flags don't have severity, all hits collapse to
-   "info" and the bars stay empty — review the source determinations.
+   "info" and the bars stay empty. review the source determinations.
 
 ## Outputs
 - `<basename>.mp4`

@@ -13,7 +13,7 @@ What's shipped, what's next, what's hypothesized. Versions track the
 
 ## Shipped
 
-### v0.1.0 — Initial scaffold _(2026-05-04)_
+### v0.1.0. Initial scaffold _(2026-05-04)_
 - Bridge: `scripts/report-to-video.mjs` consumes the schema-1.0.0 JSON
   sibling that every ExChekSkills report emits, picks a template, and
   renders an MP4 via HeyGen HyperFrames.
@@ -24,7 +24,7 @@ What's shipped, what's next, what's hypothesized. Versions track the
   token substitution, JSON injection, GSAP timeline registration.
 - Documentation: README, ARCHITECTURE, CONTRIBUTING, marketplace.json.
 
-### v0.1.1 — Brand + CoWork bundle _(2026-05-04)_
+### v0.1.1. Brand + CoWork bundle _(2026-05-04)_
 - ExChek brand color `#411992` applied across all templates.
 - `scripts/lib/env-detect.mjs` detects FFmpeg/ffprobe availability and
   CoWork environment signals.
@@ -34,7 +34,7 @@ What's shipped, what's next, what's hypothesized. Versions track the
 - `--bundle <dir>`, `--force-bundle`, `--force-render` CLI flags.
 - Auto-fallback to bundle mode when render dependencies are unavailable.
 
-### v0.1.2 — Voice (ElevenLabs) + first MP4 verified _(2026-05-04)_
+### v0.1.2. Voice (ElevenLabs) + first MP4 verified _(2026-05-04)_
 - `scripts/lib/audio-script.mjs` derives narration from the view-model
   with per-template word budgets and ECCN spelling-out.
 - `scripts/lib/audio-probe.mjs` reads audio duration via ffprobe.
@@ -46,15 +46,15 @@ What's shipped, what's next, what's hypothesized. Versions track the
   via `index.html` (not `composition.html`); `String.replace` `$$`
   escape rule was corrupting inlined `brand.js`.
 
-### v0.1.3 — Theme overhaul + verified narration _(2026-05-04)_
+### v0.1.3. Theme overhaul + verified narration _(2026-05-04)_
 - Light theme matching exchek.us (white surfaces, near-black text,
   ExChek purple accent, Outfit display + Inter body fonts).
 - Real ExChek logo SVG inlined via `<!-- @hf-logo -->` marker.
 - All 5 templates rebuilt around the new theme.
 - ElevenLabs end-to-end verified on `risk-triage` (H.264 + AAC stereo).
 
-### v0.1.4 — Polish + AI disclaimer + batch render _(2026-05-04)_
-- AI disclaimer ("AI can make mistakes — please double-check responses")
+### v0.1.4. Polish + AI disclaimer + batch render _(2026-05-04)_
+- AI disclaimer ("AI can make mistakes. please double-check responses")
   rendered in ExChek purple at the footer of every template, above the
   regulatory pointer.
 - Layout fixes: bigger gauge, redundant subheads removed, grid-card
@@ -63,18 +63,18 @@ What's shipped, what's next, what's hypothesized. Versions track the
 - `scripts/render-all-narrated.sh` batch-renders all 5 demos with
   ElevenLabs narration. Audio cached at `~/.cache/exchek/vo-<hash>.mp3`,
   free on re-run when source hash hasn't changed.
-- All 5 demos verified: H.264 video + AAC stereo audio, 540–920 KB,
-  9–12 seconds, ~50s wall-clock for the batch.
+- All 5 demos verified: H.264 video + AAC stereo audio, 540-920 KB,
+  9-12 seconds, ~50s wall-clock for the batch.
 
 ---
 
 ## Next milestone
 
-### v0.2 — Captions _(target: next sprint)_
+### v0.2. Captions _(target: next sprint)_
 
 **Why first**: captions outperform avatars for compliance content.
 LinkedIn/Slack/email previews autoplay muted; captions make the video
-useful in those contexts. Accessibility (WCAG) — narrated-only video is
+useful in those contexts. Accessibility (WCAG). narrated-only video is
 a non-starter for many enterprise customers. No uncanny valley.
 
 **Scope**:
@@ -99,7 +99,7 @@ Premiere / VLC.
 
 ---
 
-## v0.3 — Portrait variants _(target: post-captions)_
+## v0.3. Portrait variants _(target: post-captions)_
 
 For Slack DM / mobile / IG-Reels distribution. 1080×1920 (9:16) and
 1080×1080 (1:1) variants of every template.
@@ -116,18 +116,18 @@ work, not because the engine changes.
 
 ---
 
-## v0.4 — HeyGen Avatars _(target: when first customer asks)_
+## v0.4. HeyGen Avatars _(target: when first customer asks)_
 
 **Why this milestone**: the user explicitly asked about it. Some viewers
 respond materially better to a talking head than to a narrated motion
 graphic. For high-stakes deliverables (executive briefings, customer-
 facing classification memos) a personalized avatar lifts trust.
 
-**Vendor choice**: HeyGen (we're already on their HyperFrames stack —
+**Vendor choice**: HeyGen (we're already on their HyperFrames stack 
 shared auth, single bill, best-in-class lip-sync as of 2026-Q1).
 Alternates evaluated:
-- D-ID — cheaper, weaker lip-sync, would require a second vendor.
-- ElevenLabs Conversational Avatars — single-vendor with our TTS, but
+- D-ID. cheaper, weaker lip-sync, would require a second vendor.
+- ElevenLabs Conversational Avatars. single-vendor with our TTS, but
   quality trails HeyGen.
 
 **Scope**:
@@ -140,9 +140,9 @@ Alternates evaluated:
 - Templates gain a `<!-- @hf-avatar -->` marker. Default position:
   bottom-right corner, 320×320, transparent background.
 - New CLI flags:
-    - `--avatar <id>` — HeyGen avatar_id; pulled from the user's account
-    - `--avatar-position {br|bl|tr|tl|center}` — corner placement
-    - `--avatar-size <px>` — default 320
+    - `--avatar <id>`. HeyGen avatar_id; pulled from the user's account
+    - `--avatar-position {br|bl|tr|tl|center}`. corner placement
+    - `--avatar-size <px>`. default 320
 - Skill preflight gains a third detection branch (HeyGen alongside
   ElevenLabs and CoWork): if the user wants an avatar, the skill checks
   for `HEYGEN_API_KEY` env var or the HeyGen connector before any
@@ -152,7 +152,7 @@ Alternates evaluated:
   `avatar_provenance` block recording the HeyGen `video_id` for audit
   reproducibility. Same script + same avatar_id → same cached MOV.
 - Cost surfacing: the bridge prints estimated HeyGen cost before
-  generation kicks off (~$0.30–$1 per minute as of 2026-Q1) and refuses
+  generation kicks off (~$0.30-$1 per minute as of 2026-Q1) and refuses
   to proceed without confirmation when cost > $1 per render.
 
 **Build effort**: ~2 days for the integration; ~1 day for the cost-gate
@@ -166,29 +166,29 @@ talking the narration over the existing branded layout.
 **Risks**:
 - HeyGen pricing fluctuates; the cost gate prevents surprises.
 - HeyGen API rate limits in early/free accounts; cache aggressively.
-- Avatars introduce uncanny-valley risk for some viewers — keep
+- Avatars introduce uncanny-valley risk for some viewers. keep
   motion-graphic-only as a first-class output, not a fallback.
 
 ---
 
-## ✅ v0.5 — Template library expansion (shipped in v1.1.0)
+## ✅ v0.5. Template library expansion (shipped in v1.1.0)
 
 All seven new templates landed in v1.1.0 (2026-05-04):
 
-- ✅ `encryption` — 5A992/5D992 ECCN reveal + ENC notification cards
-- ✅ `deemed-export` — color-coded verdict tile + 4 supporting cards (15 CFR 734.13)
-- ✅ `export-docs` — Commercial Invoice + SLI + AES three-document grid
-- ✅ `ecp` — Maturity grade + 8-element coverage grid (BIS guidance)
-- ✅ `audit-lookback` — Volume tile + new-hits + severity-breakdown bars
-- ✅ `partner-compliance` — Partner card + flow-down checklist
-- ✅ `recordkeeping` — Retention status + 5-year timeline (15 CFR 762)
+- ✅ `encryption`. 5A992/5D992 ECCN reveal + ENC notification cards
+- ✅ `deemed-export`. color-coded verdict tile + 4 supporting cards (15 CFR 734.13)
+- ✅ `export-docs`. Commercial Invoice + SLI + AES three-document grid
+- ✅ `ecp`. Maturity grade + 8-element coverage grid (BIS guidance)
+- ✅ `audit-lookback`. Volume tile + new-hits + severity-breakdown bars
+- ✅ `partner-compliance`. Partner card + flow-down checklist
+- ✅ `recordkeeping`. Retention status + 5-year timeline (15 CFR 762)
 
 Each ships with a matching `exchek-video-<name>` skill wrapper and a
 realistic schema-1.0.0 fixture.
 
 ---
 
-## v0.6 — Batch library mode
+## v0.6. Batch library mode
 
 Target use case: training-content team wants to generate a video per
 new regulatory update / per skill execution last week / per top-N
@@ -204,7 +204,7 @@ Native batch mode would:
 
 ---
 
-## v0.7 — Remote render service
+## v0.7. Remote render service
 
 Today, CoWork users get a portable bundle they have to render elsewhere.
 A managed render endpoint would close the loop:
@@ -214,14 +214,14 @@ A managed render endpoint would close the loop:
 - CoWork skill calls the service directly, returns a download link in
   the conversation.
 - Authentication via the user's ExChek account (no separate billing
-  per render — bundled into the ExChek subscription).
+  per render. bundled into the ExChek subscription).
 
 Build effort is meaningful: ~1 month for a production-grade hosted
 service with cost controls, queueing, and audit logging.
 
 ---
 
-## v0.8 — Multi-language
+## v0.8. Multi-language
 
 ExChek serves international shippers; non-English narration is
 table-stakes for EU/APAC adoption.
@@ -239,17 +239,17 @@ table-stakes for EU/APAC adoption.
 
 These would each take a discovery sprint before commitment:
 
-- **Real-time render in CoWork via streaming WebRTC** — bypass the
+- **Real-time render in CoWork via streaming WebRTC**. bypass the
   bundle hand-off entirely by rendering frames in CoWork's headless
   Chromium and streaming them out. Plausible if Anthropic adds GPU
   workers; not a path until then.
-- **Interactive video** — embedded controls in the MP4 (chapter markers,
+- **Interactive video**. embedded controls in the MP4 (chapter markers,
   click-to-deep-dive into the source `.docx`). Requires HLS or MP4 with
   custom JS overlay; loses the "video file you email someone" property.
-- **Voice cloning for executive narration** — ElevenLabs supports
+- **Voice cloning for executive narration**. ElevenLabs supports
   cloning. Compliance-sensitive: do customers want their CCO's voice
   reading the determination? Or does that overstate AI confidence?
-- **Compliance-officer livestream mode** — generate the video on every
+- **Compliance-officer livestream mode**. generate the video on every
   red-flag determination as it lands, push to a Slack channel. Useful
   for SOC-style continuous monitoring; needs the v0.7 render service.
 
@@ -266,7 +266,7 @@ These would each take a discovery sprint before commitment:
   source `input_hash` and the script that was read. No silent edits to
   the spoken content vs. the written report.
 - **Avatar generation without explicit user opt-in per render.** No
-  global "always-avatar" config — each render that uses an avatar
+  global "always-avatar" config. each render that uses an avatar
   requires the user (or skill confirmation) to acknowledge cost and
   vendor data flow.
 

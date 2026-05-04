@@ -1,6 +1,6 @@
 # exchekskillsvideo
 
-**Branded, narrated, audit-traceable compliance videos — generated from
+**Branded, narrated, audit-traceable compliance videos. generated from
 the same `.json` audit your `.docx` already lives next to.**
 
 The video-rendering companion to
@@ -35,12 +35,12 @@ Optionally narrates the result via ElevenLabs.
 
 ## The twelve video skills
 
-Every skill wraps the same bridge — the difference is template selection,
+Every skill wraps the same bridge. the difference is template selection,
 preflight messaging, and the use case it's designed for.
 
 | Skill | Template | Length | Best for |
 |---|---|---|---|
-| [`exchek-video-summary`](skills/exchek-video-summary/SKILL.md) | auto-detect | 9–12s | Generic — pick the right template from the source skill name |
+| [`exchek-video-summary`](skills/exchek-video-summary/SKILL.md) | auto-detect | 9-12s | Generic. pick the right template from the source skill name |
 | [`exchek-video-risk-triage`](skills/exchek-video-risk-triage/SKILL.md) | risk-triage | ~9s | Executive briefing of a transaction risk determination |
 | [`exchek-video-classification`](skills/exchek-video-classification/SKILL.md) | classification | ~9s | ECCN/USML reveal for customer or internal review |
 | [`exchek-video-red-flag`](skills/exchek-video-red-flag/SKILL.md) | red-flag | ~9s | High-contrast indicator alert for compliance channels |
@@ -102,7 +102,7 @@ npm test                   # smoke test, no FFmpeg invocation
 
 For Claude CoWork installs (sandboxed cloud workspace where FFmpeg/
 Chromium aren't available), the bridge auto-falls-back to **bundle
-mode** — produces a portable folder you download and render elsewhere.
+mode**. produces a portable folder you download and render elsewhere.
 See [`skills/exchek-video-summary/references/cowork.md`](skills/exchek-video-summary/references/cowork.md).
 
 ---
@@ -136,7 +136,7 @@ node scripts/report-to-video.mjs report.json \
 
 ### Render with narration (requires ElevenLabs key)
 
-The bridge stays narration-agnostic — the **caller** generates the audio,
+The bridge stays narration-agnostic. the **caller** generates the audio,
 the bridge consumes a finished file. The Claude skills handle this for
 you via the ElevenLabs MCP/connector. From the shell:
 
@@ -230,7 +230,7 @@ Setup walkthrough: [`skills/exchek-video-summary/references/elevenlabs-setup.md`
 
 ---
 
-## Avatars (HeyGen) — v0.4
+## Avatars (HeyGen). v0.4
 
 Talking-head avatars composited over the existing branded layout.
 Detailed scope in [ROADMAP.md → v0.4](ROADMAP.md#v04--heygen-avatars-target-when-first-customer-asks).
@@ -241,7 +241,7 @@ Summary:
 - New CLI flags: `--avatar <id>`, `--avatar-position {br|bl|tr|tl}`,
   `--avatar-size <px>`.
 - Cache key: `~/.cache/exchek/avatar-<input_hash>-<voice_id>-<avatar_id>.mov`.
-- Cost gate: bridge prints estimated HeyGen cost (~$0.30–$1 per minute)
+- Cost gate: bridge prints estimated HeyGen cost (~$0.30-$1 per minute)
   before generation; refuses to proceed without confirmation when cost
   > $1 per render.
 - Audit reproducibility: manifest grows an `avatar_provenance` block
@@ -269,7 +269,7 @@ renders/bundle-<basename>/
 
 The user downloads the folder and runs the one-line `npx hyperframes
 render` command from `RENDER.md` on a host with FFmpeg installed. The
-bundle preserves `input_hash`, so the eventual MP4 is reproducible —
+bundle preserves `input_hash`, so the eventual MP4 is reproducible 
 matters for audit re-runs.
 
 Force the choice with `--force-bundle` or `--force-render` if the
@@ -282,14 +282,14 @@ auto-detection guesses wrong.
 - The `.docx` from `exchekskills` is the **audit-of-record** under
   15 CFR § 762.6. The `.mp4` is a derivative summary visualization,
   not a recordkeeping substitute.
-- The MP4 inherits the source report's privacy attestation tier — do
+- The MP4 inherits the source report's privacy attestation tier. do
   not upload to third-party hosters without confirming the tier permits
   it (see [docs/SECURITY.md](docs/SECURITY.md)).
 - CUI / classified material is gated at the skill layer. If the source
   JSON's `cui_check.cui` or `cui_check.classified` is true, narration
   is refused and the bridge can be configured to refuse render
   altogether (default behavior is render-silent + flag).
-- Every video carries the AI disclaimer "AI can make mistakes — please
+- Every video carries the AI disclaimer "AI can make mistakes. please
   double-check responses" hard-coded in the brand layer. Templates
   cannot suppress it.
 - Every video shows the source report's `input_hash` in the brand bar
@@ -301,15 +301,15 @@ auto-detection guesses wrong.
 
 See [ROADMAP.md](ROADMAP.md) for the full picture. Next milestones:
 
-- **v0.2** — Captions (mute-friendly, accessibility, SRT sidecar)
-- **v0.3** — Portrait + square aspect variants for Slack / mobile / Reels
-- **v0.4** — HeyGen avatars (talking-head over the motion-graphic layout)
-- ~~**v0.5** — Templates for the remaining ExChekSkills~~ ✅ shipped in
+- **v0.2**. Captions (mute-friendly, accessibility, SRT sidecar)
+- **v0.3**. Portrait + square aspect variants for Slack / mobile / Reels
+- **v0.4**. HeyGen avatars (talking-head over the motion-graphic layout)
+- ~~**v0.5**. Templates for the remaining ExChekSkills~~ ✅ shipped in
   v1.1.0 (encryption, deemed-export, export-docs, ECP, audit-lookback,
   partner-compliance, recordkeeping)
-- **v0.6** — Native batch mode for training-library generation
-- **v0.7** — Hosted render service (closes the CoWork bundle hand-off)
-- **v0.8** — Multi-language narration
+- **v0.6**. Native batch mode for training-library generation
+- **v0.7**. Hosted render service (closes the CoWork bundle hand-off)
+- **v0.8**. Multi-language narration
 
 ---
 
@@ -355,7 +355,7 @@ exchekskillsvideo/
 
 ## License
 
-ExChek, Inc. Proprietary — see [LICENSE.md](LICENSE.md). The license
+ExChek, Inc. Proprietary. see [LICENSE.md](LICENSE.md). The license
 text in this repo is the same canonical text used by upstream
 `exchekskills`, plus an Appendix A covering the third-party runtime
 dependencies (HeyGen HyperFrames Apache-2.0, optional ElevenLabs API,
@@ -368,7 +368,7 @@ For licensing questions: matt@exchek.us.
 ## Security
 
 Plain-English security model in [docs/SECURITY.md](docs/SECURITY.md).
-TL;DR — same posture as upstream `exchekskills`, plus narrowly-scoped
+TL;DR. same posture as upstream `exchekskills`, plus narrowly-scoped
 opt-in third-party calls to ElevenLabs (when narration is requested) and,
 in the future, HeyGen Avatars.
 

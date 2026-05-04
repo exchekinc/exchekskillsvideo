@@ -1,10 +1,10 @@
 // Produce a portable rendering bundle:
 //
 //   bundle-<basename>/
-//     composition.html   — the fully resolved, self-contained composition
-//     manifest.json      — render settings + provenance
-//     source.json        — verbatim copy of the input report for traceability
-//     RENDER.md          — instructions for rendering offline
+//     composition.html  . the fully resolved, self-contained composition
+//     manifest.json     . render settings + provenance
+//     source.json       . verbatim copy of the input report for traceability
+//     RENDER.md         . instructions for rendering offline
 //
 // This is the path a CoWork user takes when their sandbox can't run
 // FFmpeg/Chromium. They download the folder and run `npx hyperframes
@@ -85,18 +85,18 @@ npx --yes hyperframes render . \\
 ## Provenance
 
 - **Template:** \`${manifest.template}\`
-- **Source skill:** \`${manifest.skill ?? "—"}\`
+- **Source skill:** \`${manifest.skill ?? ""}\`
 - **Source report:** \`${manifest.source_report}\`
-- **Input hash:** \`${manifest.input_hash ?? "—"}\`
-- **Schema version:** \`${manifest.schema_version ?? "—"}\`
-- **Docx of record:** \`${manifest.docx_basename ?? "—"}\`
+- **Input hash:** \`${manifest.input_hash ?? ""}\`
+- **Schema version:** \`${manifest.schema_version ?? ""}\`
+- **Docx of record:** \`${manifest.docx_basename ?? ""}\`
 - **Bundle created:** \`${manifest.created_at}\`
 
 ## Determinism check
 
 If you render this bundle on two different hosts, the resulting MP4
 should be byte-identical (modulo FFmpeg encoder version differences).
-This matters for compliance audits — the bundle, plus its
+This matters for compliance audits. the bundle, plus its
 \`input_hash\`, lets you reproduce the exact video you originally
 shipped.
 
