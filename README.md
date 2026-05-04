@@ -127,6 +127,20 @@ encoder version). That property matters for audit reproducibility.
 See [`skills/exchek-video-summary/references/cowork.md`](skills/exchek-video-summary/references/cowork.md)
 for the full CoWork workflow.
 
+## Roadmap
+
+See [ROADMAP.md](ROADMAP.md). Next milestones:
+
+- **v0.2** — Captions (mute-friendly, accessibility, SRT sidecar)
+- **v0.3** — Portrait + square aspect variants for Slack/mobile
+- **v0.4** — HeyGen avatar integration (talking-head over the
+  motion-graphic layout)
+- **v0.5** — Templates for the remaining ExChekSkills (deemed-export,
+  ECP, encryption, recordkeeping, audit-lookback, partner-compliance)
+- **v0.6** — Native batch mode for training-library generation
+- **v0.7** — Hosted render service (closes the CoWork bundle hand-off)
+- **v0.8** — Multi-language narration
+
 ## Compliance scope
 
 - The `.docx` from `exchekskills` is the **audit-of-record**.
