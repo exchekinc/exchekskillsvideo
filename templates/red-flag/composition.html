@@ -7,40 +7,45 @@
 <style>
   .alert-bar {
     position: absolute;
-    top: 130px;
-    left: 56px;
-    right: 56px;
-    height: 6px;
-    border-radius: 6px;
+    top: 134px;
+    left: 80px;
+    right: 80px;
+    height: 4px;
+    border-radius: 4px;
     background: linear-gradient(90deg, var(--danger), var(--warn));
-    box-shadow: 0 0 30px rgba(255,92,122,0.6);
     transform-origin: left center;
   }
   .flag-grid {
     position: absolute;
-    left: 56px;
-    right: 56px;
+    left: 80px;
+    right: 80px;
     top: 460px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 20px;
   }
-  .flag-card { position: relative; padding: 28px 32px; min-height: 220px; }
+  .flag-card { position: relative; padding: 28px 32px; min-height: 200px; overflow: hidden; }
   .flag-card .sev {
     position: absolute;
     top: 24px; right: 28px;
-    font-size: 18px;
+    font-size: 12px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     font-weight: 700;
-    padding: 4px 12px;
+    padding: 4px 10px;
     border-radius: 4px;
   }
-  .flag-card.flag-high   .sev { color: var(--danger);  background: rgba(255,92,122,0.16); }
-  .flag-card.flag-medium .sev { color: var(--warn);    background: rgba(246,183,60,0.16); }
-  .flag-card.flag-low    .sev { color: var(--success); background: rgba(61,214,140,0.16); }
-  .flag-card .title { font-size: 32px; font-weight: 700; margin-top: 8px; }
-  .flag-card .detail { color: var(--text-muted); font-size: 22px; margin-top: 12px; line-height: 1.45; }
+  .flag-card.flag-high   .sev { color: #B91C1C; background: #FEF2F2; border: 1px solid #FECACA; }
+  .flag-card.flag-medium .sev { color: #B45309; background: #FFFBEB; border: 1px solid #FDE68A; }
+  .flag-card.flag-low    .sev { color: #047857; background: #ECFDF5; border: 1px solid #A7F3D0; }
+  .flag-card .title { font-family: var(--font-display); font-size: 28px; font-weight: 700; margin-top: 8px; color: var(--text); letter-spacing: -0.01em; }
+  .flag-card .detail {
+    color: var(--text-muted); font-size: 18px; margin-top: 12px; line-height: 1.45;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
 </style>
 </head>
 <body>
@@ -56,27 +61,36 @@
   <div id="alertBar" class="clip alert-bar" data-start="0.0" data-duration="9" data-track-index="1" style="transform: scaleX(0);"></div>
 
   <header id="brand" class="clip brand-bar fadein" data-start="0" data-duration="9" data-track-index="2">
-    <div class="brand-mark"><span class="dot"></span><span>{{brand.name}}</span><span style="opacity:.5">·</span><span>Red-Flag Assessment</span></div>
+    <div class="brand-mark">
+      <!-- @hf-logo -->
+      <span class="product">Red-Flag Assessment</span>
+    </div>
     <div class="meta">
       <span>skill: {{meta.skill}}</span>
-      &nbsp;&nbsp;<span>generated: {{meta.generatedAtPretty}}</span>
+      <span>generated: {{meta.generatedAtPretty}}</span>
     </div>
   </header>
 
-  <h1 id="headline" class="clip headline fadein" data-start="0.4" data-duration="9" data-track-index="3"
-      style="top: 200px; font-size: 84px; color: var(--danger);">
+  <div id="eyebrow" class="clip eyebrow fadein" data-start="0.3" data-duration="9" data-track-index="3"
+       style="top: 200px; color: var(--danger);">
+    Export compliance · BIS Supp. 3 to 15 CFR Part 732
+  </div>
+
+  <h1 id="headline" class="clip headline fadein" data-start="0.45" data-duration="9" data-track-index="4"
+      style="top: 246px; font-size: 80px; line-height: 1.0; color: var(--danger);">
     {{headline}}
   </h1>
-  <div id="subhead" class="clip subhead fadein" data-start="0.7" data-duration="9" data-track-index="4"
-       style="top: 320px;">
+
+  <div id="subhead" class="clip subhead fadein" data-start="0.65" data-duration="9" data-track-index="5"
+       style="top: 350px; max-width: 1500px;">
     {{subhead}}
   </div>
 
-  <div id="grid2" class="clip flag-grid stagger" data-start="1.2" data-duration="9" data-track-index="5"></div>
+  <div id="grid2" class="clip flag-grid stagger" data-start="1.2" data-duration="9" data-track-index="6"></div>
 
-  <footer id="disclose" class="clip disclosure fadein" data-start="3.5" data-duration="9" data-track-index="6">
+  <footer id="disclose" class="clip disclosure fadein" data-start="2.8" data-duration="9" data-track-index="7">
     <div class="lhs">{{brand.disclosure}}</div>
-    <div class="rhs">BIS Supp. 3 to 15 CFR Part 732 · {{meta.platform}} · {{meta.model}}</div>
+    <div class="rhs">{{meta.platform}} · {{meta.model}}</div>
   </footer>
 
   <!-- @hf-data -->
@@ -105,10 +119,11 @@
       var tl = gsap.timeline({ paused: true });
       tl.to("#alertBar", { scaleX: 1, duration: 0.7, ease: "expo.out" }, 0.0);
       tl.to("#brand",    { opacity: 1, y: 0, duration: 0.5 }, 0.0);
-      tl.to("#headline", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.4);
-      tl.to("#subhead",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.7);
-      tl.to("#grid2 .stagger > *, #grid2 > *", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.18 }, 1.2);
-      tl.to("#disclose", { opacity: 1, y: 0, duration: 0.5 }, 3.5);
+      tl.to("#eyebrow",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.3);
+      tl.to("#headline", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.45);
+      tl.to("#subhead",  { opacity: 1, y: 0, duration: 0.6 }, 0.65);
+      tl.to("#grid2 > *", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.16 }, 1.2);
+      tl.to("#disclose", { opacity: 1, y: 0, duration: 0.5 }, 2.8);
       tl.set({}, {}, 9.0);
 
       window.__timelines = window.__timelines || {};

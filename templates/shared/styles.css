@@ -1,25 +1,30 @@
-/* ExChekSkills Video — shared brand styles. Inlined into every composition
-   by template-loader.mjs at render time. */
+/* ExChekSkills Video — shared styles.
+   Light theme matching the ExChek website (white surfaces, black headlines,
+   ExChek purple #411992 as accent). Inlined into every composition by
+   template-loader.mjs at render time. */
+
 :root {
-  --bg: #0B1020;
-  --bg-end: #131B36;
-  --surface: #161E3A;
-  --surface-muted: #1F2950;
-  --text: #F5F7FF;
-  --text-muted: #A8B0D6;
-  /* ExChek brand purple. Pure --accent is the canonical brand mark
-     (dot, headline emphasis, primary CTA). --accent-tint is the readable
-     companion for gradient text, glows, and small details on dark bg. */
-  --accent: #411992;
-  --accent-tint: #7C4FE0;
-  --accent-glow: #A584FF;
-  --accent-2: var(--accent-tint);
-  --success: #3DD68C;
-  --warn: #F6B73C;
-  --danger: #FF5C7A;
-  --grid: rgba(255, 255, 255, 0.06);
-  --shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  --bg: #FFFFFF;
+  --bg-soft: #FAFAFC;
+  --bg-tint: #F4EFFF;             /* very faint purple wash for ambient */
+  --surface: #FFFFFF;
+  --surface-muted: #F6F4FB;
+  --text: #0B0B12;                /* near-black */
+  --text-muted: #5B5B6A;
+  --text-faint: #8A8A98;
+  --accent: #411992;              /* ExChek brand purple */
+  --accent-tint: #6B3DDC;         /* lighter step for hover/secondary */
+  --accent-soft: #EFE8FF;         /* tinted surface for accent backgrounds */
+  --border: #E6E4EE;
+  --border-strong: #D4D0E0;
+  --success: #10B981;
+  --warn: #F59E0B;
+  --danger: #EF4444;
+  --shadow: 0 12px 40px rgba(11, 11, 18, 0.06);
+  --shadow-strong: 0 20px 60px rgba(65, 25, 146, 0.12);
   --radius: 18px;
+  --radius-lg: 24px;
+  --font-display: "Outfit", "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
 }
@@ -39,142 +44,175 @@ html, body {
   width: 1920px;
   height: 1080px;
   background:
-    radial-gradient(1200px 800px at 80% 0%, rgba(124, 79, 224, 0.22), transparent 60%),
-    radial-gradient(1000px 700px at 0% 100%, rgba(65, 25, 146, 0.28), transparent 60%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-end) 100%);
+    radial-gradient(900px 600px at 92% -10%, var(--bg-tint), transparent 60%),
+    radial-gradient(700px 500px at -10% 110%, var(--bg-tint), transparent 60%),
+    var(--bg);
 }
 
+/* Subtle dot grid evoking the website's clean layout, very low contrast. */
 .grid-overlay {
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.6), transparent 80%);
+  background-image: radial-gradient(circle, rgba(11,11,18,0.06) 1px, transparent 1.5px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.5), transparent 75%);
   pointer-events: none;
 }
 
+/* ─── Brand bar ─── */
 .brand-bar {
   position: absolute;
-  top: 48px;
-  left: 56px;
-  right: 56px;
+  top: 56px;
+  left: 80px;
+  right: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 22px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+  font-size: 18px;
+  color: var(--text-faint);
 }
 .brand-mark {
   display: flex;
   align-items: center;
   gap: 14px;
-  font-weight: 700;
   color: var(--text);
 }
-.brand-mark .dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent-tint));
-  box-shadow: 0 0 30px rgba(124, 79, 224, 0.6);
+.brand-mark svg, .brand-mark .logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+.brand-mark .wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.brand-mark .product {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding-left: 14px;
+  margin-left: 4px;
+  border-left: 1px solid var(--border);
 }
 .brand-bar .meta {
   font-family: var(--font-mono);
-  font-size: 18px;
+  font-size: 14px;
   letter-spacing: 0.04em;
-  text-transform: none;
+  color: var(--text-faint);
+  text-align: right;
+  line-height: 1.6;
+}
+.brand-bar .meta span + span { margin-left: 18px; }
+
+/* ─── Eyebrow + headline + subhead ─── */
+.eyebrow {
+  position: absolute;
+  left: 80px;
+  right: 80px;
+  font-size: 20px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
 .headline {
   position: absolute;
-  left: 56px;
-  right: 56px;
-  top: 200px;
+  left: 80px;
+  right: 80px;
+  font-family: var(--font-display);
   font-size: 96px;
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-}
-.subhead {
-  position: absolute;
-  left: 56px;
-  right: 56px;
-  top: 360px;
-  font-size: 36px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.card {
-  position: absolute;
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(8px);
-  padding: 28px 32px;
-}
-.card .label {
-  font-size: 18px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.card .value {
-  margin-top: 8px;
-  font-size: 56px;
   font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
   color: var(--text);
 }
 
+.subhead {
+  position: absolute;
+  left: 80px;
+  right: 80px;
+  font-family: var(--font-sans);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ─── Cards ─── */
+.card {
+  position: absolute;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px 32px;
+}
+.card .label {
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+.card .value {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+/* ─── Pills ─── */
 .pill {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 10px 18px;
   border-radius: 999px;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
+  border: 1px solid;
 }
-.pill.low      { background: rgba(61, 214, 140, 0.14); color: var(--success); border: 1px solid rgba(61, 214, 140, 0.4); }
-.pill.medium   { background: rgba(246, 183, 60, 0.14); color: var(--warn);    border: 1px solid rgba(246, 183, 60, 0.4); }
-.pill.high     { background: rgba(255, 92, 122, 0.14); color: var(--danger);  border: 1px solid rgba(255, 92, 122, 0.4); }
-.pill.review   { background: rgba(124, 79, 224, 0.16); color: var(--accent-tint); border: 1px solid rgba(124, 79, 224, 0.4); }
+.pill.low      { background: #ECFDF5; color: #047857; border-color: #A7F3D0; }
+.pill.medium   { background: #FFFBEB; color: #B45309; border-color: #FDE68A; }
+.pill.high     { background: #FEF2F2; color: #B91C1C; border-color: #FECACA; }
+.pill.review   { background: var(--accent-soft); color: var(--accent); border-color: #DCC9FF; }
 
-.list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+/* ─── Lists ─── */
+.list { list-style: none; margin: 0; padding: 0; }
 .list li {
   display: flex;
   align-items: flex-start;
-  gap: 16px;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
   font-size: 22px;
   line-height: 1.35;
 }
 .list li:last-child { border-bottom: none; }
 .list li .marker {
-  flex: 0 0 14px;
-  width: 14px;
-  height: 14px;
+  flex: 0 0 10px;
+  width: 10px;
+  height: 10px;
   margin-top: 14px;
   border-radius: 50%;
-  background: var(--accent-tint);
+  background: var(--accent);
 }
 .list li.flag-high .marker    { background: var(--danger); }
 .list li.flag-medium .marker  { background: var(--warn); }
 .list li.flag-low .marker     { background: var(--success); }
 .list li.flag-info .marker    { background: var(--accent-tint); }
 .list li .body { flex: 1 1 auto; min-width: 0; }
-.list li .title { font-weight: 600; }
+.list li .title { font-weight: 600; color: var(--text); }
 .list li .detail {
   color: var(--text-muted);
   font-size: 18px;
@@ -186,13 +224,12 @@ html, body {
   text-overflow: ellipsis;
 }
 
+/* ─── Risk gauge ─── */
 .gauge {
   position: absolute;
-  width: 520px;
-  height: 520px;
 }
 .gauge svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-.gauge .track { stroke: rgba(255,255,255,0.08); }
+.gauge .track { stroke: var(--surface-muted); }
 .gauge .fill  { stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
 .gauge-label {
   position: absolute;
@@ -204,43 +241,67 @@ html, body {
   text-align: center;
 }
 .gauge-label .lvl {
-  font-size: 88px;
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 700;
   letter-spacing: -0.02em;
+  color: var(--text);
 }
 .gauge-label .cap {
-  margin-top: 8px;
-  font-size: 22px;
+  margin-top: 6px;
+  font-size: 14px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--text-faint);
+  font-weight: 600;
 }
 
+/* ─── Disclosure footer ─── */
 .disclosure {
   position: absolute;
-  left: 56px;
-  right: 56px;
-  bottom: 48px;
-  font-size: 18px;
-  color: var(--text-muted);
+  left: 80px;
+  right: 80px;
+  bottom: 36px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-faint);
   display: flex;
   justify-content: space-between;
   gap: 24px;
-  font-family: var(--font-mono);
 }
 .disclosure .lhs { max-width: 70%; line-height: 1.5; }
-.disclosure .rhs { text-align: right; }
+.disclosure .rhs { text-align: right; line-height: 1.5; }
 
+/* ─── Citations block ─── */
 .citations {
   font-family: var(--font-mono);
-  font-size: 20px;
+  font-size: 16px;
   color: var(--text-muted);
   line-height: 1.55;
 }
-.citations .row { display: flex; gap: 12px; padding: 6px 0; }
+.citations .row { display: flex; gap: 12px; padding: 5px 0; }
 .citations .row .cfr { color: var(--text); font-weight: 600; }
 
+/* ─── Animation primitives ─── */
 .fadein, .stagger > * {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(16px);
 }
+
+/* ─── Get-started ribbon (matches website CTA aesthetic) ─── */
+.ribbon {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: #0B0B12;
+  color: #FFFFFF;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.ribbon::before { content: "[ "; opacity: 0.7; }
+.ribbon::after  { content: " ]"; opacity: 0.7; }

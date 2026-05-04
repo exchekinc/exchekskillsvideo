@@ -16,7 +16,6 @@ export async function renderComposition({
   strict = false,
   quiet = false,
   audioFile = null,
-  audioBasename = "vo.wav",
   extraArgs = [],
 } = {}) {
   if (!html) throw new Error("renderComposition: html is required");
@@ -26,6 +25,10 @@ export async function renderComposition({
   const compositionPath = join(workDir, "index.html");
   await writeFile(compositionPath, html, "utf8");
   if (audioFile) {
+    // Preserve the source extension so <audio src="vo.mp3"> matches the
+    // file we wrote and Chromium decodes the right format.
+    const ext = audioFile.match(/\.[a-z0-9]+$/i)?.[0] || ".wav";
+    const audioBasename = `vo${ext.toLowerCase()}`;
     await copyFile(audioFile, join(workDir, audioBasename));
   }
   await mkdir(dirname(resolve(outputPath)), { recursive: true });

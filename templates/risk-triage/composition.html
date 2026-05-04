@@ -17,58 +17,60 @@
   <div id="grid" class="clip grid-overlay" data-start="0" data-duration="9" data-track-index="0"></div>
 
   <header id="brand" class="clip brand-bar fadein" data-start="0" data-duration="9" data-track-index="1">
-    <div class="brand-mark"><span class="dot"></span><span>{{brand.name}}</span><span style="opacity:.5">·</span><span>{{brand.productLine}}</span></div>
+    <div class="brand-mark">
+      <!-- @hf-logo -->
+      <span class="product">Risk Triage</span>
+    </div>
     <div class="meta">
       <span>skill: {{meta.skill}}</span>
-      &nbsp;&nbsp;<span>generated: {{meta.generatedAtPretty}}</span>
-      &nbsp;&nbsp;<span>hash: {{meta.inputHash}}</span>
+      <span>generated: {{meta.generatedAtPretty}}</span>
+      <span>hash: {{meta.inputHash}}</span>
     </div>
   </header>
 
-  <h1 id="headline" class="clip headline fadein" data-start="0.2" data-duration="9" data-track-index="2"
-      style="top: 150px; font-size: 84px;">
-    {{headline}}
+  <div id="eyebrow" class="clip eyebrow fadein" data-start="0.2" data-duration="9" data-track-index="2"
+       style="top: 200px;">
+    Export compliance · Risk determination
+  </div>
+
+  <h1 id="headline" class="clip headline fadein" data-start="0.35" data-duration="9" data-track-index="3"
+      style="top: 250px; font-size: 80px; line-height: 1.0;">
+    Risk Triage — <span id="riskInline" style="color: var(--accent);">{{risk.label}}</span>
   </h1>
-  <div id="subhead" class="clip subhead fadein" data-start="0.5" data-duration="9" data-track-index="3"
-       style="top: 290px; font-size: 32px;">
+
+  <div id="subhead" class="clip subhead fadein" data-start="0.55" data-duration="9" data-track-index="4"
+       style="top: 360px; max-width: 1500px;">
     {{subhead}}
   </div>
 
-  <div id="gauge" class="clip gauge" data-start="1.2" data-duration="9" data-track-index="4"
-       style="left: 1340px; top: 460px; width: 290px; height: 290px;">
+  <section id="dets" class="clip card fadein" data-start="1.2" data-duration="9" data-track-index="5"
+           style="left: 80px; top: 480px; width: 1080px; height: 420px; overflow: hidden;">
+    <div class="label">Top determinations</div>
+    <ul id="detList" class="list stagger" style="margin-top: 14px;"></ul>
+  </section>
+
+  <section id="flags" class="clip card fadein" data-start="1.6" data-duration="9" data-track-index="6"
+           style="left: 1200px; top: 480px; width: 640px; height: 420px; overflow: hidden;">
+    <div class="label">Risk flags</div>
+    <ul id="flagList" class="list stagger" style="margin-top: 14px;"></ul>
+  </section>
+
+  <div id="gauge" class="clip gauge fadein" data-start="0.9" data-duration="9" data-track-index="7"
+       style="right: 80px; top: 90px; width: 220px; height: 220px;">
     <svg viewBox="0 0 200 200">
       <circle class="track" cx="100" cy="100" r="86" fill="none" stroke-width="14"></circle>
       <circle class="fill"  cx="100" cy="100" r="86" fill="none" stroke-width="14"
               stroke-dasharray="540" stroke-dashoffset="540"></circle>
     </svg>
     <div class="gauge-label">
-      <div class="lvl" id="riskLvl" style="font-size: 56px;">{{risk.label}}</div>
-      <div class="cap" style="font-size: 16px;">overall risk</div>
+      <div class="lvl" id="riskLvl">{{risk.label}}</div>
+      <div class="cap">overall risk</div>
     </div>
   </div>
 
-  <section id="dets" class="clip card fadein" data-start="1.6" data-duration="9" data-track-index="5"
-           style="left: 56px; top: 460px; width: 1100px; height: 290px; overflow: hidden;">
-    <div class="label">Top determinations</div>
-    <ul id="detList" class="list stagger" style="margin-top: 8px;"></ul>
-  </section>
-
-  <section id="flags" class="clip card fadein" data-start="2.4" data-duration="9" data-track-index="6"
-           style="left: 56px; top: 770px; width: 1100px; height: 200px; overflow: hidden;">
-    <div class="label">Risk flags</div>
-    <ul id="flagList" class="list stagger" style="margin-top: 8px;"></ul>
-  </section>
-
-  <section id="cites" class="clip card fadein" data-start="3.0" data-duration="9" data-track-index="7"
-           style="left: 1180px; top: 770px; width: 680px; height: 200px; overflow: hidden;">
-    <div class="label">Regulatory currency</div>
-    <div class="citations stagger" id="citeList" style="margin-top: 10px;"></div>
-  </section>
-
-  <footer id="disclose" class="clip disclosure fadein" data-start="3.6" data-duration="9" data-track-index="8"
-          style="bottom: 24px;">
+  <footer id="disclose" class="clip disclosure fadein" data-start="2.4" data-duration="9" data-track-index="8">
     <div class="lhs">{{brand.disclosure}}</div>
-    <div class="rhs">{{meta.platform}} · {{meta.model}}<br/>schema {{meta.schemaVersion}}</div>
+    <div class="rhs">{{meta.platform}} · {{meta.model}} · schema {{meta.schemaVersion}}</div>
   </footer>
 
   <!-- @hf-data -->
@@ -85,25 +87,14 @@
                '</div>';
       });
 
-      ev.fillList("#flagList", (d.flags || []).slice(0, 2), function (it) {
+      ev.fillList("#flagList", (d.flags || []).slice(0, 3), function (it) {
         return '<span class="marker"></span><div class="body"><div class="title">' +
                escapeHtml(it.label) + '</div>' +
                (it.detail ? '<div class="detail">' + escapeHtml(it.detail) + '</div>' : '') +
                '</div>';
       });
 
-      var citeRoot = document.getElementById("citeList");
-      (d.citations || []).slice(0, 4).forEach(function (c) {
-        var row = document.createElement("div");
-        row.className = "row";
-        row.innerHTML = '<span class="cfr">' + escapeHtml(c.cfr || "") + '</span>' +
-                        '<span>pulled ' + escapeHtml((d.meta && d.meta.ecfrPulledAtPretty) || c.pulled_at || "—") + '</span>';
-        citeRoot.appendChild(row);
-      });
-
       ev.setRiskGauge("#gauge", (d.risk && d.risk.level) || "review");
-      var lvl = document.getElementById("riskLvl");
-      if (lvl) lvl.style.color = (d.risk && d.risk.color) || "#7C4FE0";
 
       function escapeHtml(s) {
         return String(s == null ? "" : s)
@@ -112,24 +103,21 @@
       }
 
       var tl = gsap.timeline({ paused: true });
-      tl.to("#brand",    { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.0);
-      tl.to("#headline", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.2);
-      tl.to("#subhead",  { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.5);
-      tl.to("#gauge",    { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.2);
-      tl.to("#dets",     { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.6);
-      tl.to("#dets .stagger > *",  { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.1 }, 1.8);
-      tl.to("#flags",    { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 2.4);
-      tl.to("#flags .stagger > *", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.1 }, 2.6);
-      tl.to("#cites",    { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 3.0);
-      tl.to("#cites .stagger > *", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.08 }, 3.1);
-      tl.to("#disclose", { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 3.6);
+      tl.to("#brand",     { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.0);
+      tl.to("#eyebrow",   { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.to("#headline",  { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.35);
+      tl.to("#subhead",   { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.55);
+      tl.to("#gauge",     { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.9);
+      tl.to("#dets",      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.2);
+      tl.to("#dets .stagger > *", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.1 }, 1.4);
+      tl.to("#flags",     { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.6);
+      tl.to("#flags .stagger > *", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.1 }, 1.8);
+      tl.to("#disclose",  { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 2.4);
       tl.set({}, {}, 9.0);
 
       window.__timelines = window.__timelines || {};
       window.__timelines["risk-triage"] = tl;
 
-      // If audio is present, pad the timeline to its full duration so the
-      // narration isn't truncated by the deterministic seek.
       var a = (window.__hfData || {}).audio;
       if (a && a.enabled && a.duration > 9) {
         tl.set({}, {}, Math.ceil(a.duration * 10) / 10);

@@ -21,6 +21,7 @@ const TOKEN = /{{\s*([a-zA-Z0-9_.[\]]+)\s*}}/g;
 const HF_DATA_MARKER = "<!-- @hf-data -->";
 const HF_STYLES_MARKER = "<!-- @hf-styles -->";
 const HF_AUDIO_MARKER = "<!-- @hf-audio -->";
+const HF_LOGO_MARKER = "<!-- @hf-logo -->";
 
 function getByPath(obj, path) {
   return path
@@ -42,21 +43,28 @@ export async function loadTemplate(name) {
   const compositionPath = join(TEMPLATES_DIR, name, "composition.html");
   const sharedCssPath = join(TEMPLATES_DIR, "shared", "styles.css");
   const sharedJsPath = join(TEMPLATES_DIR, "shared", "brand.js");
-  const [html, css, js] = await Promise.all([
+  const logoSvgPath = join(TEMPLATES_DIR, "shared", "logo.svg");
+  const [html, css, js, logo] = await Promise.all([
     readFile(compositionPath, "utf8"),
     readFile(sharedCssPath, "utf8").catch(() => ""),
     readFile(sharedJsPath, "utf8").catch(() => ""),
+    readFile(logoSvgPath, "utf8").catch(() => ""),
   ]);
-  return { html, css, js, compositionPath };
+  return { html, css, js, logo, compositionPath };
 }
 
-export function renderTemplate({ html, css, js }, view) {
+export function renderTemplate({ html, css, js, logo }, view) {
   // All marker substitutions go through a callback form because
   // `String.prototype.replace`'s string-replacement form treats `$&`, `$$`,
   // and friends as backreference escapes. The shared brand.js contains
   // `$$` (jQuery-style multi-select shorthand), so a literal-string replace
   // would silently corrupt the inlined script.
   let out = html;
+  if (out.includes(HF_LOGO_MARKER)) {
+    // Inline the SVG markup directly — browsers render it natively, and
+    // there's no relative-path footgun under Puppeteer headless.
+    out = out.replace(HF_LOGO_MARKER, () => logo || "");
+  }
   if (out.includes(HF_STYLES_MARKER)) {
     const block = `<style>${css}</style>\n<script>${js}</script>`;
     out = out.replace(HF_STYLES_MARKER, () => block);

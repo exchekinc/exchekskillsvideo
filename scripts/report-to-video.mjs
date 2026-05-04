@@ -164,10 +164,11 @@ async function main() {
   if (args.flags["audio-file"] && !args.flags.noAudio) {
     const audioPath = resolve(args.flags["audio-file"]);
     const duration = (await probeAudioDuration(audioPath)) ?? 9;
+    const ext = (audioPath.match(/\.[a-z0-9]+$/i)?.[0] || ".wav").toLowerCase();
     view.audio = {
       script: audioScript,
       enabled: true,
-      src: "vo.wav",
+      src: `vo${ext}`,
       duration,
       volume: 0.95,
       trackIndex: 99,

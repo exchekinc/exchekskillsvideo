@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.1.3] — 2026-05-04
+
+### Changed (theme overhaul to match exchek.us)
+- Inverted color theme: white/light surfaces, near-black text, ExChek
+  purple #411992 as accent. Eyebrow text in purple uppercase tracking
+  (mirrors the website's "EXPORT COMPLIANCE FOR SMB MANUFACTURERS"
+  treatment).
+- Typography: `Outfit` for display headings, `Inter` for body,
+  `JetBrains Mono` for hashes/CFR codes — all in HyperFrames'
+  deterministic font map.
+- New brand-mark: actual ExChek logo SVG inlined into every composition
+  via the new `<!-- @hf-logo -->` marker, paired with "ExChek" wordmark
+  + product line label (e.g. "Risk Triage").
+- All 5 templates rebuilt around the new theme: brand bar, eyebrow,
+  headline (single-line, 80px Outfit), subhead, content cards with
+  subtle border + shadow.
+
+### Added (voice — verified end-to-end)
+- ElevenLabs narration rendered into the MP4. POST to
+  `api.elevenlabs.io/v1/text-to-speech/<voice>` with the
+  `eleven_turbo_v2_5` model, mp3 saved to
+  `~/.cache/exchek/vo-<input_hash>.mp3`, passed to bridge via
+  `--audio-file`. Bridge derives audio extension from the file so
+  mp3/wav/ogg all work.
+
+### Verified
+- `renders/risk-triage-light.mp4` — silent, new theme, 600 KB / 9.0s
+- `renders/risk-triage-narrated.mp4` — narrated, 869 KB / 10.5s,
+  H.264 video + AAC stereo 48kHz audio
+- `renders/classification-light.mp4` — 558 KB / 9.0s
+- `renders/red-flag-light.mp4` — 422 KB / 9.0s
+
 ## [0.1.2] — 2026-05-04
 
 ### Added
