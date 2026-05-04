@@ -74,14 +74,9 @@
   </div>
 
   <h1 id="headline" class="clip headline fadein" data-start="0.35" data-duration="9" data-track-index="3"
-      style="top: 246px;">
-    {{headline}}
+      style="top: 246px; font-size: 80px;">
+    Compliance Report Card
   </h1>
-
-  <div id="subhead" class="clip subhead fadein" data-start="0.55" data-duration="9" data-track-index="4"
-       style="top: 360px;">
-    {{subhead}}
-  </div>
 
   <div id="grade" class="clip grade-display fadein" data-start="0.9" data-duration="9" data-track-index="5">
     <div class="grade" id="gradeValue">—</div>
@@ -91,7 +86,10 @@
   <div id="scores" class="clip scores stagger" data-start="1.4" data-duration="9" data-track-index="6"></div>
 
   <footer id="disclose" class="clip disclosure fadein" data-start="2.8" data-duration="9" data-track-index="7">
-    <div class="lhs">{{brand.disclosure}}</div>
+    <div class="lhs">
+      <span class="ai-warn">{{brand.aiDisclaimer}}</span>
+      {{brand.disclosure}}
+    </div>
     <div class="rhs">{{meta.platform}} · {{meta.model}}</div>
   </footer>
 
@@ -125,7 +123,6 @@
       tl.to("#brand",    { opacity: 1, y: 0, duration: 0.5 }, 0.0);
       tl.to("#eyebrow",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
       tl.to("#headline", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.35);
-      tl.to("#subhead",  { opacity: 1, y: 0, duration: 0.6 }, 0.55);
       tl.from("#grade .grade", { scale: 0.6, duration: 0.9, ease: "back.out(1.7)" }, 0.9);
       tl.to("#grade",   { opacity: 1, y: 0, duration: 0.6 }, 0.9);
       tl.to("#scores",  { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.4);

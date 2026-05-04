@@ -85,7 +85,10 @@
   </div>
 
   <footer id="disclose" class="clip disclosure fadein" data-start="3.0" data-duration="12" data-track-index="5">
-    <div class="lhs">{{brand.disclosure}}</div>
+    <div class="lhs">
+      <span class="ai-warn">{{brand.aiDisclaimer}}</span>
+      {{brand.disclosure}}
+    </div>
     <div class="rhs">{{meta.platform}} · {{meta.model}}</div>
   </footer>
 

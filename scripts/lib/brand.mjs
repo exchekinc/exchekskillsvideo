@@ -38,4 +38,11 @@ export const BRAND = {
   disclosureLine() {
     return "Generated with ExChekSkills + Claude. Video is a summary only — see the .docx for the audit-of-record.";
   },
+  // Required by Anthropic's responsible-AI guidance and a useful signal for
+  // viewers who may not realize the content is auto-generated. Rendered
+  // separately from the audit-of-record line so the regulatory pointer
+  // doesn't get diluted.
+  aiDisclaimer() {
+    return "AI can make mistakes — please double-check responses.";
+  },
 };

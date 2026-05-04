@@ -93,6 +93,7 @@ export function mapReportToView(report, opts = {}) {
       name: BRAND.name,
       productLine: BRAND.productLine,
       disclosure: BRAND.disclosureLine(),
+      aiDisclaimer: BRAND.aiDisclaimer(),
       colors: BRAND.colors,
       riskColor: BRAND.riskColor(overallRisk),
     },

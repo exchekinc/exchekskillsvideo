@@ -77,19 +77,17 @@
   </div>
 
   <h1 id="headline" class="clip headline fadein" data-start="0.45" data-duration="9" data-track-index="4"
-      style="top: 246px; font-size: 80px; line-height: 1.0; color: var(--danger);">
+      style="top: 246px; font-size: 88px; line-height: 1.0; color: var(--danger);">
     {{headline}}
   </h1>
-
-  <div id="subhead" class="clip subhead fadein" data-start="0.65" data-duration="9" data-track-index="5"
-       style="top: 350px; max-width: 1500px;">
-    {{subhead}}
-  </div>
 
   <div id="grid2" class="clip flag-grid stagger" data-start="1.2" data-duration="9" data-track-index="6"></div>
 
   <footer id="disclose" class="clip disclosure fadein" data-start="2.8" data-duration="9" data-track-index="7">
-    <div class="lhs">{{brand.disclosure}}</div>
+    <div class="lhs">
+      <span class="ai-warn">{{brand.aiDisclaimer}}</span>
+      {{brand.disclosure}}
+    </div>
     <div class="rhs">{{meta.platform}} · {{meta.model}}</div>
   </footer>
 
@@ -121,7 +119,6 @@
       tl.to("#brand",    { opacity: 1, y: 0, duration: 0.5 }, 0.0);
       tl.to("#eyebrow",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.3);
       tl.to("#headline", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.45);
-      tl.to("#subhead",  { opacity: 1, y: 0, duration: 0.6 }, 0.65);
       tl.to("#grid2 > *", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.16 }, 1.2);
       tl.to("#disclose", { opacity: 1, y: 0, duration: 0.5 }, 2.8);
       tl.set({}, {}, 9.0);

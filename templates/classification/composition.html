@@ -70,14 +70,9 @@
   </div>
 
   <h1 id="headline" class="clip headline fadein" data-start="0.35" data-duration="9" data-track-index="3"
-      style="top: 246px; font-size: 72px;">
-    {{headline}}
+      style="top: 246px; font-size: 64px;">
+    Export Classification
   </h1>
-
-  <div id="subhead" class="clip subhead fadein" data-start="0.55" data-duration="9" data-track-index="4"
-       style="top: 350px; max-width: 1500px;">
-    {{subhead}}
-  </div>
 
   <div id="eccn" class="clip eccn-display fadein" data-start="0.9" data-duration="9" data-track-index="5">
     <div class="code" id="eccnCode">—</div>
@@ -92,7 +87,10 @@
   </div>
 
   <footer id="disclose" class="clip disclosure fadein" data-start="2.6" data-duration="9" data-track-index="7">
-    <div class="lhs">{{brand.disclosure}}</div>
+    <div class="lhs">
+      <span class="ai-warn">{{brand.aiDisclaimer}}</span>
+      {{brand.disclosure}}
+    </div>
     <div class="rhs">{{meta.platform}} · {{meta.model}} · eCFR pulled {{meta.ecfrPulledAtPretty}}</div>
   </footer>
 
@@ -123,7 +121,6 @@
       tl.to("#brand",    { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.0);
       tl.to("#eyebrow",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
       tl.to("#headline", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.35);
-      tl.to("#subhead",  { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.55);
       tl.from("#eccn .code", { scale: 0.7, duration: 0.9, ease: "back.out(1.6)" }, 0.9);
       tl.to("#eccn",     { opacity: 1, y: 0, duration: 0.6 }, 0.9);
       tl.to("#controls", { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 2.0);

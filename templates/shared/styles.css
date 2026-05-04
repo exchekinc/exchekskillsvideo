@@ -154,6 +154,13 @@ html, body {
   box-shadow: var(--shadow);
   padding: 28px 32px;
 }
+/* Cards used as grid items must participate in layout — drop absolute. */
+.controls > .card,
+.scores > .card,
+.lesson-body > .card,
+.flag-grid > .card {
+  position: static;
+}
 .card .label {
   font-size: 14px;
   letter-spacing: 0.18em;
@@ -263,14 +270,24 @@ html, body {
   right: 80px;
   bottom: 36px;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-faint);
   display: flex;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 24px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
 }
-.disclosure .lhs { max-width: 70%; line-height: 1.5; }
-.disclosure .rhs { text-align: right; line-height: 1.5; }
+.disclosure .lhs { max-width: 65%; line-height: 1.55; }
+.disclosure .rhs { text-align: right; line-height: 1.55; }
+.disclosure .ai-warn {
+  display: block;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 4px;
+  letter-spacing: 0.04em;
+}
 
 /* ─── Citations block ─── */
 .citations {
