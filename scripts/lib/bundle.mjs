@@ -24,7 +24,8 @@ export async function writeBundle({
   const dir = resolve(outDir);
   await mkdir(dir, { recursive: true });
 
-  const compositionPath = join(dir, "composition.html");
+  // HyperFrames discovers compositions by index.html.
+  const compositionPath = join(dir, "index.html");
   const manifestPath = join(dir, "manifest.json");
   const sourcePath = join(dir, "source.json");
   const readmePath = join(dir, "RENDER.md");

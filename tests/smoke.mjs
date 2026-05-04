@@ -9,6 +9,7 @@ import { mapReportToView, pickTemplate } from "../scripts/lib/data-mapper.mjs";
 import { loadTemplate, renderTemplate } from "../scripts/lib/template-loader.mjs";
 import { writeBundle } from "../scripts/lib/bundle.mjs";
 import { detectRenderEnv } from "../scripts/lib/env-detect.mjs";
+import { deriveNarrationScript, __test as audioTest } from "../scripts/lib/audio-script.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -54,6 +55,24 @@ async function main() {
     assert(html.includes("__hfData"), "data blob injected");
     assert(html.includes("window.__timelines"), "GSAP timeline registered");
     assert(!html.includes("{{"), `no unsubstituted tokens (${tpl})`);
+    // Regression guard: $$ in the inlined brand.js must survive the
+    // String.replace() escape rules. If this fails, the runtime collapses
+    // `$$` to `$` and ExChekVideo's $$ alias becomes a duplicate $ key.
+    assert(html.includes("$$: $$"), "brand.js $$ shorthand preserved");
+    assert(html.includes("@hf-audio") === false, "audio marker stripped from output");
+    assert(!html.includes("<audio "), "no audio clip in silent render");
+
+    // Narrated render variant.
+    const audioView = { ...view, audio: { enabled: true, src: "vo.wav", duration: 10, volume: 0.95, trackIndex: 99, start: 0 } };
+    const audioHtml = renderTemplate(loaded, audioView);
+    assert(audioHtml.includes('<audio id="vo"'), "audio clip injected when enabled");
+    assert(audioHtml.includes('src="vo.wav"'), "audio clip references vo.wav");
+
+    // Narration script derivation.
+    const script = deriveNarrationScript(view, tpl);
+    assert(typeof script === "string" && script.length > 10, `narration script derived (${script.length} chars)`);
+    const wordCount = script.split(/\s+/).length;
+    assert(wordCount <= 36, `narration within budget (${wordCount} words)`);
 
     const out = join(tmpDir, `smoke-${file.replace(".json", ".html")}`);
     await writeFile(out, html, "utf8");
@@ -81,6 +100,11 @@ async function main() {
   const env = await detectRenderEnv();
   assert(typeof env.canRender === "boolean", `env-detect canRender (=${env.canRender})`);
   assert(["render", "bundle"].includes(env.recommendation), `env-detect recommends ${env.recommendation}`);
+
+  // Audio script edge cases.
+  console.log(`\n[audio-script]`);
+  assert(audioTest.spokenCode("6A993.a") === "6 A 993 dot a", "spokenCode pads ECCN");
+  assert(audioTest.clampWords("a b c d e f", 3).split(" ").length === 3, "clampWords budget");
 
   console.log(`\n${failures === 0 ? "PASS" : "FAIL"} — ${failures} failure(s)`);
   process.exit(failures === 0 ? 0 : 1);

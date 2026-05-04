@@ -21,13 +21,17 @@ by jurisdiction, RFC, license-req, and exception cards.
    JSON sibling.
 
 ## Steps
-1. CUI gate (inherited).
-2. Run:
+1. CUI gate (inherited from `exchek-video-summary`).
+2. Narration preflight (inherited from `exchek-video-summary` step 0.5):
+   ask the user about ElevenLabs narration up-front and walk them through
+   setup if they want it. See
+   [`exchek-video-summary/references/elevenlabs-setup.md`](../exchek-video-summary/references/elevenlabs-setup.md).
+3. Run:
    ```bash
    node scripts/report-to-video.mjs <report.json> --template classification \
      [--output <path>]
    ```
-3. Confirm the rendered ECCN/USML code matches the determination in the
+4. Confirm the rendered ECCN/USML code matches the determination in the
    source `.docx`. Mismatch usually means the bridge picked the wrong
    determination row — re-run with `--headline "ECCN: XXXXXX"` and
    `--subhead "..."` to pin the values.

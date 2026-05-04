@@ -23,13 +23,16 @@ reference.
    ("When does ENC notification apply?" rather than "5A992 / 5D992").
 
 ## Steps
-1. CUI gate (inherited).
-2. Run:
+1. CUI gate (inherited from `exchek-video-summary`).
+2. Narration preflight (inherited from `exchek-video-summary` step 0.5).
+   Training videos are the highest-ROI use case for narration — strongly
+   recommend the user enable ElevenLabs unless they specifically want silent.
+3. Run:
    ```bash
    node scripts/report-to-video.mjs <report.json> --template training \
      [--headline "..."] [--output <path>]
    ```
-3. For a training library, run in batch:
+4. For a training library, run in batch:
    ```bash
    for f in ~/Documents/ExChek-Reports/*.json; do
      node scripts/report-to-video.mjs "$f" --template training \

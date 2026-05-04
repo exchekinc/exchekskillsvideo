@@ -130,8 +130,14 @@
 
       window.__timelines = window.__timelines || {};
       window.__timelines["training"] = tl;
+
+      var a = (window.__hfData || {}).audio;
+      if (a && a.enabled && a.duration > 12) {
+        tl.set({}, {}, Math.ceil(a.duration * 10) / 10);
+      }
     })();
   </script>
+  <!-- @hf-audio -->
 </div>
 </body>
 </html>

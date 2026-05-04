@@ -21,6 +21,13 @@
 //                       MP4 (CoWork-friendly; no FFmpeg/Chromium needed).
 //   --force-bundle      Force bundle mode even if local render is possible.
 //   --force-render      Force render even if env-detect recommends bundle.
+//   --audio-file <path> Use an existing audio file as the narration track.
+//                       Caller is responsible for generating it (e.g. via the
+//                       ElevenLabs MCP from the wrapping skill).
+//   --audio-script-only Print the derived narration script to stdout and exit.
+//                       Useful for skills that want to feed the script to a
+//                       TTS step without rendering yet.
+//   --no-audio          Render silent (default if --audio-file not supplied).
 //   --dry-run           Write the resolved composition.html into ./.tmp/ and exit.
 //   --help              Show this help.
 
@@ -35,6 +42,8 @@ import {
 } from "./lib/hyperframes-runner.mjs";
 import { detectRenderEnv } from "./lib/env-detect.mjs";
 import { writeBundle } from "./lib/bundle.mjs";
+import { deriveNarrationScript } from "./lib/audio-script.mjs";
+import { probeAudioDuration } from "./lib/audio-probe.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -50,6 +59,8 @@ function parseArgs(argv) {
     else if (tok === "--dry-run") args.flags.dryRun = true;
     else if (tok === "--force-bundle") args.flags.forceBundle = true;
     else if (tok === "--force-render") args.flags.forceRender = true;
+    else if (tok === "--no-audio") args.flags.noAudio = true;
+    else if (tok === "--audio-script-only") args.flags.audioScriptOnly = true;
     else if (tok.startsWith("--")) {
       const key = tok.slice(2);
       const next = argv[i + 1];
@@ -86,6 +97,9 @@ Options:
   --bundle <dir>        Write a portable renderable folder (CoWork-friendly)
   --force-bundle        Use bundle mode even if local render is possible
   --force-render        Try to render even if env-detect recommends bundle
+  --audio-file <path>   Use this audio file as narration track (caller-generated)
+  --audio-script-only   Print the derived narration script and exit
+  --no-audio            Render silent (default when --audio-file not given)
   --dry-run             Emit resolved composition.html to ./.tmp and exit
   -h, --help            This help
 
@@ -136,9 +150,37 @@ async function main() {
     risk: args.flags.risk,
   });
 
+  // Audio: if a caller-provided file is supplied, attach it to the view so
+  // the template emits an <audio> clip; if --audio-script-only is set, we
+  // emit the script and bail (caller will TTS it and re-invoke us).
+  const audioScript = deriveNarrationScript(view, templateName);
+  view.audio = { script: audioScript, enabled: false };
+
+  if (args.flags.audioScriptOnly) {
+    console.log(audioScript);
+    return;
+  }
+
+  if (args.flags["audio-file"] && !args.flags.noAudio) {
+    const audioPath = resolve(args.flags["audio-file"]);
+    const duration = (await probeAudioDuration(audioPath)) ?? 9;
+    view.audio = {
+      script: audioScript,
+      enabled: true,
+      src: "vo.wav",
+      duration,
+      volume: 0.95,
+      trackIndex: 99,
+      start: 0,
+    };
+  }
+
   console.log(`[exchekvideo] report  : ${reportPath}`);
   console.log(`[exchekvideo] skill   : ${view.meta.skill}`);
   console.log(`[exchekvideo] template: ${templateName}`);
+  console.log(
+    `[exchekvideo] audio   : ${view.audio.enabled ? `narrated (${view.audio.duration?.toFixed(1)}s)` : "silent"}`,
+  );
 
   const tpl = await loadTemplate(templateName);
   const html = renderTemplate(tpl, view);
@@ -202,6 +244,7 @@ async function main() {
     fps,
     quality,
     strict: !!args.flags.strict,
+    audioFile: view.audio.enabled ? resolve(args.flags["audio-file"]) : null,
   });
 
   console.log(`[exchekvideo] rendered: ${finalPath}`);

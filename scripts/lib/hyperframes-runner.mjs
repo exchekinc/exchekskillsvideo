@@ -2,8 +2,8 @@
 // about format/quality and surface render errors with useful context.
 
 import { spawn } from "node:child_process";
-import { mkdir, writeFile, rm } from "node:fs/promises";
-import { dirname, join, resolve } from "node:path";
+import { mkdir, writeFile, rm, copyFile } from "node:fs/promises";
+import { dirname, join, resolve, basename } from "node:path";
 import { tmpdir } from "node:os";
 
 export async function renderComposition({
@@ -15,14 +15,19 @@ export async function renderComposition({
   workers = "auto",
   strict = false,
   quiet = false,
+  audioFile = null,
+  audioBasename = "vo.wav",
   extraArgs = [],
 } = {}) {
   if (!html) throw new Error("renderComposition: html is required");
   if (!outputPath) throw new Error("renderComposition: outputPath is required");
 
   const workDir = await mkdtempSafe("exchekvideo-");
-  const compositionPath = join(workDir, "composition.html");
+  const compositionPath = join(workDir, "index.html");
   await writeFile(compositionPath, html, "utf8");
+  if (audioFile) {
+    await copyFile(audioFile, join(workDir, audioBasename));
+  }
   await mkdir(dirname(resolve(outputPath)), { recursive: true });
 
   const args = [
@@ -56,10 +61,13 @@ export async function renderComposition({
   );
 }
 
-export async function previewComposition(html, { port = 3002 } = {}) {
+export async function previewComposition(html, { port = 3002, audioFile = null, audioBasename = "vo.wav" } = {}) {
   const workDir = await mkdtempSafe("exchekvideo-preview-");
-  const compositionPath = join(workDir, "composition.html");
+  const compositionPath = join(workDir, "index.html");
   await writeFile(compositionPath, html, "utf8");
+  if (audioFile) {
+    await copyFile(audioFile, join(workDir, audioBasename));
+  }
   console.log(`[exchekvideo] preview ready in ${workDir}`);
   console.log(`[exchekvideo] open http://localhost:${port} once the studio is up`);
   // hyperframes preview is interactive; foreground it.

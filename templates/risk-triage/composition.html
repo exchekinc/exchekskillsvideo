@@ -25,45 +25,48 @@
     </div>
   </header>
 
-  <h1 id="headline" class="clip headline fadein" data-start="0.2" data-duration="9" data-track-index="2">
+  <h1 id="headline" class="clip headline fadein" data-start="0.2" data-duration="9" data-track-index="2"
+      style="top: 150px; font-size: 84px;">
     {{headline}}
   </h1>
-  <div id="subhead" class="clip subhead fadein" data-start="0.5" data-duration="9" data-track-index="3">
+  <div id="subhead" class="clip subhead fadein" data-start="0.5" data-duration="9" data-track-index="3"
+       style="top: 290px; font-size: 32px;">
     {{subhead}}
   </div>
 
   <div id="gauge" class="clip gauge" data-start="1.2" data-duration="9" data-track-index="4"
-       style="left: 1240px; top: 470px;">
+       style="left: 1340px; top: 460px; width: 290px; height: 290px;">
     <svg viewBox="0 0 200 200">
       <circle class="track" cx="100" cy="100" r="86" fill="none" stroke-width="14"></circle>
       <circle class="fill"  cx="100" cy="100" r="86" fill="none" stroke-width="14"
               stroke-dasharray="540" stroke-dashoffset="540"></circle>
     </svg>
     <div class="gauge-label">
-      <div class="lvl" id="riskLvl">{{risk.label}}</div>
-      <div class="cap">overall risk</div>
+      <div class="lvl" id="riskLvl" style="font-size: 56px;">{{risk.label}}</div>
+      <div class="cap" style="font-size: 16px;">overall risk</div>
     </div>
   </div>
 
   <section id="dets" class="clip card fadein" data-start="1.6" data-duration="9" data-track-index="5"
-           style="left: 56px; top: 470px; width: 1100px; min-height: 280px;">
+           style="left: 56px; top: 460px; width: 1100px; height: 290px; overflow: hidden;">
     <div class="label">Top determinations</div>
-    <ul id="detList" class="list stagger" style="margin-top: 10px;"></ul>
+    <ul id="detList" class="list stagger" style="margin-top: 8px;"></ul>
   </section>
 
   <section id="flags" class="clip card fadein" data-start="2.4" data-duration="9" data-track-index="6"
-           style="left: 56px; top: 800px; width: 1100px; min-height: 180px;">
+           style="left: 56px; top: 770px; width: 1100px; height: 200px; overflow: hidden;">
     <div class="label">Risk flags</div>
-    <ul id="flagList" class="list stagger" style="margin-top: 10px;"></ul>
+    <ul id="flagList" class="list stagger" style="margin-top: 8px;"></ul>
   </section>
 
   <section id="cites" class="clip card fadein" data-start="3.0" data-duration="9" data-track-index="7"
-           style="left: 1180px; top: 800px; width: 680px; min-height: 180px;">
+           style="left: 1180px; top: 770px; width: 680px; height: 200px; overflow: hidden;">
     <div class="label">Regulatory currency</div>
-    <div class="citations stagger" id="citeList" style="margin-top: 14px;"></div>
+    <div class="citations stagger" id="citeList" style="margin-top: 10px;"></div>
   </section>
 
-  <footer id="disclose" class="clip disclosure fadein" data-start="3.6" data-duration="9" data-track-index="8">
+  <footer id="disclose" class="clip disclosure fadein" data-start="3.6" data-duration="9" data-track-index="8"
+          style="bottom: 24px;">
     <div class="lhs">{{brand.disclosure}}</div>
     <div class="rhs">{{meta.platform}} · {{meta.model}}<br/>schema {{meta.schemaVersion}}</div>
   </footer>
@@ -82,7 +85,7 @@
                '</div>';
       });
 
-      ev.fillList("#flagList", (d.flags || []).slice(0, 4), function (it) {
+      ev.fillList("#flagList", (d.flags || []).slice(0, 2), function (it) {
         return '<span class="marker"></span><div class="body"><div class="title">' +
                escapeHtml(it.label) + '</div>' +
                (it.detail ? '<div class="detail">' + escapeHtml(it.detail) + '</div>' : '') +
@@ -124,8 +127,16 @@
 
       window.__timelines = window.__timelines || {};
       window.__timelines["risk-triage"] = tl;
+
+      // If audio is present, pad the timeline to its full duration so the
+      // narration isn't truncated by the deterministic seek.
+      var a = (window.__hfData || {}).audio;
+      if (a && a.enabled && a.duration > 9) {
+        tl.set({}, {}, Math.ceil(a.duration * 10) / 10);
+      }
     })();
   </script>
+  <!-- @hf-audio -->
 </div>
 </body>
 </html>

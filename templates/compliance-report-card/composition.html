@@ -125,8 +125,14 @@
 
       window.__timelines = window.__timelines || {};
       window.__timelines["compliance-report-card"] = tl;
+
+      var a = (window.__hfData || {}).audio;
+      if (a && a.enabled && a.duration > 9) {
+        tl.set({}, {}, Math.ceil(a.duration * 10) / 10);
+      }
     })();
   </script>
+  <!-- @hf-audio -->
 </div>
 </body>
 </html>

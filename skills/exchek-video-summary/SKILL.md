@@ -40,6 +40,81 @@ Inherit from upstream `exchekskills`: refuse if the report's
 true. Video output is intended for executive consumption, not classified
 material.
 
+### Step 0.5 — Narration preflight (ElevenLabs)
+
+Before any rendering, decide narration vs silent and resolve credentials
+**up front** so the user isn't surprised mid-render.
+
+**Step 0.5a — ask the user (only on first run per session):**
+
+> "ExChek videos can be rendered silent or with ElevenLabs narration.
+> Narrated videos are ~10× more shareable for executive briefings. Want
+> me to set up ElevenLabs now? (yes / silent / what does it cost?)"
+
+If they say *silent*, jump to step 1 with `--no-audio` queued.
+
+If they say *yes*, run the detection in 0.5b. If they ask about cost,
+quote ~1 cent per video (see
+[`references/elevenlabs-setup.md`](references/elevenlabs-setup.md)) and
+ask again.
+
+**Step 0.5b — detect what's available:**
+
+```javascript
+// Pseudocode for the skill loop, not literal:
+if (mcp_tool_available("mcp__ElevenLabs_Player__generate_tts")) {
+  // Connector / MCP is wired up. Proceed.
+  narration = "elevenlabs-mcp";
+} else if (process.env.ELEVENLABS_API_KEY) {
+  // Local key. Skill will use direct REST API call.
+  narration = "elevenlabs-direct";
+} else {
+  // Nothing wired. Tell the user how, then halt.
+  narration = "needs-setup";
+}
+```
+
+**Step 0.5c — if `needs-setup`, prompt by surface:**
+
+The runtime determines which message to show:
+
+- **Claude.ai web / Claude CoWork:**
+
+  > "I need ElevenLabs to generate narration. In the sidebar:
+  > **Connectors → ElevenLabs → Connect**. Then come back and say 'ready'.
+  > Or say 'silent' to render without narration."
+
+- **Claude Code CLI / Claude desktop (local):**
+
+  > "I need ElevenLabs to generate narration. Either:
+  > 1. Set `ELEVENLABS_API_KEY=sk_...` in your shell, or
+  > 2. Install the MCP: `claude mcp add elevenlabs npx -y @elevenlabs/elevenlabs-mcp --env ELEVENLABS_API_KEY=sk_...`
+  >
+  > Then say 'ready'. Or say 'silent' to render without narration."
+
+**Do not proceed to step 1 until the user picks one of: configured, silent, or cancel.**
+This is the central UX requirement — the user should never get partway
+through a render and find out they need to install something.
+
+### Step 0.6 — Generate narration audio (only if narration enabled)
+
+Get the script the bridge will read:
+
+```bash
+node scripts/report-to-video.mjs <report.json> --audio-script-only
+```
+
+Show the script to the user, ask to confirm or edit. Once approved,
+generate the audio:
+
+- **MCP path** — call `mcp__ElevenLabs_Player__generate_tts` with the
+  approved script, save to `~/.cache/exchek/vo-<input_hash>.wav`.
+- **Direct API path** — POST to `api.elevenlabs.io/v1/text-to-speech/<voice_id>`
+  with the script, save to the same cache path.
+
+The cache is keyed on `input_hash`, so re-renders of the same report
+reuse the audio (deterministic).
+
 ### Step 1 — Locate the JSON
 If the user names a skill but not a file, look in their configured ExChek
 output folder (default `~/Documents/ExChek-Reports`) for the most recent
@@ -56,9 +131,19 @@ mapping without burning a render. Show the user the chosen template; offer
 the four named templates if they want to override.
 
 ### Step 3 — Render
+With narration:
 ```bash
-node scripts/report-to-video.mjs <report.json> [--template <name>] [--output <path>]
+node scripts/report-to-video.mjs <report.json> \
+  --audio-file ~/.cache/exchek/vo-<input_hash>.wav \
+  [--template <name>] [--output <path>]
 ```
+
+Silent:
+```bash
+node scripts/report-to-video.mjs <report.json> --no-audio \
+  [--template <name>] [--output <path>]
+```
+
 On a typical workstation this takes 15–60 seconds depending on quality.
 Surface the HyperFrames render output to the user; do not silently swallow
 warnings.

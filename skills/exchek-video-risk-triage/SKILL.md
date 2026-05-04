@@ -22,7 +22,12 @@ classification, and emphasizes the escalation recommendation.
    force the gauge for a hypothetical.
 
 ## Steps
-1. Inherit step 0 (CUI gate) from `exchek-video-summary`.
+1. Inherit step 0 (CUI gate) AND step 0.5 (ElevenLabs narration preflight)
+   from [`exchek-video-summary`](../exchek-video-summary/SKILL.md). The
+   preflight asks the user about narration up-front and walks them
+   through connector / API-key setup if they want it. Do not skip
+   straight to render — the user should never discover mid-pipeline that
+   they need to install something.
 2. Confirm the JSON skill name is `exchek-risk-triage` or
    `exchek-compliance-report` (acceptable substitute). Warn otherwise.
 3. Run:

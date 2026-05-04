@@ -155,10 +155,10 @@ html, body {
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  padding: 12px 0;
+  padding: 8px 0;
   border-bottom: 1px solid rgba(255,255,255,0.06);
-  font-size: 24px;
-  line-height: 1.4;
+  font-size: 22px;
+  line-height: 1.35;
 }
 .list li:last-child { border-bottom: none; }
 .list li .marker {
@@ -173,9 +173,18 @@ html, body {
 .list li.flag-medium .marker  { background: var(--warn); }
 .list li.flag-low .marker     { background: var(--success); }
 .list li.flag-info .marker    { background: var(--accent-tint); }
-.list li .body { flex: 1 1 auto; }
+.list li .body { flex: 1 1 auto; min-width: 0; }
 .list li .title { font-weight: 600; }
-.list li .detail { color: var(--text-muted); font-size: 20px; margin-top: 4px; }
+.list li .detail {
+  color: var(--text-muted);
+  font-size: 18px;
+  margin-top: 4px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
 
 .gauge {
   position: absolute;

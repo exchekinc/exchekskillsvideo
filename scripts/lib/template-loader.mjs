@@ -20,6 +20,7 @@ const TEMPLATES_DIR = resolve(__dirname, "..", "..", "templates");
 const TOKEN = /{{\s*([a-zA-Z0-9_.[\]]+)\s*}}/g;
 const HF_DATA_MARKER = "<!-- @hf-data -->";
 const HF_STYLES_MARKER = "<!-- @hf-styles -->";
+const HF_AUDIO_MARKER = "<!-- @hf-audio -->";
 
 function getByPath(obj, path) {
   return path
@@ -50,27 +51,46 @@ export async function loadTemplate(name) {
 }
 
 export function renderTemplate({ html, css, js }, view) {
-  // 1. Inline shared assets.
+  // All marker substitutions go through a callback form because
+  // `String.prototype.replace`'s string-replacement form treats `$&`, `$$`,
+  // and friends as backreference escapes. The shared brand.js contains
+  // `$$` (jQuery-style multi-select shorthand), so a literal-string replace
+  // would silently corrupt the inlined script.
   let out = html;
   if (out.includes(HF_STYLES_MARKER)) {
     const block = `<style>${css}</style>\n<script>${js}</script>`;
-    out = out.replace(HF_STYLES_MARKER, block);
+    out = out.replace(HF_STYLES_MARKER, () => block);
   }
-  // 2. Token substitution (plain text values, HTML-escaped).
   out = out.replace(TOKEN, (_, path) => {
     const v = getByPath(view, path);
     if (v == null) return "";
     return escapeHtml(v);
   });
-  // 3. Inject the full data blob for templates that build content dynamically.
   if (out.includes(HF_DATA_MARKER)) {
     const json = JSON.stringify(view).replace(/</g, "\\u003c");
-    out = out.replace(
-      HF_DATA_MARKER,
-      `<script>window.__hfData = ${json};</script>`,
-    );
+    const block = `<script>window.__hfData = ${json};</script>`;
+    out = out.replace(HF_DATA_MARKER, () => block);
+  }
+  if (out.includes(HF_AUDIO_MARKER)) {
+    const audioBlock = view?.audio?.enabled
+      ? buildAudioClip(view.audio)
+      : "";
+    out = out.replace(HF_AUDIO_MARKER, () => audioBlock);
   }
   return out;
+}
+
+function buildAudioClip(audio) {
+  const src = audio.src || "vo.wav";
+  const start = Number(audio.start ?? 0);
+  const dur = Number(audio.duration ?? 9);
+  const vol = Number(audio.volume ?? 0.95);
+  const trackIndex = Number(audio.trackIndex ?? 99);
+  return (
+    `<audio id="vo" data-start="${start}" data-duration="${dur}" ` +
+    `data-track-index="${trackIndex}" data-volume="${vol}" ` +
+    `src="${escapeHtml(src)}"></audio>`
+  );
 }
 
 export const __test = { getByPath, escapeHtml };
