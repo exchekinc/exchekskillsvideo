@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "skill": {
+    "name": "exchek-red-flag-assessment",
+    "version": "1.4.0",
+    "commit_sha7": "a1b2c3d"
+  },
+  "generated": {
+    "at": "2026-05-04T16:05:18Z",
+    "model": "claude-sonnet-4-6",
+    "platform": "Claude Code",
+    "environment": "macos-darwin25",
+    "input_hash": "c5b3a1d9e80f"
+  },
+  "privacy_attestation": {
+    "tier": "standard",
+    "attested_by": "matt@exchek.us",
+    "attested_at": "2026-05-04T16:05:05Z",
+    "minimum_met": true
+  },
+  "cui_check": {
+    "cui": false,
+    "classified": false,
+    "itar_126_18": false,
+    "on_prem_required": false
+  },
+  "inputs": {
+    "transaction_id": "TX-2026-05-1184",
+    "consignee": "Northstar Trading FZE",
+    "destination": "United Arab Emirates",
+    "item_description": "High-frequency oscilloscopes (TBO-4400 series)"
+  },
+  "regulatory_currency": {
+    "ecfr_pulled_at": "2026-05-04T15:00:00Z",
+    "cfr_parts": ["15 CFR 732 Supp. 3", "15 CFR 744.6"],
+    "data_source": "eCFR API"
+  },
+  "determinations": [
+    { "label": "Overall risk", "value": "High" },
+    { "label": "Indicators tripped", "value": "4 of 12" },
+    { "label": "Recommendation", "value": "Halt and escalate to legal" }
+  ],
+  "risk_flags": [
+    {
+      "severity": "high",
+      "label": "Free-zone consignee",
+      "detail": "FZE consignees commonly transship; downstream end-user opaque without EUC."
+    },
+    {
+      "severity": "high",
+      "label": "Item-vs-end-use mismatch",
+      "detail": "TBO-4400 spec exceeds the bandwidth typically required for the stated 'university lab use'."
+    },
+    {
+      "severity": "medium",
+      "label": "Payment routing anomaly",
+      "detail": "Wire originates from a third-country broker, not the named consignee."
+    },
+    {
+      "severity": "medium",
+      "label": "Diversion-route history",
+      "detail": "Three prior shipments to this consignee were ultimately delivered to a different country."
+    }
+  ],
+  "citations": [
+    { "cfr": "15 CFR 732 Supp. 3 (Red Flags)", "url": "https://www.ecfr.gov/current/title-15/part-732", "pulled_at": "2026-05-04T15:00:00Z" },
+    { "cfr": "15 CFR 744.6 (Knowledge)", "url": "https://www.ecfr.gov/current/title-15/section-744.6", "pulled_at": "2026-05-04T15:00:00Z" },
+    { "cfr": "15 CFR 736.2 (Ten General Prohibitions)", "url": "https://www.ecfr.gov/current/title-15/section-736.2", "pulled_at": "2026-05-04T15:00:00Z" }
+  ],
+  "injection_attempts": [],
+  "hitl_confirmation": {
+    "confirmed": true,
+    "confirmed_at": "2026-05-04T16:05:12Z",
+    "determinations_confirmed": ["Overall risk", "Recommendation"]
+  },
+  "report": {
+    "docx_basename": "ExChek-RedFlag-2026-05-04-Northstar.docx",
+    "docx_path_relative": "ExChek-RedFlag-2026-05-04-Northstar.docx"
+  },
+  "next_actions": [
+    "Halt the shipment pending compliance officer review",
+    "Issue end-user verification questionnaire to consignee",
+    "Cross-check payment originator against OFAC / CSL",
+    "Escalate to legal if any indicator remains unresolved"
+  ],
+  "caveats": [
+    "Red-flag determinations are screening signals, not denials. The export may still proceed after due diligence resolves the indicators."
+  ]
+}

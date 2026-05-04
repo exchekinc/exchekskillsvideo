@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ExChek Classification</title>
+<!-- @hf-styles -->
+<style>
+  .eccn-display {
+    position: absolute;
+    left: 56px;
+    top: 460px;
+    width: 1808px;
+    text-align: center;
+  }
+  .eccn-display .code {
+    font-family: var(--font-mono);
+    font-size: 240px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+  }
+  .eccn-display .juris {
+    margin-top: 16px;
+    font-size: 32px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .controls {
+    position: absolute;
+    left: 56px;
+    right: 56px;
+    top: 800px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .controls .card { position: relative; min-height: 140px; }
+  .controls .card .label { font-size: 16px; }
+  .controls .card .value { font-size: 36px; line-height: 1.1; }
+</style>
+</head>
+<body>
+
+<div id="root"
+     data-composition-id="classification"
+     data-start="0"
+     data-width="1920"
+     data-height="1080"
+     class="stage">
+
+  <div id="grid" class="clip grid-overlay" data-start="0" data-duration="9" data-track-index="0"></div>
+
+  <header id="brand" class="clip brand-bar fadein" data-start="0" data-duration="9" data-track-index="1">
+    <div class="brand-mark"><span class="dot"></span><span>{{brand.name}}</span><span style="opacity:.5">·</span><span>Export Classification</span></div>
+    <div class="meta">
+      <span>skill: {{meta.skill}}</span>
+      &nbsp;&nbsp;<span>generated: {{meta.generatedAtPretty}}</span>
+    </div>
+  </header>
+
+  <h1 id="headline" class="clip headline fadein" data-start="0.2" data-duration="9" data-track-index="2"
+      style="font-size: 72px; top: 180px;">
+    {{headline}}
+  </h1>
+  <div id="subhead" class="clip subhead fadein" data-start="0.5" data-duration="9" data-track-index="3"
+       style="top: 290px; font-size: 30px;">
+    {{subhead}}
+  </div>
+
+  <div id="eccn" class="clip eccn-display fadein" data-start="0.8" data-duration="9" data-track-index="4">
+    <div class="code" id="eccnCode">—</div>
+    <div class="juris" id="jurisLabel">EAR · Bureau of Industry and Security</div>
+  </div>
+
+  <div id="controls" class="clip controls stagger" data-start="2.0" data-duration="9" data-track-index="5">
+    <div class="card"><div class="label">Reason for control</div><div class="value" id="rfc">—</div></div>
+    <div class="card"><div class="label">License req?</div><div class="value" id="lreq">—</div></div>
+    <div class="card"><div class="label">Exception?</div><div class="value" id="lexc">—</div></div>
+    <div class="card"><div class="label">Confidence</div><div class="value" id="conf">—</div></div>
+  </div>
+
+  <footer id="disclose" class="clip disclosure fadein" data-start="3.0" data-duration="9" data-track-index="6">
+    <div class="lhs">{{brand.disclosure}}</div>
+    <div class="rhs">{{meta.platform}} · {{meta.model}}<br/>eCFR pulled {{meta.ecfrPulledAtPretty}}</div>
+  </footer>
+
+  <!-- @hf-data -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var d = window.__hfData || {};
+      function setT(id, v) { var el = document.getElementById(id); if (el) el.textContent = v == null || v === "" ? "—" : v; }
+
+      // Pull common classification fields out of determinations[]
+      var dets = d.determinations || [];
+      function find(rx) { return (dets.find(function(x){ return rx.test(x.label || ""); }) || {}).value; }
+      var eccn = find(/eccn|usml|ccatu|classification/i) || (dets[0] && dets[0].value);
+      var juris = find(/juris/i);
+      var rfc  = find(/reason.*control|rfc/i);
+      var lreq = find(/license.*req/i);
+      var lexc = find(/excep/i);
+      var conf = (dets[0] && dets[0].confidence != null) ? Math.round(dets[0].confidence * 100) + "%" : null;
+
+      setT("eccnCode", eccn || "—");
+      if (juris) setT("jurisLabel", String(juris).toUpperCase() + " · classification jurisdiction");
+      setT("rfc", rfc);
+      setT("lreq", lreq);
+      setT("lexc", lexc);
+      setT("conf", conf);
+
+      var tl = gsap.timeline({ paused: true });
+      tl.to("#brand",    { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.0);
+      tl.to("#headline", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.to("#subhead",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.5);
+      tl.from("#eccn .code", { scale: 0.6, duration: 0.9, ease: "back.out(1.6)" }, 0.8);
+      tl.to("#eccn",     { opacity: 1, y: 0, duration: 0.6 }, 0.8);
+      tl.to("#controls", { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 2.0);
+      tl.to("#controls .stagger > *", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.12 }, 2.1);
+      tl.to("#disclose", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 3.0);
+      tl.set({}, {}, 9.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["classification"] = tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

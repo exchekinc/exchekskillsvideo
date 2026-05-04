@@ -1,0 +1,9 @@
+name: exchek-video-classification
+description: Render an export classification (ECCN/USML) briefing video (MP4) from an exchek-classify JSON sibling. Use when the user wants a visual classification briefing.
+version: "0.1.0"
+main: SKILL.md
+compatibility:
+  - Claude Code
+  - Claude desktop
+  - Claude CoWork
+  - Claude web

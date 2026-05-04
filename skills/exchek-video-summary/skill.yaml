@@ -1,0 +1,9 @@
+name: exchek-video-summary
+description: Render an audit-ready compliance video summary (MP4) from any exchekskills JSON sibling output. Auto-detects the right template from the source skill name. Use when the user wants a video version of an existing ExChek report.
+version: "0.1.0"
+main: SKILL.md
+compatibility:
+  - Claude Code
+  - Claude desktop
+  - Claude CoWork
+  - Claude web

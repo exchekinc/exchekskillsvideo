@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "skill": {
+    "name": "exchek-risk-triage",
+    "version": "1.4.0",
+    "commit_sha7": "a1b2c3d"
+  },
+  "generated": {
+    "at": "2026-05-04T14:22:11Z",
+    "model": "claude-sonnet-4-6",
+    "platform": "Claude Code",
+    "environment": "macos-darwin25",
+    "input_hash": "9f2c4d8a1e7b"
+  },
+  "privacy_attestation": {
+    "tier": "standard",
+    "attested_by": "matt@exchek.us",
+    "attested_at": "2026-05-04T14:21:55Z",
+    "minimum_met": true
+  },
+  "cui_check": {
+    "cui": false,
+    "classified": false,
+    "itar_126_18": false,
+    "on_prem_required": false
+  },
+  "inputs": {
+    "consignee": "Acme Robotics GmbH",
+    "destination": "Germany",
+    "item_description": "Industrial servo motor controllers",
+    "end_use": "Automotive assembly line",
+    "screening_results": {
+      "csl_hits": 0,
+      "country_risk": "low"
+    }
+  },
+  "regulatory_currency": {
+    "ecfr_pulled_at": "2026-05-04T13:00:00Z",
+    "cfr_parts": ["15 CFR 738", "15 CFR 740", "15 CFR 744"],
+    "data_source": "eCFR API",
+    "external_lists": [
+      { "name": "CSL", "pulled_at": "2026-05-04T12:55:00Z" },
+      { "name": "OFAC SDN", "pulled_at": "2026-05-04T12:55:00Z" }
+    ]
+  },
+  "determinations": [
+    { "label": "Overall risk", "value": "Medium", "confidence": 0.84 },
+    { "label": "Recommendation", "value": "Hold for review", "citation": "15 CFR 744.6(c)" },
+    { "label": "ECCN (assumed)", "value": "3A992.a", "confidence": 0.71, "citation": "15 CFR 774 Cat. 3" },
+    { "label": "License req?", "value": "NLR (NLR + AT)", "confidence": 0.78 }
+  ],
+  "risk_flags": [
+    {
+      "severity": "medium",
+      "label": "End-use ambiguity",
+      "detail": "Customer-stated end-use does not match product technical specs (controller spec exceeds typical automotive servo torque)."
+    },
+    {
+      "severity": "low",
+      "label": "Country watch",
+      "detail": "Germany is a Country Group A:1 destination — low base risk, but proximity routing has been observed."
+    },
+    {
+      "severity": "medium",
+      "label": "Distributor flow-down missing",
+      "detail": "No EUC on file from the consignee for downstream resale. Required by ECP §3.4 before release."
+    }
+  ],
+  "citations": [
+    { "cfr": "15 CFR 744.6(c)", "url": "https://www.ecfr.gov/current/title-15/section-744.6", "pulled_at": "2026-05-04T13:00:00Z" },
+    { "cfr": "15 CFR 740 Supp 1", "url": "https://www.ecfr.gov/current/title-15/part-740", "pulled_at": "2026-05-04T13:00:00Z" },
+    { "cfr": "15 CFR 774 Cat. 3", "url": "https://www.ecfr.gov/current/title-15/part-774", "pulled_at": "2026-05-04T13:00:00Z" },
+    { "cfr": "BIS Supp. 3 to 732", "url": "https://www.ecfr.gov/current/title-15/part-732", "pulled_at": "2026-05-04T13:00:00Z" }
+  ],
+  "injection_attempts": [],
+  "hitl_confirmation": {
+    "confirmed": true,
+    "confirmed_at": "2026-05-04T14:22:00Z",
+    "determinations_confirmed": ["Overall risk", "Recommendation"]
+  },
+  "report": {
+    "docx_basename": "ExChek-RiskTriage-2026-05-04-AcmeRobotics.docx",
+    "docx_path_relative": "ExChek-RiskTriage-2026-05-04-AcmeRobotics.docx"
+  },
+  "next_actions": [
+    "Request signed end-use certificate from Acme Robotics GmbH",
+    "Re-screen consignee weekly until shipment release",
+    "Refresh ECCN classification with Engineering before license decision",
+    "Document hold rationale in transaction ledger"
+  ],
+  "caveats": [
+    "Determination relies on customer-stated end-use; not independently verified.",
+    "Country group A:1 status as of 2026-05-04; verify before license action."
+  ]
+}

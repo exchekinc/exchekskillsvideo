@@ -1,0 +1,9 @@
+name: exchek-video-red-flag
+description: Render an attention-grabbing red-flag-assessment video (MP4) from an exchek-red-flag-assessment JSON sibling. Use when the user wants to surface red flags visually.
+version: "0.1.0"
+main: SKILL.md
+compatibility:
+  - Claude Code
+  - Claude desktop
+  - Claude CoWork
+  - Claude web

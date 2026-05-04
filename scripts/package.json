@@ -1,0 +1,8 @@
+{
+  "name": "@exchek/exchekskillsvideo-scripts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Bridge scripts between exchekskills JSON output and HyperFrames render pipeline.",
+  "main": "report-to-video.mjs"
+}

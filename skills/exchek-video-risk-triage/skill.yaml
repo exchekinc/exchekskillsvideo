@@ -1,0 +1,9 @@
+name: exchek-video-risk-triage
+description: Render a focused risk-triage executive briefing video (MP4) from an exchek-risk-triage JSON sibling. Use when the user wants a shareable exec video of a risk determination.
+version: "0.1.0"
+main: SKILL.md
+compatibility:
+  - Claude Code
+  - Claude desktop
+  - Claude CoWork
+  - Claude web

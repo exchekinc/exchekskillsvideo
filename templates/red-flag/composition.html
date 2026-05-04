@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ExChek Red Flag Assessment</title>
+<!-- @hf-styles -->
+<style>
+  .alert-bar {
+    position: absolute;
+    top: 130px;
+    left: 56px;
+    right: 56px;
+    height: 6px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--danger), var(--warn));
+    box-shadow: 0 0 30px rgba(255,92,122,0.6);
+    transform-origin: left center;
+  }
+  .flag-grid {
+    position: absolute;
+    left: 56px;
+    right: 56px;
+    top: 460px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .flag-card { position: relative; padding: 28px 32px; min-height: 220px; }
+  .flag-card .sev {
+    position: absolute;
+    top: 24px; right: 28px;
+    font-size: 18px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+  .flag-card.flag-high   .sev { color: var(--danger);  background: rgba(255,92,122,0.16); }
+  .flag-card.flag-medium .sev { color: var(--warn);    background: rgba(246,183,60,0.16); }
+  .flag-card.flag-low    .sev { color: var(--success); background: rgba(61,214,140,0.16); }
+  .flag-card .title { font-size: 32px; font-weight: 700; margin-top: 8px; }
+  .flag-card .detail { color: var(--text-muted); font-size: 22px; margin-top: 12px; line-height: 1.45; }
+</style>
+</head>
+<body>
+
+<div id="root"
+     data-composition-id="red-flag"
+     data-start="0"
+     data-width="1920"
+     data-height="1080"
+     class="stage">
+
+  <div id="grid" class="clip grid-overlay" data-start="0" data-duration="9" data-track-index="0"></div>
+  <div id="alertBar" class="clip alert-bar" data-start="0.0" data-duration="9" data-track-index="1" style="transform: scaleX(0);"></div>
+
+  <header id="brand" class="clip brand-bar fadein" data-start="0" data-duration="9" data-track-index="2">
+    <div class="brand-mark"><span class="dot"></span><span>{{brand.name}}</span><span style="opacity:.5">·</span><span>Red-Flag Assessment</span></div>
+    <div class="meta">
+      <span>skill: {{meta.skill}}</span>
+      &nbsp;&nbsp;<span>generated: {{meta.generatedAtPretty}}</span>
+    </div>
+  </header>
+
+  <h1 id="headline" class="clip headline fadein" data-start="0.4" data-duration="9" data-track-index="3"
+      style="top: 200px; font-size: 84px; color: var(--danger);">
+    {{headline}}
+  </h1>
+  <div id="subhead" class="clip subhead fadein" data-start="0.7" data-duration="9" data-track-index="4"
+       style="top: 320px;">
+    {{subhead}}
+  </div>
+
+  <div id="grid2" class="clip flag-grid stagger" data-start="1.2" data-duration="9" data-track-index="5"></div>
+
+  <footer id="disclose" class="clip disclosure fadein" data-start="3.5" data-duration="9" data-track-index="6">
+    <div class="lhs">{{brand.disclosure}}</div>
+    <div class="rhs">BIS Supp. 3 to 15 CFR Part 732 · {{meta.platform}} · {{meta.model}}</div>
+  </footer>
+
+  <!-- @hf-data -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var d = window.__hfData || {};
+      var grid = document.getElementById("grid2");
+      var flags = (d.flags || []).slice(0, 4);
+      flags.forEach(function (f) {
+        var card = document.createElement("div");
+        card.className = "card flag-card flag-" + (f.severity || "info");
+        card.innerHTML =
+          '<div class="sev">' + escapeHtml((f.severity || "info").toUpperCase()) + '</div>' +
+          '<div class="label">Indicator</div>' +
+          '<div class="title">' + escapeHtml(f.label || "") + '</div>' +
+          '<div class="detail">' + escapeHtml(f.detail || "") + '</div>';
+        grid.appendChild(card);
+      });
+      function escapeHtml(s) {
+        return String(s == null ? "" : s)
+          .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+      }
+
+      var tl = gsap.timeline({ paused: true });
+      tl.to("#alertBar", { scaleX: 1, duration: 0.7, ease: "expo.out" }, 0.0);
+      tl.to("#brand",    { opacity: 1, y: 0, duration: 0.5 }, 0.0);
+      tl.to("#headline", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.4);
+      tl.to("#subhead",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.7);
+      tl.to("#grid2 .stagger > *, #grid2 > *", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.18 }, 1.2);
+      tl.to("#disclose", { opacity: 1, y: 0, duration: 0.5 }, 3.5);
+      tl.set({}, {}, 9.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["red-flag"] = tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

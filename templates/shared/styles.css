@@ -1,0 +1,232 @@
+/* ExChekSkills Video — shared brand styles. Inlined into every composition
+   by template-loader.mjs at render time. */
+:root {
+  --bg: #0B1020;
+  --bg-end: #131B36;
+  --surface: #161E3A;
+  --surface-muted: #1F2950;
+  --text: #F5F7FF;
+  --text-muted: #A8B0D6;
+  --accent: #5B8DEF;
+  --accent-2: #9B6CF2;
+  --success: #3DD68C;
+  --warn: #F6B73C;
+  --danger: #FF5C7A;
+  --grid: rgba(255, 255, 255, 0.06);
+  --shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  --radius: 18px;
+  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.stage {
+  position: relative;
+  overflow: hidden;
+  width: 1920px;
+  height: 1080px;
+  background:
+    radial-gradient(1200px 800px at 80% 0%, rgba(155, 108, 242, 0.18), transparent 60%),
+    radial-gradient(1000px 700px at 0% 100%, rgba(91, 141, 239, 0.18), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-end) 100%);
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.6), transparent 80%);
+  pointer-events: none;
+}
+
+.brand-bar {
+  position: absolute;
+  top: 48px;
+  left: 56px;
+  right: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 22px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.brand-mark .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 30px rgba(91,141,239,0.6);
+}
+.brand-bar .meta {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.headline {
+  position: absolute;
+  left: 56px;
+  right: 56px;
+  top: 200px;
+  font-size: 96px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.subhead {
+  position: absolute;
+  left: 56px;
+  right: 56px;
+  top: 360px;
+  font-size: 36px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.card {
+  position: absolute;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+  padding: 28px 32px;
+}
+.card .label {
+  font-size: 18px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.card .value {
+  margin-top: 8px;
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.pill.low      { background: rgba(61, 214, 140, 0.14); color: var(--success); border: 1px solid rgba(61, 214, 140, 0.4); }
+.pill.medium   { background: rgba(246, 183, 60, 0.14); color: var(--warn);    border: 1px solid rgba(246, 183, 60, 0.4); }
+.pill.high     { background: rgba(255, 92, 122, 0.14); color: var(--danger);  border: 1px solid rgba(255, 92, 122, 0.4); }
+.pill.review   { background: rgba(91, 141, 239, 0.14); color: var(--accent);  border: 1px solid rgba(91, 141, 239, 0.4); }
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 24px;
+  line-height: 1.4;
+}
+.list li:last-child { border-bottom: none; }
+.list li .marker {
+  flex: 0 0 14px;
+  width: 14px;
+  height: 14px;
+  margin-top: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.list li.flag-high .marker    { background: var(--danger); }
+.list li.flag-medium .marker  { background: var(--warn); }
+.list li.flag-low .marker     { background: var(--success); }
+.list li.flag-info .marker    { background: var(--accent); }
+.list li .body { flex: 1 1 auto; }
+.list li .title { font-weight: 600; }
+.list li .detail { color: var(--text-muted); font-size: 20px; margin-top: 4px; }
+
+.gauge {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+}
+.gauge svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.gauge .track { stroke: rgba(255,255,255,0.08); }
+.gauge .fill  { stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+.gauge-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.gauge-label .lvl {
+  font-size: 88px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.gauge-label .cap {
+  margin-top: 8px;
+  font-size: 22px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.disclosure {
+  position: absolute;
+  left: 56px;
+  right: 56px;
+  bottom: 48px;
+  font-size: 18px;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  font-family: var(--font-mono);
+}
+.disclosure .lhs { max-width: 70%; line-height: 1.5; }
+.disclosure .rhs { text-align: right; }
+
+.citations {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+.citations .row { display: flex; gap: 12px; padding: 6px 0; }
+.citations .row .cfr { color: var(--text); font-weight: 600; }
+
+.fadein, .stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+}

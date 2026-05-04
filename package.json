@@ -1,0 +1,42 @@
+{
+  "name": "exchekskillsvideo",
+  "version": "0.1.0",
+  "description": "Render audit-ready compliance video summaries from ExChekSkills JSON output. Bridges exchekskills (.docx + .json) to HeyGen HyperFrames (.mp4).",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "exchek-video": "./scripts/report-to-video.mjs"
+  },
+  "scripts": {
+    "render": "node scripts/report-to-video.mjs",
+    "render:risk-triage": "node scripts/report-to-video.mjs fixtures/risk-triage-sample.json --template risk-triage --output renders/risk-triage-demo.mp4",
+    "render:classification": "node scripts/report-to-video.mjs fixtures/classification-sample.json --template classification --output renders/classification-demo.mp4",
+    "render:red-flag": "node scripts/report-to-video.mjs fixtures/red-flag-sample.json --template red-flag --output renders/red-flag-demo.mp4",
+    "preview": "node scripts/report-to-video.mjs --preview",
+    "lint:templates": "for d in templates/*/composition.html; do npx hyperframes lint \"$d\" || true; done",
+    "test": "node tests/smoke.mjs",
+    "doctor": "npx hyperframes doctor"
+  },
+  "dependencies": {
+    "hyperframes": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exchekinc/exchekskillsvideo.git"
+  },
+  "keywords": [
+    "exchek",
+    "compliance",
+    "export-control",
+    "ear",
+    "itar",
+    "video",
+    "hyperframes",
+    "claude-skills"
+  ],
+  "author": "ExChek, Inc.",
+  "license": "SEE LICENSE IN LICENSE.md"
+}

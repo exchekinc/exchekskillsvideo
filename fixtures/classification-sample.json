@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "skill": {
+    "name": "exchek-classify",
+    "version": "1.4.0",
+    "commit_sha7": "a1b2c3d"
+  },
+  "generated": {
+    "at": "2026-05-04T15:10:42Z",
+    "model": "claude-sonnet-4-6",
+    "platform": "Claude Code",
+    "environment": "macos-darwin25",
+    "input_hash": "7e1b9c4f2a08"
+  },
+  "privacy_attestation": {
+    "tier": "standard",
+    "attested_by": "matt@exchek.us",
+    "attested_at": "2026-05-04T15:10:30Z",
+    "minimum_met": true
+  },
+  "cui_check": {
+    "cui": false,
+    "classified": false,
+    "itar_126_18": false,
+    "on_prem_required": false
+  },
+  "inputs": {
+    "item": "Pressure transducer, 6000 psi range, MIL-STD-810 qualified",
+    "manufacturer": "Sensonics Inc.",
+    "model_number": "PT-6K-MS"
+  },
+  "regulatory_currency": {
+    "ecfr_pulled_at": "2026-05-04T14:00:00Z",
+    "cfr_parts": ["15 CFR 774 Cat. 6", "22 CFR 121.1 Cat. VIII"],
+    "data_source": "eCFR API"
+  },
+  "determinations": [
+    { "label": "ECCN", "value": "6A993.a", "confidence": 0.88, "citation": "15 CFR 774 Cat. 6" },
+    { "label": "Jurisdiction", "value": "EAR", "confidence": 0.92 },
+    { "label": "Reason for control", "value": "AT (anti-terrorism)" },
+    { "label": "License required?", "value": "No (NLR)" },
+    { "label": "Exception available?", "value": "GBS, LVS" }
+  ],
+  "risk_flags": [
+    {
+      "severity": "low",
+      "label": "MIL-STD-810 qualification",
+      "detail": "Mil-spec qualification is a hint, not a determinant — confirm no proprietary military feature."
+    }
+  ],
+  "citations": [
+    { "cfr": "15 CFR 774 Cat. 6 (6A993)", "url": "https://www.ecfr.gov/current/title-15/part-774", "pulled_at": "2026-05-04T14:00:00Z" },
+    { "cfr": "22 CFR 121.1 Cat. VIII", "url": "https://www.ecfr.gov/current/title-22/section-121.1", "pulled_at": "2026-05-04T14:00:00Z" },
+    { "cfr": "15 CFR 740.4 (GBS)", "url": "https://www.ecfr.gov/current/title-15/section-740.4", "pulled_at": "2026-05-04T14:00:00Z" }
+  ],
+  "injection_attempts": [],
+  "hitl_confirmation": {
+    "confirmed": true,
+    "confirmed_at": "2026-05-04T15:10:38Z",
+    "determinations_confirmed": ["ECCN", "Jurisdiction"]
+  },
+  "report": {
+    "docx_basename": "ExChek-Classify-2026-05-04-PressureTransducer.docx",
+    "docx_path_relative": "ExChek-Classify-2026-05-04-PressureTransducer.docx"
+  },
+  "next_actions": [
+    "Pin classification in PLM under part PT-6K-MS",
+    "Re-classify if MIL-STD spec is revised",
+    "Confirm with engineering that no encryption is implemented"
+  ],
+  "caveats": [
+    "Classification is based on the public datasheet; verify against the FCD if exporting under license exception."
+  ]
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ExChek Compliance Report Card</title>
+<!-- @hf-styles -->
+<style>
+  .grade-display {
+    position: absolute;
+    left: 56px;
+    top: 470px;
+    width: 600px;
+    height: 460px;
+    border-radius: var(--radius);
+    background: linear-gradient(180deg, rgba(91,141,239,0.16), rgba(155,108,242,0.06));
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: var(--shadow);
+  }
+  .grade-display .grade {
+    font-size: 320px;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .grade-display .cap { font-size: 26px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-top: 8px; }
+  .scores {
+    position: absolute;
+    left: 720px;
+    top: 470px;
+    right: 56px;
+    height: 460px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .scores .card { padding: 24px 28px; min-height: 0; }
+  .scores .card .label { font-size: 14px; }
+  .scores .card .value { font-size: 36px; }
+  .scores .bar { margin-top: 16px; height: 10px; border-radius: 6px; background: rgba(255,255,255,0.08); overflow: hidden; }
+  .scores .bar .fill { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transform-origin: left; }
+</style>
+</head>
+<body>
+
+<div id="root"
+     data-composition-id="compliance-report-card"
+     data-start="0"
+     data-width="1920"
+     data-height="1080"
+     class="stage">
+
+  <div id="grid" class="clip grid-overlay" data-start="0" data-duration="9" data-track-index="0"></div>
+
+  <header id="brand" class="clip brand-bar fadein" data-start="0" data-duration="9" data-track-index="1">
+    <div class="brand-mark"><span class="dot"></span><span>{{brand.name}}</span><span style="opacity:.5">·</span><span>Compliance Report Card</span></div>
+    <div class="meta"><span>generated: {{meta.generatedAtPretty}}</span></div>
+  </header>
+
+  <h1 id="headline" class="clip headline fadein" data-start="0.2" data-duration="9" data-track-index="2"
+      style="top: 200px;">
+    {{headline}}
+  </h1>
+  <div id="subhead" class="clip subhead fadein" data-start="0.5" data-duration="9" data-track-index="3"
+       style="top: 350px;">
+    {{subhead}}
+  </div>
+
+  <div id="grade" class="clip grade-display fadein" data-start="1.0" data-duration="9" data-track-index="4">
+    <div class="grade" id="gradeValue">—</div>
+    <div class="cap">overall grade</div>
+  </div>
+
+  <div id="scores" class="clip scores stagger" data-start="1.6" data-duration="9" data-track-index="5"></div>
+
+  <footer id="disclose" class="clip disclosure fadein" data-start="3.4" data-duration="9" data-track-index="6">
+    <div class="lhs">{{brand.disclosure}}</div>
+    <div class="rhs">{{meta.platform}} · {{meta.model}}</div>
+  </footer>
+
+  <!-- @hf-data -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var d = window.__hfData || {};
+      var dets = d.determinations || [];
+      var grade = (dets.find(function(x){ return /grade|overall/i.test(x.label || ""); }) || {}).value || (dets[0] && dets[0].value) || "—";
+      document.getElementById("gradeValue").textContent = String(grade);
+
+      var scoresRoot = document.getElementById("scores");
+      dets.slice(0, 4).forEach(function (det) {
+        var pct = typeof det.confidence === "number" ? Math.max(0, Math.min(1, det.confidence)) : 0.7;
+        var card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML =
+          '<div class="label">' + escapeHtml(det.label || "Score") + '</div>' +
+          '<div class="value">' + escapeHtml(det.value || "—") + '</div>' +
+          '<div class="bar"><span class="fill" data-pct="' + pct + '"></span></div>';
+        scoresRoot.appendChild(card);
+      });
+      function escapeHtml(s) {
+        return String(s == null ? "" : s)
+          .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+      }
+
+      var tl = gsap.timeline({ paused: true });
+      tl.to("#brand",    { opacity: 1, y: 0, duration: 0.5 }, 0.0);
+      tl.to("#headline", { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.to("#subhead",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.5);
+      tl.from("#grade .grade", { scale: 0.6, duration: 0.9, ease: "back.out(1.7)" }, 1.0);
+      tl.to("#grade",   { opacity: 1, y: 0, duration: 0.6 }, 1.0);
+      tl.to("#scores",  { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.6);
+      tl.to("#scores .stagger > *, #scores > *", { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, 1.7);
+      Array.from(document.querySelectorAll("#scores .bar .fill")).forEach(function (el, i) {
+        var pct = parseFloat(el.dataset.pct || "0.7");
+        tl.to(el, { width: (pct * 100).toFixed(1) + "%", duration: 0.8, ease: "power3.out" }, 2.0 + i * 0.12);
+      });
+      tl.to("#disclose", { opacity: 1, y: 0, duration: 0.5 }, 3.4);
+      tl.set({}, {}, 9.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["compliance-report-card"] = tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

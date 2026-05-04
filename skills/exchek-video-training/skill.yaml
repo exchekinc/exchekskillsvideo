@@ -1,0 +1,9 @@
+name: exchek-video-training
+description: Render a 12-second compliance training lesson video (MP4) from any exchekskills JSON sibling. Use when the user wants to convert a determination into a training asset.
+version: "0.1.0"
+main: SKILL.md
+compatibility:
+  - Claude Code
+  - Claude desktop
+  - Claude CoWork
+  - Claude web
