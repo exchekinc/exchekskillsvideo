@@ -36,7 +36,7 @@ export const BRAND = {
     return this.colors.textMuted;
   },
   disclosureLine() {
-    return "Generated with ExChekSkills + Claude. Video is a summary only — see the .docx for the audit-of-record.";
+    return "Generated with ExChek Skills Video Engine. Learn more at exchek.us";
   },
   // Required by Anthropic's responsible-AI guidance and a useful signal for
   // viewers who may not realize the content is auto-generated. Rendered

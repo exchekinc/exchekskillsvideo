@@ -85,6 +85,15 @@ export function renderTemplate({ html, css, js, logo }, view) {
       : "";
     out = out.replace(HF_AUDIO_MARKER, () => audioBlock);
   }
+  // Optional post-pass: when the caller asks to suppress generated/LLM
+  // metadata (typical for custom training videos that aren't tied to a
+  // real exchekskills audit pair), empty the right-side meta block in
+  // the brand bar and the right-side text in the disclosure footer.
+  // The divs themselves are kept so flexbox layout balance survives.
+  if (view?.presentation?.hideMeta) {
+    out = out.replace(/<div class="meta">[\s\S]*?<\/div>/g, () => '<div class="meta"></div>');
+    out = out.replace(/<div class="rhs">[\s\S]*?<\/div>/g, () => '<div class="rhs"></div>');
+  }
   return out;
 }
 

@@ -61,6 +61,7 @@ function parseArgs(argv) {
     else if (tok === "--force-render") args.flags.forceRender = true;
     else if (tok === "--no-audio") args.flags.noAudio = true;
     else if (tok === "--audio-script-only") args.flags.audioScriptOnly = true;
+    else if (tok === "--hide-meta") args.flags.hideMeta = true;
     else if (tok.startsWith("--")) {
       const key = tok.slice(2);
       const next = argv[i + 1];
@@ -100,6 +101,9 @@ Options:
   --audio-file <path>   Use this audio file as narration track (caller-generated)
   --audio-script-only   Print the derived narration script and exit
   --no-audio            Render silent (default when --audio-file not given)
+  --hide-meta           Suppress brand-bar generated/hash/skill text and footer
+                        platform/model/schema text. Use for custom training
+                        videos not tied to a real exchekskills audit pair.
   --dry-run             Emit resolved composition.html to ./.tmp and exit
   -h, --help            This help
 
@@ -149,6 +153,9 @@ async function main() {
     subhead: args.flags.subhead,
     risk: args.flags.risk,
   });
+  if (args.flags.hideMeta) {
+    view.presentation = { ...(view.presentation || {}), hideMeta: true };
+  }
 
   // Audio: if a caller-provided file is supplied, attach it to the view so
   // the template emits an <audio> clip; if --audio-script-only is set, we
