@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ExChek Encryption Controls</title>
+<!-- @hf-styles -->
+<style>
+  .enc-display {
+    position: absolute;
+    left: 80px;
+    right: 80px;
+    top: 440px;
+    text-align: center;
+  }
+  .enc-display .code {
+    font-family: var(--font-display);
+    font-size: 220px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+    line-height: 0.95;
+  }
+  .enc-display .control {
+    margin-top: 28px;
+    font-family: var(--font-mono);
+    font-size: 22px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .enc-cards {
+    position: absolute;
+    left: 80px;
+    right: 80px;
+    bottom: 130px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .enc-cards .card { min-height: 130px; }
+  .enc-cards .card .label { font-size: 12px; }
+  .enc-cards .card .value { font-size: 30px; line-height: 1.1; }
+  .enc-cards .badge { display: inline-block; margin-top: 10px; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; }
+  .enc-cards .badge.ok    { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+  .enc-cards .badge.warn  { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
+  .enc-cards .badge.todo  { background: var(--accent-soft); color: var(--accent); border: 1px solid #DCC9FF; }
+</style>
+</head>
+<body>
+
+<div id="root"
+     data-composition-id="encryption"
+     data-start="0"
+     data-width="1920"
+     data-height="1080"
+     class="stage">
+
+  <div id="grid" class="clip grid-overlay" data-start="0" data-duration="9" data-track-index="0"></div>
+
+  <header id="brand" class="clip brand-bar fadein" data-start="0" data-duration="9" data-track-index="1">
+    <div class="brand-mark">
+      <!-- @hf-logo -->
+      <span class="product">Encryption Controls</span>
+    </div>
+    <div class="meta">
+      <span>skill: {{meta.skill}}</span>
+      <span>generated: {{meta.generatedAtPretty}}</span>
+    </div>
+  </header>
+
+  <div id="eyebrow" class="clip eyebrow fadein" data-start="0.2" data-duration="9" data-track-index="2"
+       style="top: 200px;">
+    Export compliance · 15 CFR 740.17 (ENC)
+  </div>
+
+  <h1 id="headline" class="clip headline fadein" data-start="0.35" data-duration="9" data-track-index="3"
+      style="top: 246px; font-size: 64px;">
+    Encryption Determination
+  </h1>
+
+  <div id="enc" class="clip enc-display fadein" data-start="0.9" data-duration="9" data-track-index="4">
+    <div class="code" id="encCode">—</div>
+    <div class="control" id="encControl">EAR · ENCRYPTION CONTROLLED</div>
+  </div>
+
+  <div id="cards" class="clip enc-cards stagger" data-start="2.0" data-duration="9" data-track-index="5">
+    <div class="card">
+      <div class="label">ENC notification</div>
+      <div class="value" id="notif">—</div>
+      <div id="notifBadge"></div>
+    </div>
+    <div class="card">
+      <div class="label">Mass market eligible</div>
+      <div class="value" id="mass">—</div>
+      <div id="massBadge"></div>
+    </div>
+    <div class="card">
+      <div class="label">Semi-annual report</div>
+      <div class="value" id="sar">—</div>
+      <div id="sarBadge"></div>
+    </div>
+  </div>
+
+  <footer id="disclose" class="clip disclosure fadein" data-start="2.6" data-duration="9" data-track-index="6">
+    <div class="lhs">
+      <span class="ai-warn">{{brand.aiDisclaimer}}</span>
+      {{brand.disclosure}}
+    </div>
+    <div class="rhs">{{meta.platform}} · {{meta.model}}</div>
+  </footer>
+
+  <!-- @hf-data -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var d = window.__hfData || {};
+      var dets = d.determinations || [];
+      function find(rx) { return (dets.find(function (x) { return rx.test(x.label || ""); }) || {}).value; }
+      function setT(id, v) { var el = document.getElementById(id); if (el) el.textContent = v == null || v === "" ? "—" : v; }
+      function setBadge(id, v) {
+        var el = document.getElementById(id); if (!el || !v) return;
+        var s = String(v).toLowerCase();
+        var cls = /yes|on file|filed|submitted|eligible|compliant|current/.test(s) ? "ok" :
+                  /no|missing|expired|overdue|ineligible/.test(s) ? "warn" : "todo";
+        el.innerHTML = '<span class="badge ' + cls + '">' + s.toUpperCase() + '</span>';
+      }
+
+      var code = find(/eccn|class|code/i) || (dets[0] && dets[0].value);
+      var ctl  = find(/control|reason|enc/i);
+      var notif = find(/notification|notify/i);
+      var mass  = find(/mass.*market|mmkt/i);
+      var sar   = find(/semi|annual|report|sar/i);
+
+      setT("encCode", code);
+      if (ctl) setT("encControl", String(ctl).toUpperCase());
+      setT("notif", notif); setBadge("notifBadge", notif);
+      setT("mass", mass);   setBadge("massBadge", mass);
+      setT("sar", sar);     setBadge("sarBadge", sar);
+
+      var tl = gsap.timeline({ paused: true });
+      tl.to("#brand",    { opacity: 1, y: 0, duration: 0.5 }, 0.0);
+      tl.to("#eyebrow",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.to("#headline", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.35);
+      tl.from("#enc .code", { scale: 0.7, duration: 0.9, ease: "back.out(1.6)" }, 0.9);
+      tl.to("#enc",      { opacity: 1, y: 0, duration: 0.6 }, 0.9);
+      tl.to("#cards",    { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 2.0);
+      tl.to("#cards > *", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.12 }, 2.1);
+      tl.to("#disclose", { opacity: 1, y: 0, duration: 0.5 }, 2.6);
+      tl.set({}, {}, 9.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["encryption"] = tl;
+
+      var a = (window.__hfData || {}).audio;
+      if (a && a.enabled && a.duration > 9) {
+        tl.set({}, {}, Math.ceil(a.duration * 10) / 10);
+      }
+    })();
+  </script>
+  <!-- @hf-audio -->
+</div>
+</body>
+</html>

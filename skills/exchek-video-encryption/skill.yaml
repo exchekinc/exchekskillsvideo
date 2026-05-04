@@ -1,0 +1,9 @@
+name: exchek-video-encryption
+description: Render an encryption-controls briefing video from an exchek-encryption JSON sibling. ECCN reveal with ENC notification status.
+version: "0.1.0"
+main: SKILL.md
+compatibility:
+  - Claude Code
+  - Claude desktop
+  - Claude CoWork
+  - Claude web

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ExChek Export Docs</title>
+<!-- @hf-styles -->
+<style>
+  .doc-grid {
+    position: absolute;
+    left: 80px;
+    right: 80px;
+    top: 440px;
+    bottom: 130px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .doc-card {
+    position: relative;
+    padding: 28px 32px;
+  }
+  .doc-card .doc-name {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin-top: 8px;
+  }
+  .doc-card .doc-fields {
+    margin-top: 18px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+  .doc-card .doc-fields .row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--border); }
+  .doc-card .doc-fields .row:last-child { border-bottom: none; }
+  .doc-card .doc-fields .k { font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.04em; color: var(--text-faint); text-transform: uppercase; }
+  .doc-card .doc-fields .v { color: var(--text); font-weight: 600; }
+  .doc-card .status {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .doc-card .status.ready  { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+  .doc-card .status.draft  { background: var(--accent-soft); color: var(--accent); border: 1px solid #DCC9FF; }
+  .doc-card .status.todo   { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
+</style>
+</head>
+<body>
+
+<div id="root"
+     data-composition-id="export-docs"
+     data-start="0"
+     data-width="1920"
+     data-height="1080"
+     class="stage">
+
+  <div id="grid" class="clip grid-overlay" data-start="0" data-duration="9" data-track-index="0"></div>
+
+  <header id="brand" class="clip brand-bar fadein" data-start="0" data-duration="9" data-track-index="1">
+    <div class="brand-mark">
+      <!-- @hf-logo -->
+      <span class="product">Export Documentation</span>
+    </div>
+    <div class="meta">
+      <span>skill: {{meta.skill}}</span>
+      <span>generated: {{meta.generatedAtPretty}}</span>
+    </div>
+  </header>
+
+  <div id="eyebrow" class="clip eyebrow fadein" data-start="0.2" data-duration="9" data-track-index="2"
+       style="top: 200px;">
+    Export compliance · 15 CFR 758 · 15 CFR 30 (FTR)
+  </div>
+
+  <h1 id="headline" class="clip headline fadein" data-start="0.35" data-duration="9" data-track-index="3"
+      style="top: 246px; font-size: 80px;">
+    Export Documents Ready
+  </h1>
+
+  <div id="docs" class="clip doc-grid stagger" data-start="1.0" data-duration="9" data-track-index="4"></div>
+
+  <footer id="disclose" class="clip disclosure fadein" data-start="2.6" data-duration="9" data-track-index="5">
+    <div class="lhs">
+      <span class="ai-warn">{{brand.aiDisclaimer}}</span>
+      {{brand.disclosure}}
+    </div>
+    <div class="rhs">{{meta.platform}} · {{meta.model}}</div>
+  </footer>
+
+  <!-- @hf-data -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var d = window.__hfData || {};
+      var dets = d.determinations || [];
+      function find(rx) { return (dets.find(function (x) { return rx.test(x.label || ""); }) || {}).value; }
+      function escapeHtml(s) {
+        return String(s == null ? "" : s)
+          .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+      }
+
+      var docs = [
+        { kind: "Commercial Invoice", label: "ci", fields: [
+          ["Consignor", find(/consignor|exporter/i)],
+          ["Consignee", find(/consignee|buyer/i)],
+          ["Schedule B", find(/schedule.*b|hts/i)],
+          ["Value (USD)", find(/value|amount/i)],
+        ]},
+        { kind: "Shipper's Letter (SLI)", label: "sli", fields: [
+          ["EEI required?", find(/eei|sli/i)],
+          ["Routed transaction", find(/routed/i) || "No"],
+          ["License authority", find(/license.*auth|nlr/i)],
+        ]},
+        { kind: "AES Filing", label: "aes", fields: [
+          ["ITN", find(/itn|aes/i)],
+          ["Filed by", find(/filer|usppi/i)],
+          ["Country of dest.", find(/dest|country/i)],
+        ]},
+      ];
+
+      var status = (find(/status|state/i) || "ready").toLowerCase();
+      var statusCls = /draft|pending/.test(status) ? "draft" : /todo|missing|incomplete/.test(status) ? "todo" : "ready";
+
+      var grid = document.getElementById("docs");
+      docs.forEach(function (doc) {
+        var card = document.createElement("div");
+        card.className = "card doc-card";
+        var rows = doc.fields.map(function (f) {
+          return '<div class="row"><span class="k">' + escapeHtml(f[0]) + '</span><span class="v">' + escapeHtml(f[1] || "—") + '</span></div>';
+        }).join("");
+        card.innerHTML =
+          '<div class="status ' + statusCls + '">' + statusCls + '</div>' +
+          '<div class="label">Document</div>' +
+          '<div class="doc-name">' + escapeHtml(doc.kind) + '</div>' +
+          '<div class="doc-fields">' + rows + '</div>';
+        grid.appendChild(card);
+      });
+
+      var tl = gsap.timeline({ paused: true });
+      tl.to("#brand",    { opacity: 1, y: 0, duration: 0.5 }, 0.0);
+      tl.to("#eyebrow",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.to("#headline", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.35);
+      tl.to("#docs",     { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.0);
+      tl.to("#docs > *", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.18 }, 1.1);
+      tl.to("#disclose", { opacity: 1, y: 0, duration: 0.5 }, 2.6);
+      tl.set({}, {}, 9.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["export-docs"] = tl;
+
+      var a = (window.__hfData || {}).audio;
+      if (a && a.enabled && a.duration > 9) {
+        tl.set({}, {}, Math.ceil(a.duration * 10) / 10);
+      }
+    })();
+  </script>
+  <!-- @hf-audio -->
+</div>
+</body>
+</html>

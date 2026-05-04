@@ -17,6 +17,14 @@ const TEMPLATE_BUDGETS = {
   "red-flag": 22,
   "compliance-report-card": 22,
   "training": 32,
+  // v1.1
+  "encryption": 24,
+  "deemed-export": 24,
+  "export-docs": 26,
+  "ecp": 24,
+  "audit-lookback": 26,
+  "partner-compliance": 26,
+  "recordkeeping": 24,
 };
 
 export function deriveNarrationScript(view, templateName) {
@@ -73,6 +81,52 @@ const WRITERS = {
     const head = v?.headline || "Compliance summary";
     const sub = v?.subhead || "";
     return `${head}. ${sub}`;
+  },
+  // ─── v1.1 writers ───
+  "encryption": (v) => {
+    const dets = v?.determinations || [];
+    const eccn = (dets.find((d) => /eccn|class/i.test(d.label)) || {}).value || "";
+    const enc  = (dets.find((d) => /enc|notif/i.test(d.label)) || {}).value || "";
+    const mass = (dets.find((d) => /mass.*market/i.test(d.label)) || {}).value || "";
+    return `Encryption controls. ${eccn ? "Code " + spokenCode(eccn) + ". " : ""}${enc ? "Notification " + enc + ". " : ""}${mass ? "Mass market: " + mass + "." : ""}`;
+  },
+  "deemed-export": (v) => {
+    const dets = v?.determinations || [];
+    const det  = (dets.find((d) => /deemed/i.test(d.label)) || dets[0] || {}).value || "review required";
+    const lic  = (dets.find((d) => /license/i.test(d.label)) || {}).value || "";
+    return `Deemed export determination: ${det}. ${lic ? "License " + lic + "." : ""}`;
+  },
+  "export-docs": (v) => {
+    const dets = v?.determinations || [];
+    const aes  = (dets.find((d) => /aes|itn/i.test(d.label)) || {}).value || "";
+    const sli  = (dets.find((d) => /sli/i.test(d.label)) || {}).value || "";
+    return `Export documentation. ${aes ? "AES " + aes + ". " : ""}${sli ? "Shipper letter: " + sli + ". " : ""}Audit-ready package generated.`;
+  },
+  "ecp": (v) => {
+    const dets = v?.determinations || [];
+    const grade = (dets.find((d) => /grade|maturity|overall/i.test(d.label)) || {}).value || "";
+    const gap   = v?.flags?.[0]?.label || "";
+    return `Export Compliance Program review. ${grade ? "Maturity " + grade + ". " : ""}${gap ? "Top gap: " + gap + "." : "All eight elements covered."}`;
+  },
+  "audit-lookback": (v) => {
+    const dets = v?.determinations || [];
+    const total = (dets.find((d) => /transactions|screened|count/i.test(d.label)) || {}).value || "";
+    const hits  = (dets.find((d) => /hits|matches/i.test(d.label)) || {}).value || "";
+    const window = (dets.find((d) => /window|period/i.test(d.label)) || {}).value || "";
+    return `Audit lookback ${window ? "for " + window + ". " : ""}. ${total ? total + " transactions re-screened. " : ""}${hits ? hits + " hits flagged for review." : "No new hits."}`;
+  },
+  "partner-compliance": (v) => {
+    const dets = v?.determinations || [];
+    const partner = (dets.find((d) => /partner|distributor|consignee/i.test(d.label)) || {}).value || "";
+    const status  = (dets.find((d) => /status|grade|overall/i.test(d.label)) || {}).value || "";
+    const action  = v?.actions?.[0] || "";
+    return `Partner compliance review${partner ? " for " + partner : ""}. ${status ? "Status " + status + ". " : ""}${action ? "Next: " + action + "." : ""}`;
+  },
+  "recordkeeping": (v) => {
+    const dets = v?.determinations || [];
+    const status = (dets.find((d) => /status|compliant/i.test(d.label)) || dets[0] || {}).value || "";
+    const days   = (dets.find((d) => /days|expiry|expires/i.test(d.label)) || {}).value || "";
+    return `Recordkeeping review under 15 CFR 762. ${status ? "Status: " + status + ". " : ""}${days ? days + " until next retention milestone." : ""}`;
   },
 };
 

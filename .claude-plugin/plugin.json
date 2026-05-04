@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "exchekskillsvideo",
-  "version": "1.0.0",
-  "description": "ExChek Engine (Video) — render branded, narrated, audit-traceable compliance video summaries (.mp4) from any ExChekSkills .json sibling. Five templates: risk-triage, classification, red-flag, compliance-report-card, training. Optional ElevenLabs narration. The .docx remains the audit-of-record. Companion to the exchekskills plugin.",
+  "version": "1.1.0",
+  "description": "ExChek Engine (Video) — render branded, narrated, audit-traceable compliance video summaries (.mp4) from any ExChekSkills .json sibling. Twelve templates covering every upstream skill: risk-triage, classification, red-flag, compliance-report-card, training, encryption, deemed-export, export-docs, ecp, audit-lookback, partner-compliance, recordkeeping. Optional ElevenLabs narration. The .docx remains the audit-of-record. Companion to the exchekskills plugin.",
   "author": {
     "name": "ExChek, Inc.",
     "email": "matt@exchek.us",

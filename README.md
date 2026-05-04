@@ -33,7 +33,7 @@ Optionally narrates the result via ElevenLabs.
 
 ---
 
-## The five video skills
+## The twelve video skills
 
 Every skill wraps the same bridge — the difference is template selection,
 preflight messaging, and the use case it's designed for.
@@ -45,8 +45,15 @@ preflight messaging, and the use case it's designed for.
 | [`exchek-video-classification`](skills/exchek-video-classification/SKILL.md) | classification | ~9s | ECCN/USML reveal for customer or internal review |
 | [`exchek-video-red-flag`](skills/exchek-video-red-flag/SKILL.md) | red-flag | ~9s | High-contrast indicator alert for compliance channels |
 | [`exchek-video-training`](skills/exchek-video-training/SKILL.md) | training | ~12s | Lesson-card layout for an onboarding/training library |
+| [`exchek-video-encryption`](skills/exchek-video-encryption/SKILL.md) | encryption | ~9s | 5A992/5D992 ECCN + ENC notification briefing |
+| [`exchek-video-deemed-export`](skills/exchek-video-deemed-export/SKILL.md) | deemed-export | ~9s | YES/NO/REVIEW verdict for HR + Engineering |
+| [`exchek-video-export-docs`](skills/exchek-video-export-docs/SKILL.md) | export-docs | ~9s | Commercial Invoice + SLI + AES audit-ready preview |
+| [`exchek-video-ecp`](skills/exchek-video-ecp/SKILL.md) | ecp | ~9s | 8-element ECP maturity review for the board |
+| [`exchek-video-audit-lookback`](skills/exchek-video-audit-lookback/SKILL.md) | audit-lookback | ~9s | Quarterly re-screen volume + new hits + severity |
+| [`exchek-video-partner-compliance`](skills/exchek-video-partner-compliance/SKILL.md) | partner-compliance | ~9s | Distributor flow-down review for QBR / contract renewal |
+| [`exchek-video-recordkeeping`](skills/exchek-video-recordkeeping/SKILL.md) | recordkeeping | ~9s | 15 CFR 762 retention status + 5-year timeline |
 
-All five share a consistent ExChek-branded look: white background, black
+All twelve share a consistent ExChek-branded look: white background, black
 display headlines (Outfit), ExChek purple `#411992` accent, the actual
 ExChek logo in the brand bar, and an AI disclaimer + audit-of-record
 pointer in the footer.
@@ -297,9 +304,9 @@ See [ROADMAP.md](ROADMAP.md) for the full picture. Next milestones:
 - **v0.2** — Captions (mute-friendly, accessibility, SRT sidecar)
 - **v0.3** — Portrait + square aspect variants for Slack / mobile / Reels
 - **v0.4** — HeyGen avatars (talking-head over the motion-graphic layout)
-- **v0.5** — Templates for the 7 remaining ExChekSkills (deemed-export,
-  ECP, encryption, recordkeeping, audit-lookback, partner-compliance,
-  encryption)
+- ~~**v0.5** — Templates for the remaining ExChekSkills~~ ✅ shipped in
+  v1.1.0 (encryption, deemed-export, export-docs, ECP, audit-lookback,
+  partner-compliance, recordkeeping)
 - **v0.6** — Native batch mode for training-library generation
 - **v0.7** — Hosted render service (closes the CoWork bundle hand-off)
 - **v0.8** — Multi-language narration

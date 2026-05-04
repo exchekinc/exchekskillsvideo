@@ -6,6 +6,7 @@
 import { BRAND } from "./brand.mjs";
 
 const SKILL_TO_TEMPLATE = {
+  // v1.0 templates
   "exchek-risk-triage": "risk-triage",
   "exchek-classify": "classification",
   "exchek-red-flag-assessment": "red-flag",
@@ -14,6 +15,14 @@ const SKILL_TO_TEMPLATE = {
   "exchek-license": "classification",
   "exchek-jurisdiction": "classification",
   "exchek-country-risk": "red-flag",
+  // v1.1 templates (the v0.5 milestone — 7 remaining ExChekSkills)
+  "exchek-encryption": "encryption",
+  "exchek-deemed-export": "deemed-export",
+  "exchek-export-docs": "export-docs",
+  "exchek-ecp": "ecp",
+  "exchek-audit-lookback": "audit-lookback",
+  "exchek-partner-compliance": "partner-compliance",
+  "exchek-recordkeeping": "recordkeeping",
 };
 
 export function pickTemplate(report, override) {

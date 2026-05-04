@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ExChek ECP Review</title>
+<!-- @hf-styles -->
+<style>
+  .ecp-tile {
+    position: absolute;
+    left: 80px;
+    top: 440px;
+    width: 480px;
+    height: 480px;
+    border-radius: var(--radius-lg);
+    background: var(--accent-soft);
+    border: 1px solid #DCC9FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: var(--shadow-strong);
+  }
+  .ecp-tile .grade {
+    font-family: var(--font-display);
+    font-size: 240px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .ecp-tile .cap {
+    margin-top: 12px; font-size: 18px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600;
+  }
+  .ecp-elements {
+    position: absolute;
+    left: 600px;
+    right: 80px;
+    top: 440px;
+    height: 480px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .elem {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+  }
+  .elem .num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    letter-spacing: 0.18em;
+  }
+  .elem .name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.25;
+    margin-top: 6px;
+  }
+  .elem .bar {
+    margin-top: 12px;
+    height: 6px;
+    border-radius: 4px;
+    background: var(--surface-muted);
+    overflow: hidden;
+  }
+  .elem .bar .fill {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-tint));
+    width: 0%;
+  }
+  .elem.weak .bar .fill { background: linear-gradient(90deg, #B45309, #F59E0B); }
+  .elem.gap  .bar .fill { background: linear-gradient(90deg, #B91C1C, #EF4444); }
+</style>
+</head>
+<body>
+
+<div id="root"
+     data-composition-id="ecp"
+     data-start="0"
+     data-width="1920"
+     data-height="1080"
+     class="stage">
+
+  <div id="grid" class="clip grid-overlay" data-start="0" data-duration="9" data-track-index="0"></div>
+
+  <header id="brand" class="clip brand-bar fadein" data-start="0" data-duration="9" data-track-index="1">
+    <div class="brand-mark">
+      <!-- @hf-logo -->
+      <span class="product">Export Compliance Program</span>
+    </div>
+    <div class="meta">
+      <span>skill: {{meta.skill}}</span>
+      <span>generated: {{meta.generatedAtPretty}}</span>
+    </div>
+  </header>
+
+  <div id="eyebrow" class="clip eyebrow fadein" data-start="0.2" data-duration="9" data-track-index="2"
+       style="top: 200px;">
+    Export compliance · 8-element ECP review (BIS guidance)
+  </div>
+
+  <h1 id="headline" class="clip headline fadein" data-start="0.35" data-duration="9" data-track-index="3"
+      style="top: 246px; font-size: 80px;">
+    ECP Maturity
+  </h1>
+
+  <div id="tile" class="clip ecp-tile fadein" data-start="0.9" data-duration="9" data-track-index="4">
+    <div class="grade" id="ecpGrade">—</div>
+    <div class="cap">overall maturity</div>
+  </div>
+
+  <div id="elements" class="clip ecp-elements stagger" data-start="1.4" data-duration="9" data-track-index="5"></div>
+
+  <footer id="disclose" class="clip disclosure fadein" data-start="2.8" data-duration="9" data-track-index="6">
+    <div class="lhs">
+      <span class="ai-warn">{{brand.aiDisclaimer}}</span>
+      {{brand.disclosure}}
+    </div>
+    <div class="rhs">{{meta.platform}} · {{meta.model}}</div>
+  </footer>
+
+  <!-- @hf-data -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var d = window.__hfData || {};
+      var dets = d.determinations || [];
+      function find(rx) { return (dets.find(function (x) { return rx.test(x.label || ""); }) || {}).value; }
+
+      var grade = find(/maturity|grade|overall/i) || (dets[0] && dets[0].value) || "—";
+      document.getElementById("ecpGrade").textContent = grade;
+
+      // BIS's 8 ECP elements; coverage pulled from determinations by name match.
+      var elements = [
+        "Management commitment",
+        "Risk assessment",
+        "Authorization (ECCN, license)",
+        "Recordkeeping",
+        "Training",
+        "Audits",
+        "Reporting violations",
+        "Corrective actions",
+      ];
+      var root = document.getElementById("elements");
+      elements.forEach(function (name, i) {
+        var det = dets.find(function (x) {
+          var lbl = (x.label || "").toLowerCase();
+          var key = name.toLowerCase().split(/[ (,]/)[0];
+          return lbl.indexOf(key) !== -1;
+        });
+        var pct = det && typeof det.confidence === "number" ? Math.round(det.confidence * 100) :
+                  det && /^\d+%?$/.test(String(det.value)) ? parseInt(String(det.value), 10) : 70;
+        var cls = pct >= 75 ? "" : pct >= 50 ? " weak" : " gap";
+        var el = document.createElement("div");
+        el.className = "elem" + cls;
+        el.innerHTML =
+          '<div><div class="num">' + String(i + 1).padStart(2, "0") + '</div>' +
+          '<div class="name">' + name + '</div></div>' +
+          '<div class="bar"><span class="fill" data-pct="' + pct + '"></span></div>';
+        root.appendChild(el);
+      });
+
+      var tl = gsap.timeline({ paused: true });
+      tl.to("#brand",    { opacity: 1, y: 0, duration: 0.5 }, 0.0);
+      tl.to("#eyebrow",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.to("#headline", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.35);
+      tl.from("#tile .grade", { scale: 0.6, duration: 0.9, ease: "back.out(1.7)" }, 0.9);
+      tl.to("#tile",     { opacity: 1, y: 0, duration: 0.6 }, 0.9);
+      tl.to("#elements", { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.4);
+      tl.to("#elements > *", { opacity: 1, y: 0, duration: 0.4, stagger: 0.06 }, 1.5);
+      Array.from(document.querySelectorAll("#elements .bar .fill")).forEach(function (el, i) {
+        var pct = parseFloat(el.dataset.pct || "70");
+        tl.to(el, { width: pct + "%", duration: 0.7, ease: "power3.out" }, 1.7 + i * 0.05);
+      });
+      tl.to("#disclose", { opacity: 1, y: 0, duration: 0.5 }, 2.8);
+      tl.set({}, {}, 9.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["ecp"] = tl;
+
+      var a = (window.__hfData || {}).audio;
+      if (a && a.enabled && a.duration > 9) {
+        tl.set({}, {}, Math.ceil(a.duration * 10) / 10);
+      }
+    })();
+  </script>
+  <!-- @hf-audio -->
+</div>
+</body>
+</html>

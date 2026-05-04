@@ -1,0 +1,9 @@
+name: exchek-video-partner-compliance
+description: Render a distributor / partner flow-down compliance video from an exchek-partner-compliance JSON sibling.
+version: "0.1.0"
+main: SKILL.md
+compatibility:
+  - Claude Code
+  - Claude desktop
+  - Claude CoWork
+  - Claude web

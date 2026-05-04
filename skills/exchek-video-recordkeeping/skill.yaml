@@ -1,0 +1,9 @@
+name: exchek-video-recordkeeping
+description: Render a 15 CFR 762 recordkeeping-status video from an exchek-recordkeeping JSON sibling.
+version: "0.1.0"
+main: SKILL.md
+compatibility:
+  - Claude Code
+  - Claude desktop
+  - Claude CoWork
+  - Claude web

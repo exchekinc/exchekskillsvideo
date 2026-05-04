@@ -1,5 +1,75 @@
 # Changelog
 
+## [1.1.0] — 2026-05-04 — **All ExChekSkills covered (the v0.5 milestone)**
+
+This release ships the seven new templates that bring **every** upstream
+ExChekSkill within reach of a video deliverable. The library moves from
+5 → 12 templates and from 5 → 12 skill wrappers.
+
+### Added — 7 new templates
+- **`encryption`** — animated 5A992 / 5D992 ECCN reveal + three status
+  cards (ENC notification, mass-market eligibility, semi-annual
+  reporting) with green/amber/purple badges. Maps from
+  `exchek-encryption`.
+- **`deemed-export`** — color-coded YES/NO/REVIEW verdict tile (green
+  for "no/exempt", red for "yes/required", purple for "review") + four
+  supporting cards (foreign-national status, country of nationality,
+  technology ECCN, license requirement). Maps from
+  `exchek-deemed-export`. Cites 15 CFR 734.2(b)(2)(ii) / 734.13.
+- **`export-docs`** — three-document grid (Commercial Invoice, SLI,
+  AES Filing) each populated with key fields and a status badge
+  (READY / DRAFT / TODO). Maps from `exchek-export-docs`.
+- **`ecp`** — large maturity-grade tile + 8-element coverage grid
+  (management commitment · risk assessment · authorization ·
+  recordkeeping · training · audits · reporting violations · CAPA)
+  with per-element animated progress bars color-coded green/amber/red.
+  Maps from `exchek-ecp`. Cites BIS guidance (15 CFR 732 Supp. 2).
+- **`audit-lookback`** — large "X transactions re-screened" tile +
+  new-hits count + animated severity-breakdown bars (high / medium /
+  low) computed from `risk_flags[].severity`. Maps from
+  `exchek-audit-lookback`.
+- **`partner-compliance`** — partner identity card (name · country ·
+  status · last-review · re-screen due) + flow-down checklist with
+  per-item green/amber/red checkmarks (EUC, distributor flow-down
+  agreement, annual screening, sanctions watchlist re-check, training
+  acknowledgement, ECP attestation). Maps from
+  `exchek-partner-compliance`.
+- **`recordkeeping`** — color-coded retention-status tile (compliant /
+  at-risk / gap) + three secondary cards (records covered, oldest
+  record, days to expiry) + animated 5-year retention-window timeline.
+  Maps from `exchek-recordkeeping`. Cites 15 CFR 762.6.
+
+### Added — 7 new skill wrappers
+- `exchek-video-encryption`
+- `exchek-video-deemed-export`
+- `exchek-video-export-docs`
+- `exchek-video-ecp`
+- `exchek-video-audit-lookback`
+- `exchek-video-partner-compliance`
+- `exchek-video-recordkeeping`
+
+All seven inherit the standard SKILL.md preflight (CUI gate +
+ElevenLabs narration credential resolution).
+
+### Added — supporting changes
+- `scripts/lib/data-mapper.mjs` — `SKILL_TO_TEMPLATE` now covers all
+  upstream skill names that emit JSON siblings.
+- `scripts/lib/audio-script.mjs` — per-template narration writers and
+  word budgets for all 7 new templates. ECCN spell-out reused for
+  encryption.
+- `scripts/render-all-narrated.sh` — batch renders all 12 demo videos.
+- 7 new fixtures with realistic schema-1.0.0 data.
+- Plugin manifest description and `package.json` updated to reflect
+  full 12-template coverage.
+
+### Roadmap impact
+- v0.5 (template expansion) — **shipped** in this release.
+- Next milestones unchanged: v0.2 captions, v0.3 portrait/square,
+  v0.4 HeyGen avatars, v0.6 batch mode, v0.7 hosted render service,
+  v0.8 multi-language.
+
+---
+
 ## [1.0.0] — 2026-05-04 — **ExChek Engine (Video)**
 
 First production release. Claude-plugin-ready, marketplace-installable,

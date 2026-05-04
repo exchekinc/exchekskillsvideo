@@ -1,0 +1,9 @@
+name: exchek-video-deemed-export
+description: Render a deemed-export (15 CFR 734.13) determination video from an exchek-deemed-export JSON sibling.
+version: "0.1.0"
+main: SKILL.md
+compatibility:
+  - Claude Code
+  - Claude desktop
+  - Claude CoWork
+  - Claude web

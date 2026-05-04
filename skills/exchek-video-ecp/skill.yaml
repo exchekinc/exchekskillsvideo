@@ -1,0 +1,9 @@
+name: exchek-video-ecp
+description: Render an Export Compliance Program (ECP) maturity video from an exchek-ecp JSON sibling. 8-element coverage grid.
+version: "0.1.0"
+main: SKILL.md
+compatibility:
+  - Claude Code
+  - Claude desktop
+  - Claude CoWork
+  - Claude web

@@ -1,0 +1,9 @@
+name: exchek-video-audit-lookback
+description: Render an audit-lookback re-screen video from an exchek-audit-lookback JSON sibling. Volume + new-hits + severity bars.
+version: "0.1.0"
+main: SKILL.md
+compatibility:
+  - Claude Code
+  - Claude desktop
+  - Claude CoWork
+  - Claude web

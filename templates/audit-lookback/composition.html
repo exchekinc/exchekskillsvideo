@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ExChek Audit Lookback</title>
+<!-- @hf-styles -->
+<style>
+  .big-num {
+    position: absolute;
+    left: 80px;
+    top: 440px;
+    width: 720px;
+    height: 480px;
+    border-radius: var(--radius-lg);
+    background: var(--accent-soft);
+    border: 1px solid #DCC9FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: var(--shadow-strong);
+  }
+  .big-num .n {
+    font-family: var(--font-display);
+    font-size: 220px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+  .big-num .cap {
+    margin-top: 16px;
+    font-size: 18px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .right-stack {
+    position: absolute;
+    left: 840px;
+    top: 440px;
+    right: 80px;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .right-stack .card { padding: 22px 26px; min-height: 0; flex: 1; }
+  .right-stack .card .label { font-size: 12px; }
+  .right-stack .card .value { font-size: 56px; line-height: 1.0; }
+  .sev-bars { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .sev-bars .row { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+  .sev-bars .row .name { width: 80px; font-family: var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); }
+  .sev-bars .row .bar { flex: 1; height: 8px; border-radius: 6px; background: var(--surface-muted); overflow: hidden; }
+  .sev-bars .row .bar .fill { display: block; height: 100%; width: 0%; }
+  .sev-bars .row.high   .fill { background: linear-gradient(90deg, #B91C1C, #EF4444); }
+  .sev-bars .row.medium .fill { background: linear-gradient(90deg, #B45309, #F59E0B); }
+  .sev-bars .row.low    .fill { background: linear-gradient(90deg, #047857, #10B981); }
+  .sev-bars .row .count { width: 50px; text-align: right; font-weight: 700; color: var(--text); }
+</style>
+</head>
+<body>
+
+<div id="root"
+     data-composition-id="audit-lookback"
+     data-start="0"
+     data-width="1920"
+     data-height="1080"
+     class="stage">
+
+  <div id="grid" class="clip grid-overlay" data-start="0" data-duration="9" data-track-index="0"></div>
+
+  <header id="brand" class="clip brand-bar fadein" data-start="0" data-duration="9" data-track-index="1">
+    <div class="brand-mark">
+      <!-- @hf-logo -->
+      <span class="product">Audit Lookback</span>
+    </div>
+    <div class="meta">
+      <span>skill: {{meta.skill}}</span>
+      <span>generated: {{meta.generatedAtPretty}}</span>
+    </div>
+  </header>
+
+  <div id="eyebrow" class="clip eyebrow fadein" data-start="0.2" data-duration="9" data-track-index="2"
+       style="top: 200px;">
+    Export compliance · Historical re-screen · 15 CFR 762
+  </div>
+
+  <h1 id="headline" class="clip headline fadein" data-start="0.35" data-duration="9" data-track-index="3"
+      style="top: 246px; font-size: 80px;">
+    Lookback Re-Screen
+  </h1>
+
+  <div id="tile" class="clip big-num fadein" data-start="0.9" data-duration="9" data-track-index="4">
+    <div class="n" id="totalCount">—</div>
+    <div class="cap" id="windowLabel">transactions re-screened</div>
+  </div>
+
+  <div id="rstack" class="clip right-stack stagger" data-start="1.4" data-duration="9" data-track-index="5">
+    <div class="card">
+      <div class="label">New hits flagged</div>
+      <div class="value" id="hitCount">—</div>
+    </div>
+    <div class="card">
+      <div class="label">Severity breakdown</div>
+      <div class="sev-bars">
+        <div class="row high"><span class="name">High</span><span class="bar"><span class="fill" id="sevHigh"></span></span><span class="count" id="sevHighN">—</span></div>
+        <div class="row medium"><span class="name">Medium</span><span class="bar"><span class="fill" id="sevMed"></span></span><span class="count" id="sevMedN">—</span></div>
+        <div class="row low"><span class="name">Low</span><span class="bar"><span class="fill" id="sevLow"></span></span><span class="count" id="sevLowN">—</span></div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="disclose" class="clip disclosure fadein" data-start="2.6" data-duration="9" data-track-index="6">
+    <div class="lhs">
+      <span class="ai-warn">{{brand.aiDisclaimer}}</span>
+      {{brand.disclosure}}
+    </div>
+    <div class="rhs">{{meta.platform}} · {{meta.model}}</div>
+  </footer>
+
+  <!-- @hf-data -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var d = window.__hfData || {};
+      var dets = d.determinations || [];
+      function find(rx) { return (dets.find(function (x) { return rx.test(x.label || ""); }) || {}).value; }
+      function num(v) { var n = parseInt(String(v).replace(/[^\d]/g, ""), 10); return Number.isFinite(n) ? n : 0; }
+      function setT(id, v) { var el = document.getElementById(id); if (el) el.textContent = v == null || v === "" ? "—" : v; }
+
+      var total = find(/transactions|screened|count|total/i);
+      var win   = find(/window|period|lookback/i);
+      var hits  = find(/hits|matches|flag/i);
+      var flags = d.flags || [];
+      var sev = { high: 0, medium: 0, low: 0 };
+      flags.forEach(function (f) {
+        var s = (f.severity || "").toLowerCase();
+        if (sev.hasOwnProperty(s)) sev[s] += 1;
+      });
+
+      setT("totalCount", total);
+      if (win) setT("windowLabel", "transactions re-screened · " + win);
+      setT("hitCount", hits || (sev.high + sev.medium + sev.low) || 0);
+      setT("sevHighN", sev.high);
+      setT("sevMedN", sev.medium);
+      setT("sevLowN", sev.low);
+      var max = Math.max(sev.high, sev.medium, sev.low, 1);
+      document.getElementById("sevHigh").dataset.pct = Math.round((sev.high / max) * 100);
+      document.getElementById("sevMed").dataset.pct  = Math.round((sev.medium / max) * 100);
+      document.getElementById("sevLow").dataset.pct  = Math.round((sev.low / max) * 100);
+
+      var tl = gsap.timeline({ paused: true });
+      tl.to("#brand",    { opacity: 1, y: 0, duration: 0.5 }, 0.0);
+      tl.to("#eyebrow",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.to("#headline", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.35);
+      tl.from("#tile .n", { scale: 0.6, duration: 0.9, ease: "back.out(1.7)" }, 0.9);
+      tl.to("#tile",     { opacity: 1, y: 0, duration: 0.6 }, 0.9);
+      tl.to("#rstack",   { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.4);
+      tl.to("#rstack > *", { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 }, 1.5);
+      Array.from(document.querySelectorAll(".sev-bars .fill")).forEach(function (el, i) {
+        var pct = parseFloat(el.dataset.pct || "0");
+        tl.to(el, { width: pct + "%", duration: 0.7, ease: "power3.out" }, 1.9 + i * 0.1);
+      });
+      tl.to("#disclose", { opacity: 1, y: 0, duration: 0.5 }, 2.6);
+      tl.set({}, {}, 9.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["audit-lookback"] = tl;
+
+      var a = (window.__hfData || {}).audio;
+      if (a && a.enabled && a.duration > 9) {
+        tl.set({}, {}, Math.ceil(a.duration * 10) / 10);
+      }
+    })();
+  </script>
+  <!-- @hf-audio -->
+</div>
+</body>
+</html>

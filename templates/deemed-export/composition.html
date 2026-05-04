@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ExChek Deemed Export</title>
+<!-- @hf-styles -->
+<style>
+  .det-tile {
+    position: absolute;
+    left: 80px;
+    top: 440px;
+    width: 720px;
+    height: 480px;
+    border-radius: var(--radius-lg);
+    background: var(--accent-soft);
+    border: 1px solid #DCC9FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: var(--shadow-strong);
+    text-align: center;
+    padding: 0 40px;
+  }
+  .det-tile.no  { background: #ECFDF5; border-color: #A7F3D0; }
+  .det-tile.yes { background: #FEF2F2; border-color: #FECACA; }
+  .det-tile .verdict {
+    font-family: var(--font-display);
+    font-size: 200px;
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+  }
+  .det-tile.no  .verdict { color: #047857; }
+  .det-tile.yes .verdict { color: #B91C1C; }
+  .det-tile .cap {
+    margin-top: 16px;
+    font-size: 18px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .det-cards {
+    position: absolute;
+    left: 840px;
+    top: 440px;
+    right: 80px;
+    height: 480px;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .det-cards .card { padding: 22px 24px; min-height: 0; }
+  .det-cards .card .label { font-size: 12px; }
+  .det-cards .card .value { font-size: 32px; line-height: 1.1; }
+</style>
+</head>
+<body>
+
+<div id="root"
+     data-composition-id="deemed-export"
+     data-start="0"
+     data-width="1920"
+     data-height="1080"
+     class="stage">
+
+  <div id="grid" class="clip grid-overlay" data-start="0" data-duration="9" data-track-index="0"></div>
+
+  <header id="brand" class="clip brand-bar fadein" data-start="0" data-duration="9" data-track-index="1">
+    <div class="brand-mark">
+      <!-- @hf-logo -->
+      <span class="product">Deemed Export</span>
+    </div>
+    <div class="meta">
+      <span>skill: {{meta.skill}}</span>
+      <span>generated: {{meta.generatedAtPretty}}</span>
+    </div>
+  </header>
+
+  <div id="eyebrow" class="clip eyebrow fadein" data-start="0.2" data-duration="9" data-track-index="2"
+       style="top: 200px;">
+    Export compliance · 15 CFR 734.2(b)(2)(ii) · 15 CFR 734.13
+  </div>
+
+  <h1 id="headline" class="clip headline fadein" data-start="0.35" data-duration="9" data-track-index="3"
+      style="top: 246px; font-size: 80px;">
+    Deemed Export Review
+  </h1>
+
+  <div id="tile" class="clip det-tile fadein" data-start="0.9" data-duration="9" data-track-index="4">
+    <div class="verdict" id="verdict">—</div>
+    <div class="cap">deemed export determination</div>
+  </div>
+
+  <div id="cards" class="clip det-cards stagger" data-start="1.6" data-duration="9" data-track-index="5">
+    <div class="card"><div class="label">Foreign national</div><div class="value" id="fn">—</div></div>
+    <div class="card"><div class="label">Country of nationality</div><div class="value" id="con">—</div></div>
+    <div class="card"><div class="label">Technology ECCN</div><div class="value" id="tec">—</div></div>
+    <div class="card"><div class="label">License required?</div><div class="value" id="lic">—</div></div>
+  </div>
+
+  <footer id="disclose" class="clip disclosure fadein" data-start="2.6" data-duration="9" data-track-index="6">
+    <div class="lhs">
+      <span class="ai-warn">{{brand.aiDisclaimer}}</span>
+      {{brand.disclosure}}
+    </div>
+    <div class="rhs">{{meta.platform}} · {{meta.model}}</div>
+  </footer>
+
+  <!-- @hf-data -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var d = window.__hfData || {};
+      var dets = d.determinations || [];
+      function find(rx) { return (dets.find(function (x) { return rx.test(x.label || ""); }) || {}).value; }
+      function setT(id, v) { var el = document.getElementById(id); if (el) el.textContent = v == null || v === "" ? "—" : v; }
+
+      var verdict = find(/deemed/i) || (dets[0] && dets[0].value) || "REVIEW";
+      var verdictUpper = String(verdict).toUpperCase();
+      setT("verdict", verdictUpper);
+
+      var tile = document.getElementById("tile");
+      if (/^(YES|TRUE|REQUIRED)$/i.test(verdictUpper)) tile.classList.add("yes");
+      else if (/^(NO|FALSE|NOT REQUIRED|EXEMPT)$/i.test(verdictUpper)) tile.classList.add("no");
+
+      setT("fn",  find(/foreign|nat|fn/i));
+      setT("con", find(/country|nat/i));
+      setT("tec", find(/tech|eccn|class/i));
+      setT("lic", find(/license/i));
+
+      var tl = gsap.timeline({ paused: true });
+      tl.to("#brand",    { opacity: 1, y: 0, duration: 0.5 }, 0.0);
+      tl.to("#eyebrow",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.to("#headline", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.35);
+      tl.from("#tile .verdict", { scale: 0.6, duration: 0.9, ease: "back.out(1.7)" }, 0.9);
+      tl.to("#tile",     { opacity: 1, y: 0, duration: 0.6 }, 0.9);
+      tl.to("#cards",    { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.6);
+      tl.to("#cards > *", { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.12 }, 1.7);
+      tl.to("#disclose", { opacity: 1, y: 0, duration: 0.5 }, 2.6);
+      tl.set({}, {}, 9.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["deemed-export"] = tl;
+
+      var a = (window.__hfData || {}).audio;
+      if (a && a.enabled && a.duration > 9) {
+        tl.set({}, {}, Math.ceil(a.duration * 10) / 10);
+      }
+    })();
+  </script>
+  <!-- @hf-audio -->
+</div>
+</body>
+</html>

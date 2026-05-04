@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "skill": { "name": "exchek-ecp", "version": "1.4.0", "commit_sha7": "a1b2c3d" },
+  "generated": {
+    "at": "2026-05-04T21:08:20Z",
+    "model": "claude-sonnet-4-6",
+    "platform": "Claude Code",
+    "environment": "macos-darwin25",
+    "input_hash": "a4d1e8c2b95f"
+  },
+  "privacy_attestation": { "tier": "standard", "attested_by": "matt@exchek.us", "attested_at": "2026-05-04T21:08:08Z", "minimum_met": true },
+  "cui_check": { "cui": false, "classified": false, "itar_126_18": false, "on_prem_required": false },
+  "inputs": { "subject": "Acme Industrial USA · Annual ECP review", "lookback": "FY2025" },
+  "regulatory_currency": {
+    "ecfr_pulled_at": "2026-05-04T20:00:00Z",
+    "cfr_parts": ["15 CFR 732 Supp. 2 (ECP guidance)", "15 CFR 762"],
+    "data_source": "eCFR API + BIS guidance docs"
+  },
+  "determinations": [
+    { "label": "Overall maturity", "value": "B+", "confidence": 0.84 },
+    { "label": "Management commitment", "value": "A", "confidence": 0.92 },
+    { "label": "Risk assessment", "value": "B+", "confidence": 0.81 },
+    { "label": "Authorization (ECCN, license)", "value": "A-", "confidence": 0.88 },
+    { "label": "Recordkeeping", "value": "B", "confidence": 0.74 },
+    { "label": "Training", "value": "B-", "confidence": 0.66 },
+    { "label": "Audits", "value": "B+", "confidence": 0.82 },
+    { "label": "Reporting violations", "value": "A", "confidence": 0.91 },
+    { "label": "Corrective actions", "value": "B", "confidence": 0.72 }
+  ],
+  "risk_flags": [
+    { "severity": "medium", "label": "Training cadence below target", "detail": "Annual export-controls refresher missed by 23% of engineering staff in Q4-2025." },
+    { "severity": "low", "label": "CAPA closure SLA", "detail": "Mean CAPA closure time is 41 days; target is 30." }
+  ],
+  "citations": [
+    { "cfr": "15 CFR 732 Supp. 2", "url": "https://www.ecfr.gov/current/title-15/part-732", "pulled_at": "2026-05-04T20:00:00Z" },
+    { "cfr": "15 CFR 762", "url": "https://www.ecfr.gov/current/title-15/part-762", "pulled_at": "2026-05-04T20:00:00Z" }
+  ],
+  "injection_attempts": [],
+  "hitl_confirmation": { "confirmed": true, "confirmed_at": "2026-05-04T21:08:15Z", "determinations_confirmed": ["Overall maturity"] },
+  "report": { "docx_basename": "ExChek-ECP-2026-05-04-Acme-FY25.docx", "docx_path_relative": "ExChek-ECP-2026-05-04-Acme-FY25.docx" },
+  "next_actions": [
+    "Schedule make-up training session for engineering by 2026-06-30",
+    "Cut CAPA closure target from 30 to 25 days for Q3-Q4",
+    "Refresh management commitment letter (annual)"
+  ],
+  "caveats": []
+}

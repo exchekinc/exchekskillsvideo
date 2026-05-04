@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "skill": { "name": "exchek-audit-lookback", "version": "1.4.0", "commit_sha7": "a1b2c3d" },
+  "generated": {
+    "at": "2026-05-04T22:15:42Z",
+    "model": "claude-sonnet-4-6",
+    "platform": "Claude Code",
+    "environment": "macos-darwin25",
+    "input_hash": "c2f9a3d7e15b"
+  },
+  "privacy_attestation": { "tier": "standard", "attested_by": "matt@exchek.us", "attested_at": "2026-05-04T22:15:30Z", "minimum_met": true },
+  "cui_check": { "cui": false, "classified": false, "itar_126_18": false, "on_prem_required": false },
+  "inputs": { "lookback_window": "Q1-2026 (Jan 1 — Mar 31)", "screening_lists_refresh": "2026-05-04T20:00:00Z" },
+  "regulatory_currency": {
+    "ecfr_pulled_at": "2026-05-04T21:00:00Z",
+    "cfr_parts": ["15 CFR 744", "15 CFR 762.6"],
+    "data_source": "eCFR API + Trade.gov CSL + OFAC SDN"
+  },
+  "determinations": [
+    { "label": "Transactions re-screened", "value": "1,284", "confidence": 1.0 },
+    { "label": "Lookback window", "value": "Q1-2026" },
+    { "label": "New hits flagged", "value": "5" },
+    { "label": "Screening lists used", "value": "CSL · OFAC SDN · UVL · Entity List" }
+  ],
+  "risk_flags": [
+    { "severity": "high", "label": "Vossberg GmbH — UVL match", "detail": "Distributor placed on Unverified List 2026-04-12. Three prior shipments need post-screening review." },
+    { "severity": "high", "label": "Bei Hai Tech — new SDN entry", "detail": "Counterparty appeared on OFAC SDN list 2026-03-28. One prior shipment Feb 2026." },
+    { "severity": "medium", "label": "Two consignees with name variants", "detail": "Trade.gov CSL fuzzy match — needs manual disambiguation before clearing." },
+    { "severity": "medium", "label": "One Iran routing detected", "detail": "Freight forwarder routed Q1 shipment via Tehran transit hub — review for §746.7 implications." },
+    { "severity": "low", "label": "Address-only change for one buyer", "detail": "Same legal entity, address moved from Frankfurt to Munich — log only." }
+  ],
+  "citations": [
+    { "cfr": "15 CFR 744 (end-use/end-user)", "url": "https://www.ecfr.gov/current/title-15/part-744", "pulled_at": "2026-05-04T21:00:00Z" },
+    { "cfr": "15 CFR 762.6 (5-year retention)", "url": "https://www.ecfr.gov/current/title-15/section-762.6", "pulled_at": "2026-05-04T21:00:00Z" }
+  ],
+  "injection_attempts": [],
+  "hitl_confirmation": { "confirmed": true, "confirmed_at": "2026-05-04T22:15:38Z", "determinations_confirmed": ["Transactions re-screened", "New hits flagged"] },
+  "report": { "docx_basename": "ExChek-AuditLookback-2026-05-04-Q1.docx", "docx_path_relative": "ExChek-AuditLookback-2026-05-04-Q1.docx" },
+  "next_actions": [
+    "Hold all Vossberg shipments pending UVL §744.15 review",
+    "File post-shipment notification with BIS for Bei Hai Tech transaction",
+    "Disambiguate the two name-variant consignees by 2026-05-15",
+    "Document Iran-routing review outcome in transaction ledger"
+  ],
+  "caveats": [
+    "Lookback assumes screening lists used reflect the state on 2026-05-04. Earlier shipments were originally cleared against the lists current at that time."
+  ]
+}

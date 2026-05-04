@@ -52,6 +52,14 @@ render_one fixtures/classification-sample.json         classification
 render_one fixtures/red-flag-sample.json               red-flag
 render_one fixtures/compliance-report-card-sample.json compliance-report-card
 render_one fixtures/risk-triage-sample.json            training   # training reuses risk-triage data
+# v1.1 templates
+render_one fixtures/encryption-sample.json             encryption
+render_one fixtures/deemed-export-sample.json          deemed-export
+render_one fixtures/export-docs-sample.json            export-docs
+render_one fixtures/ecp-sample.json                    ecp
+render_one fixtures/audit-lookback-sample.json         audit-lookback
+render_one fixtures/partner-compliance-sample.json     partner-compliance
+render_one fixtures/recordkeeping-sample.json          recordkeeping
 
 echo
 echo "All renders complete:"

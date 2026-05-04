@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "skill": { "name": "exchek-recordkeeping", "version": "1.4.0", "commit_sha7": "a1b2c3d" },
+  "generated": {
+    "at": "2026-05-04T23:45:08Z",
+    "model": "claude-sonnet-4-6",
+    "platform": "Claude Code",
+    "environment": "macos-darwin25",
+    "input_hash": "e5f2c8a1d937"
+  },
+  "privacy_attestation": { "tier": "standard", "attested_by": "matt@exchek.us", "attested_at": "2026-05-04T23:44:55Z", "minimum_met": true },
+  "cui_check": { "cui": false, "classified": false, "itar_126_18": false, "on_prem_required": false },
+  "inputs": { "scope": "All export records · Acme Industrial USA · 2021-05 → 2026-05" },
+  "regulatory_currency": {
+    "ecfr_pulled_at": "2026-05-04T23:00:00Z",
+    "cfr_parts": ["15 CFR 762.6 (5-year retention)", "15 CFR 762.2 (records to be retained)"],
+    "data_source": "eCFR API"
+  },
+  "determinations": [
+    { "label": "Retention status", "value": "Compliant" },
+    { "label": "Records covered", "value": "1,847" },
+    { "label": "Oldest record", "value": "2021-06-04" },
+    { "label": "Days to expiry", "value": "31 days" }
+  ],
+  "risk_flags": [
+    { "severity": "medium", "label": "Aging records due to expire 2026-06-04", "detail": "Records from 2021-06 reach 5-year retention next month. Confirm whether to dispose or extend retention before that date." }
+  ],
+  "citations": [
+    { "cfr": "15 CFR 762.6", "url": "https://www.ecfr.gov/current/title-15/section-762.6", "pulled_at": "2026-05-04T23:00:00Z" },
+    { "cfr": "15 CFR 762.2", "url": "https://www.ecfr.gov/current/title-15/section-762.2", "pulled_at": "2026-05-04T23:00:00Z" }
+  ],
+  "injection_attempts": [],
+  "hitl_confirmation": { "confirmed": true, "confirmed_at": "2026-05-04T23:45:04Z", "determinations_confirmed": ["Retention status"] },
+  "report": { "docx_basename": "ExChek-Recordkeeping-2026-05-04-Annual.docx", "docx_path_relative": "ExChek-Recordkeeping-2026-05-04-Annual.docx" },
+  "next_actions": [
+    "Decide disposition of 2021-06 records before 2026-06-04",
+    "Document any extensions to the standard 5-year retention",
+    "Verify off-site backup chain still meets 762.6"
+  ],
+  "caveats": []
+}

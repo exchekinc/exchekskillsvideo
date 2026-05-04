@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ExChek Partner Compliance</title>
+<!-- @hf-styles -->
+<style>
+  .partner-tile {
+    position: absolute;
+    left: 80px;
+    top: 440px;
+    width: 660px;
+    height: 480px;
+    border-radius: var(--radius-lg);
+    background: var(--accent-soft);
+    border: 1px solid #DCC9FF;
+    box-shadow: var(--shadow-strong);
+    padding: 36px 40px;
+  }
+  .partner-tile .label-top {
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600;
+  }
+  .partner-tile .name {
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-top: 8px;
+    line-height: 1.05;
+  }
+  .partner-tile .meta {
+    margin-top: 18px;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .partner-tile .meta .row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(65,25,146,0.12); }
+  .partner-tile .meta .row:last-child { border-bottom: none; }
+  .partner-tile .meta .v { color: var(--text); font-weight: 600; }
+  .checklist {
+    position: absolute;
+    left: 780px;
+    top: 440px;
+    right: 80px;
+    height: 480px;
+    padding: 28px 32px;
+    overflow: hidden;
+  }
+  .checklist .label { font-size: 14px; }
+  .checklist ul { list-style: none; margin: 18px 0 0 0; padding: 0; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 22px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist .check {
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 2px;
+  }
+  .checklist .check.ok   { background: var(--success); }
+  .checklist .check.warn { background: var(--warn); }
+  .checklist .check.gap  { background: var(--danger); }
+  .checklist .body { flex: 1 1 auto; }
+  .checklist .title { font-weight: 600; color: var(--text); }
+  .checklist .detail { font-size: 16px; color: var(--text-muted); margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div id="root"
+     data-composition-id="partner-compliance"
+     data-start="0"
+     data-width="1920"
+     data-height="1080"
+     class="stage">
+
+  <div id="grid" class="clip grid-overlay" data-start="0" data-duration="9" data-track-index="0"></div>
+
+  <header id="brand" class="clip brand-bar fadein" data-start="0" data-duration="9" data-track-index="1">
+    <div class="brand-mark">
+      <!-- @hf-logo -->
+      <span class="product">Partner Compliance</span>
+    </div>
+    <div class="meta">
+      <span>skill: {{meta.skill}}</span>
+      <span>generated: {{meta.generatedAtPretty}}</span>
+    </div>
+  </header>
+
+  <div id="eyebrow" class="clip eyebrow fadein" data-start="0.2" data-duration="9" data-track-index="2"
+       style="top: 200px;">
+    Export compliance · Distributor flow-down review
+  </div>
+
+  <h1 id="headline" class="clip headline fadein" data-start="0.35" data-duration="9" data-track-index="3"
+      style="top: 246px; font-size: 80px;">
+    Partner Compliance Review
+  </h1>
+
+  <div id="partner" class="clip partner-tile fadein" data-start="0.9" data-duration="9" data-track-index="4">
+    <div class="label-top">Partner</div>
+    <div class="name" id="partnerName">—</div>
+    <div class="meta" id="partnerMeta"></div>
+  </div>
+
+  <section id="checklist" class="clip card checklist fadein" data-start="1.4" data-duration="9" data-track-index="5">
+    <div class="label">Flow-down checklist</div>
+    <ul id="checkList" class="stagger"></ul>
+  </section>
+
+  <footer id="disclose" class="clip disclosure fadein" data-start="2.6" data-duration="9" data-track-index="6">
+    <div class="lhs">
+      <span class="ai-warn">{{brand.aiDisclaimer}}</span>
+      {{brand.disclosure}}
+    </div>
+    <div class="rhs">{{meta.platform}} · {{meta.model}}</div>
+  </footer>
+
+  <!-- @hf-data -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var d = window.__hfData || {};
+      var dets = d.determinations || [];
+      function find(rx) { return (dets.find(function (x) { return rx.test(x.label || ""); }) || {}).value; }
+      function escapeHtml(s) {
+        return String(s == null ? "" : s)
+          .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+      }
+
+      var partner = find(/partner|distributor|consignee|name/i) || "Partner";
+      document.getElementById("partnerName").textContent = partner;
+
+      var metaRows = [
+        ["Country", find(/country|location/i)],
+        ["Status", find(/status|grade|overall/i)],
+        ["Last review", find(/last|reviewed|date/i)],
+        ["Re-screen due", find(/re.?screen|next/i)],
+      ].filter(function (r) { return r[1]; });
+      document.getElementById("partnerMeta").innerHTML = metaRows.map(function (r) {
+        return '<div class="row"><span>' + escapeHtml(r[0]) + '</span><span class="v">' + escapeHtml(r[1]) + '</span></div>';
+      }).join("");
+
+      // Build checklist from determinations + flags. Items earlier than
+      // partner/status/etc. get treated as boolean checks.
+      var checks = [];
+      var stockNames = ["End-Use Certificate (EUC) on file", "Distributor flow-down agreement", "Annual screening current",
+                        "Sanctions watchlist re-check", "Diversion-risk training acknowledged", "ECP attestation signed"];
+      stockNames.forEach(function (name) {
+        var det = dets.find(function (x) {
+          var lbl = (x.label || "").toLowerCase();
+          var key = name.toLowerCase().split(" ")[0];
+          return lbl.indexOf(key) !== -1;
+        });
+        if (det) {
+          var v = String(det.value || "").toLowerCase();
+          var cls = /yes|on file|current|signed|ack|complete/.test(v) ? "ok" :
+                    /no|missing|expired|overdue|gap/.test(v) ? "gap" : "warn";
+          checks.push({ cls: cls, title: name, detail: det.value });
+        }
+      });
+      // Fall back to using whatever determinations exist if no stock matches
+      if (checks.length === 0) {
+        dets.slice(0, 4).forEach(function (det) {
+          var v = String(det.value || "").toLowerCase();
+          var cls = /yes|on file|current|signed|ack|complete|compliant/.test(v) ? "ok" :
+                    /no|missing|expired|overdue|gap|risk/.test(v) ? "gap" : "warn";
+          checks.push({ cls: cls, title: det.label, detail: det.value });
+        });
+      }
+
+      var ul = document.getElementById("checkList");
+      checks.slice(0, 5).forEach(function (c) {
+        var sym = c.cls === "ok" ? "✓" : c.cls === "gap" ? "✕" : "!";
+        var li = document.createElement("li");
+        li.innerHTML =
+          '<span class="check ' + c.cls + '">' + sym + '</span>' +
+          '<div class="body"><div class="title">' + escapeHtml(c.title) + '</div>' +
+          '<div class="detail">' + escapeHtml(c.detail || "") + '</div></div>';
+        ul.appendChild(li);
+      });
+
+      var tl = gsap.timeline({ paused: true });
+      tl.to("#brand",    { opacity: 1, y: 0, duration: 0.5 }, 0.0);
+      tl.to("#eyebrow",  { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.to("#headline", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.35);
+      tl.to("#partner",  { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.9);
+      tl.to("#checklist", { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.4);
+      tl.to("#checklist .stagger > *", { opacity: 1, y: 0, duration: 0.4, stagger: 0.1 }, 1.6);
+      tl.to("#disclose", { opacity: 1, y: 0, duration: 0.5 }, 2.6);
+      tl.set({}, {}, 9.0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["partner-compliance"] = tl;
+
+      var a = (window.__hfData || {}).audio;
+      if (a && a.enabled && a.duration > 9) {
+        tl.set({}, {}, Math.ceil(a.duration * 10) / 10);
+      }
+    })();
+  </script>
+  <!-- @hf-audio -->
+</div>
+</body>
+</html>

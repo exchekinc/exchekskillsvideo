@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "skill": { "name": "exchek-partner-compliance", "version": "1.4.0", "commit_sha7": "a1b2c3d" },
+  "generated": {
+    "at": "2026-05-04T23:01:18Z",
+    "model": "claude-sonnet-4-6",
+    "platform": "Claude Code",
+    "environment": "macos-darwin25",
+    "input_hash": "d8b3a0c5f624"
+  },
+  "privacy_attestation": { "tier": "standard", "attested_by": "matt@exchek.us", "attested_at": "2026-05-04T23:01:05Z", "minimum_met": true },
+  "cui_check": { "cui": false, "classified": false, "itar_126_18": false, "on_prem_required": false },
+  "inputs": { "partner": "Vossberg Maschinen GmbH", "country": "Germany" },
+  "regulatory_currency": {
+    "ecfr_pulled_at": "2026-05-04T22:00:00Z",
+    "cfr_parts": ["15 CFR 744 (knowledge)", "15 CFR 740 Supp. 1 (Country Groups)"],
+    "data_source": "eCFR API"
+  },
+  "determinations": [
+    { "label": "Partner", "value": "Vossberg Maschinen GmbH" },
+    { "label": "Country", "value": "Germany (A:1)" },
+    { "label": "Status", "value": "At-risk" },
+    { "label": "Last review", "value": "2025-08-12" },
+    { "label": "Re-screen due", "value": "2026-05-31" },
+    { "label": "End-Use Certificate (EUC) on file", "value": "Yes — signed 2025-08" },
+    { "label": "Distributor flow-down agreement", "value": "Yes — v3.1 (2024)" },
+    { "label": "Annual screening current", "value": "Overdue (252 days)" },
+    { "label": "Sanctions watchlist re-check", "value": "No — last 2024-09" },
+    { "label": "Diversion-risk training acknowledged", "value": "Yes — 2025-Q2" },
+    { "label": "ECP attestation signed", "value": "Yes — 2025-08" }
+  ],
+  "risk_flags": [
+    { "severity": "high", "label": "Annual screening 8 months overdue", "detail": "Trade.gov CSL was last re-checked 2024-09. Required cadence is annual." },
+    { "severity": "medium", "label": "Flow-down agreement aging", "detail": "v3.1 from 2024 predates the 2025-Q3 amendment to Country Group D:1 controls — refresh recommended." }
+  ],
+  "citations": [
+    { "cfr": "15 CFR 744.6 (knowledge)", "url": "https://www.ecfr.gov/current/title-15/section-744.6", "pulled_at": "2026-05-04T22:00:00Z" },
+    { "cfr": "15 CFR 740 Supp. 1", "url": "https://www.ecfr.gov/current/title-15/part-740", "pulled_at": "2026-05-04T22:00:00Z" }
+  ],
+  "injection_attempts": [],
+  "hitl_confirmation": { "confirmed": true, "confirmed_at": "2026-05-04T23:01:14Z", "determinations_confirmed": ["Status", "Annual screening current"] },
+  "report": { "docx_basename": "ExChek-PartnerCompliance-2026-05-04-Vossberg.docx", "docx_path_relative": "ExChek-PartnerCompliance-2026-05-04-Vossberg.docx" },
+  "next_actions": [
+    "Re-screen Vossberg against CSL by 2026-05-15",
+    "Refresh distributor flow-down agreement to v4.0 (covers 2025-Q3 amendments)",
+    "Schedule next annual review for 2026-08-12"
+  ],
+  "caveats": [
+    "Re-screen result must be logged in audit chain before next shipment release."
+  ]
+}

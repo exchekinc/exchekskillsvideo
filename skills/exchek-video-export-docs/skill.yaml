@@ -1,0 +1,9 @@
+name: exchek-video-export-docs
+description: Render an export-documentation readiness video from an exchek-export-docs JSON sibling. Commercial invoice + SLI + AES.
+version: "0.1.0"
+main: SKILL.md
+compatibility:
+  - Claude Code
+  - Claude desktop
+  - Claude CoWork
+  - Claude web

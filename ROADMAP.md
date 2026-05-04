@@ -171,20 +171,20 @@ talking the narration over the existing branded layout.
 
 ---
 
-## v0.5 — Template library expansion
+## ✅ v0.5 — Template library expansion (shipped in v1.1.0)
 
-Add templates for the upstream skills currently mapped to fallback:
-- `exchek-deemed-export` — visualize foreign-national access decisions
-  with a 122.18 / 734.2(b)(2)(ii) decision-tree animation
-- `exchek-export-docs` — animated commercial-invoice / SLI / AES walkthrough
-- `exchek-ecp` — ECP coverage map, animated radar of program areas
-- `exchek-encryption` — 5A992/5D992 + ENC-notification flow
-- `exchek-recordkeeping` — retention-schedule timeline (15 CFR 762)
-- `exchek-audit-lookback` — historical re-screen results, animated
-  bar chart of hits over time
-- `exchek-partner-compliance` — distributor flow-down pack summary
+All seven new templates landed in v1.1.0 (2026-05-04):
 
-Each is a 1-day addition once the framework is stable.
+- ✅ `encryption` — 5A992/5D992 ECCN reveal + ENC notification cards
+- ✅ `deemed-export` — color-coded verdict tile + 4 supporting cards (15 CFR 734.13)
+- ✅ `export-docs` — Commercial Invoice + SLI + AES three-document grid
+- ✅ `ecp` — Maturity grade + 8-element coverage grid (BIS guidance)
+- ✅ `audit-lookback` — Volume tile + new-hits + severity-breakdown bars
+- ✅ `partner-compliance` — Partner card + flow-down checklist
+- ✅ `recordkeeping` — Retention status + 5-year timeline (15 CFR 762)
+
+Each ships with a matching `exchek-video-<name>` skill wrapper and a
+realistic schema-1.0.0 fixture.
 
 ---
 
