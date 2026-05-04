@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "skill": {
+    "name": "exchek-training-what-is-an-export",
+    "version": "1.0.0",
+    "commit_sha7": "a1b2c3d"
+  },
+  "generated": {
+    "at": "2026-05-04T15:30:00Z",
+    "model": "claude-sonnet-4-6",
+    "platform": "Claude Code",
+    "environment": "macos-darwin25",
+    "input_hash": "exp101a2b3c4"
+  },
+  "privacy_attestation": {
+    "tier": "standard",
+    "attested_by": "matt@exchek.us",
+    "attested_at": "2026-05-04T15:29:50Z",
+    "minimum_met": true
+  },
+  "cui_check": {
+    "cui": false,
+    "classified": false,
+    "itar_126_18": false,
+    "on_prem_required": false
+  },
+  "inputs": {
+    "audience": "All employees who handle controlled items, technology, or software",
+    "lesson_kind": "Foundational — module 1 of the export-controls primer"
+  },
+  "regulatory_currency": {
+    "ecfr_pulled_at": "2026-05-04T15:00:00Z",
+    "cfr_parts": [
+      "15 CFR 734.13",
+      "15 CFR 734.14",
+      "15 CFR 734.15",
+      "15 CFR 734.20",
+      "22 CFR 120.17"
+    ],
+    "data_source": "eCFR API"
+  },
+  "determinations": [
+    {
+      "label": "Physical shipment",
+      "value": "Sending an item from the U.S. to anywhere else — by sea, air, vehicle, or hand-carry.",
+      "citation": "15 CFR 734.13(a)(1)"
+    },
+    {
+      "label": "Deemed export",
+      "value": "Releasing technology or source code to a foreign person, even inside the U.S.",
+      "citation": "15 CFR 734.13(a)(2), 734.15"
+    },
+    {
+      "label": "Cloud or electronic transfer",
+      "value": "Sending controlled technology across a border by email, upload, or shared drive — \"sending\" includes the cloud.",
+      "citation": "15 CFR 734.13(a)(1), 734.18"
+    },
+    {
+      "label": "Re-export",
+      "value": "Moving an item, technology, or software from one foreign country to another — still counts as a U.S. export.",
+      "citation": "15 CFR 734.14"
+    }
+  ],
+  "risk_flags": [],
+  "citations": [
+    {
+      "cfr": "15 CFR 734.13",
+      "url": "https://www.ecfr.gov/current/title-15/section-734.13",
+      "pulled_at": "2026-05-04T15:00:00Z"
+    },
+    {
+      "cfr": "15 CFR 734.14",
+      "url": "https://www.ecfr.gov/current/title-15/section-734.14",
+      "pulled_at": "2026-05-04T15:00:00Z"
+    },
+    {
+      "cfr": "15 CFR 734.15",
+      "url": "https://www.ecfr.gov/current/title-15/section-734.15",
+      "pulled_at": "2026-05-04T15:00:00Z"
+    },
+    {
+      "cfr": "22 CFR 120.17",
+      "url": "https://www.ecfr.gov/current/title-22/section-120.17",
+      "pulled_at": "2026-05-04T15:00:00Z"
+    }
+  ],
+  "injection_attempts": [],
+  "hitl_confirmation": {
+    "confirmed": true,
+    "confirmed_at": "2026-05-04T15:29:55Z",
+    "determinations_confirmed": ["Physical shipment", "Deemed export", "Cloud or electronic transfer", "Re-export"]
+  },
+  "report": {
+    "docx_basename": "ExChek-Training-WhatIsAnExport-2026-05-04.docx",
+    "docx_path_relative": "ExChek-Training-WhatIsAnExport-2026-05-04.docx"
+  },
+  "next_actions": [
+    "Classify items and technology before any release — silence is not consent",
+    "Screen the foreign recipient and destination against CSL / OFAC / Entity List",
+    "Log every controlled-tech release: who, what, when, how"
+  ],
+  "caveats": [
+    "ITAR (defense articles) has parallel definitions in 22 CFR 120.17 — same flow, different list. Always check whether the item is EAR or ITAR first.",
+    "A few narrow carve-outs exist in 15 CFR 734.20 (e.g., transit, US-person-to-US-person inside the U.S.). Don't rely on them without confirming."
+  ]
+}
