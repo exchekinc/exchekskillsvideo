@@ -1,7 +1,7 @@
 {
   "name": "exchekskillsvideo",
-  "version": "0.1.0",
-  "description": "Render audit-ready compliance video summaries from ExChekSkills JSON output. Bridges exchekskills (.docx + .json) to HeyGen HyperFrames (.mp4).",
+  "version": "1.0.0",
+  "description": "ExChek Engine (Video) — render branded, narrated, audit-traceable compliance video summaries (.mp4) from any ExChekSkills .json sibling. Companion to exchekskills.",
   "type": "module",
   "private": true,
   "engines": {

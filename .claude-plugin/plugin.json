@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "exchekskillsvideo",
+  "version": "1.0.0",
+  "description": "ExChek Engine (Video) — render branded, narrated, audit-traceable compliance video summaries (.mp4) from any ExChekSkills .json sibling. Five templates: risk-triage, classification, red-flag, compliance-report-card, training. Optional ElevenLabs narration. The .docx remains the audit-of-record. Companion to the exchekskills plugin.",
+  "author": {
+    "name": "ExChek, Inc.",
+    "email": "matt@exchek.us",
+    "url": "https://exchek.us"
+  },
+  "homepage": "https://docs.exchek.us",
+  "repository": "https://github.com/exchekinc/exchekskillsvideo",
+  "license": "Proprietary",
+  "keywords": [
+    "export-compliance",
+    "smb-manufacturer",
+    "video",
+    "mp4",
+    "narration",
+    "elevenlabs",
+    "hyperframes",
+    "executive-briefing",
+    "training-video",
+    "compliance-deliverable",
+    "risk-triage",
+    "eccn",
+    "red-flag",
+    "audit-ready",
+    "claude-skills",
+    "cowork"
+  ],
+  "skills": "./skills/",
+  "userConfig": {
+    "default_render_dir": {
+      "type": "directory",
+      "title": "Default video output folder",
+      "description": "Where rendered .mp4 files land. Defaults to the ExChek-Reports folder so videos sit alongside their .docx and .json siblings. You can always override per-render.",
+      "default": "~/Documents/ExChek-Reports"
+    },
+    "elevenlabs_voice_id": {
+      "type": "string",
+      "title": "ElevenLabs voice ID (optional)",
+      "description": "ElevenLabs voice for narration. Defaults to Sarah (EXAVITQu4vr4xnSDxMaL) — clear, professional. Other recommended voices: Rachel (21m00Tcm4TlvDq8ikWAM), Adam (pNInz6obpgDQGcFmaJgB), Juniper (aMSt68OGf4xUZAnLpTU8). Only used when you opt into narration.",
+      "default": "EXAVITQu4vr4xnSDxMaL"
+    },
+    "elevenlabs_api_key": {
+      "type": "string",
+      "title": "ElevenLabs API key (sensitive, optional)",
+      "description": "Required only if you opt into narration AND you don't already have the ElevenLabs MCP plugin or the ElevenLabs connector installed. Stored in your OS keychain — never in plain text. Get a key at https://elevenlabs.io. Cost is ~1¢ per video.",
+      "sensitive": true
+    },
+    "default_quality": {
+      "type": "string",
+      "title": "Default render quality",
+      "description": "draft | standard | high. Draft is ~2x faster; high is ~3x slower. Standard is fine for most deliverables.",
+      "default": "standard"
+    },
+    "default_fps": {
+      "type": "string",
+      "title": "Default frame rate",
+      "description": "24 | 30 | 60. 30 is right for most cases; 60 is worth it only for motion-heavy templates on large screens.",
+      "default": "30"
+    },
+    "narration_default": {
+      "type": "string",
+      "title": "Narration default behavior",
+      "description": "ask | always | never. 'ask' prompts you each time (recommended). 'always' tries to narrate every render and falls back to silent if ElevenLabs isn't configured. 'never' renders silent without prompting.",
+      "default": "ask"
+    },
+    "cui_render_mode": {
+      "type": "string",
+      "title": "CUI / classified handling",
+      "description": "refuse | silent. When the source ExChekSkills report has cui_check.cui or cui_check.classified true: 'refuse' (default) refuses the render entirely; 'silent' renders silently with no narration and stamps a notice on the video. Narration is always refused regardless of this setting.",
+      "default": "refuse"
+    }
+  }
+}

@@ -1,43 +1,13 @@
 {
-  "name": "exchekskillsvideo",
-  "displayName": "ExChekSkills Video",
-  "publisher": "ExChek, Inc.",
-  "version": "0.1.0",
-  "description": "Render audit-ready compliance video summaries from ExChekSkills JSON output. Five templates (risk-triage, classification, red-flag, compliance-report-card, training) plus an auto-detect summary skill.",
-  "license": "Proprietary (see LICENSE.md)",
-  "skills": [
+  "version": "1",
+  "plugins": [
     {
-      "name": "exchek-video-summary",
-      "path": "skills/exchek-video-summary",
-      "tier": "standard"
-    },
-    {
-      "name": "exchek-video-risk-triage",
-      "path": "skills/exchek-video-risk-triage",
-      "tier": "standard"
-    },
-    {
-      "name": "exchek-video-classification",
-      "path": "skills/exchek-video-classification",
-      "tier": "standard"
-    },
-    {
-      "name": "exchek-video-red-flag",
-      "path": "skills/exchek-video-red-flag",
-      "tier": "standard"
-    },
-    {
-      "name": "exchek-video-training",
-      "path": "skills/exchek-video-training",
-      "tier": "standard"
+      "name": "exchekskillsvideo",
+      "description": "ExChek Engine (Video) — render branded, narrated, audit-traceable compliance video summaries (.mp4) from any ExChekSkills .json sibling. Companion to exchekskills.",
+      "source": {
+        "source": "github",
+        "repo": "exchekinc/exchekskillsvideo"
+      }
     }
-  ],
-  "requires": {
-    "node": ">=22",
-    "ffmpeg": ">=4.0",
-    "exchekskills": ">=1.4.0"
-  },
-  "depends": {
-    "hyperframes": "latest"
-  }
+  ]
 }

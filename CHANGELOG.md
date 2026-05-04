@@ -1,5 +1,85 @@
 # Changelog
 
+## [1.0.0] — 2026-05-04 — **ExChek Engine (Video)**
+
+First production release. Claude-plugin-ready, marketplace-installable,
+license + security ported from upstream `exchekskills`.
+
+### Plugin readiness
+- `.claude-plugin/plugin.json` v1 manifest. Declares the five video
+  skills, ExChek metadata (author, repo, homepage), keywords for
+  discovery, and a full `userConfig` block:
+    - `default_render_dir` (default `~/Documents/ExChek-Reports`)
+    - `elevenlabs_voice_id` (default Sarah)
+    - `elevenlabs_api_key` (sensitive, optional)
+    - `default_quality` (draft | standard | high)
+    - `default_fps` (24 | 30 | 60)
+    - `narration_default` (ask | always | never)
+    - `cui_render_mode` (refuse | silent)
+- `marketplace.json` updated to the upstream v1 schema for marketplace
+  discovery alongside `exchekskills`.
+- `package.json` bumped to 1.0.0.
+
+### License + security parity
+- `LICENSE.md` is now the verbatim canonical 115-line ExChek
+  Proprietary License from `exchekinc/exchekskills`, plus an Appendix A
+  documenting the additional runtime dependencies this repo
+  introduces (HyperFrames Apache-2.0, optional ElevenLabs TTS,
+  planned HeyGen Avatars).
+- `docs/SECURITY.md` mirrors upstream's plain-English security model at
+  the same path, adapted for the video surface area: net-new outbound
+  calls table, `--audio-script-only` as the user-facing way to preview
+  exactly what text would be sent to ElevenLabs, CUI gate behavior,
+  cache-directory documentation, render-time considerations, and the
+  bridge-vs-skill key-handling separation.
+
+### Shipping in v1.0.0
+- Five video templates, all rendering at 1920×1080 H.264:
+    - `risk-triage` — animated risk gauge + determinations + flag cards
+    - `classification` — large ECCN/USML reveal + 4 control fields
+    - `red-flag` — high-contrast indicator alert grid (BIS Supp. 3)
+    - `compliance-report-card` — grade tile + score progress bars
+    - `training` — lesson-card layout with citations + actions
+- Five Claude skill wrappers, all with the shared SKILL.md preflight
+  pattern (CUI gate inherited from upstream + ElevenLabs narration
+  preflight that resolves credentials before any render).
+- ExChek brand: light theme matching exchek.us, real ExChek logo SVG
+  inlined into every composition, ExChek purple `#411992` accent,
+  Outfit/Inter/JetBrains-Mono typography, AI disclaimer hard-coded in
+  the brand layer.
+- ElevenLabs narration verified end-to-end. Audio cached at
+  `~/.cache/exchek/vo-<input_hash>.mp3` so re-renders of the same
+  source are free.
+- CoWork-friendly: bundle mode auto-engages when FFmpeg/Chromium are
+  unavailable, producing a portable folder + RENDER.md the user can
+  download and render anywhere.
+- Bridge CLI: `report-to-video.mjs` with `--template`, `--output`,
+  `--format`, `--fps`, `--quality`, `--headline`, `--subhead`,
+  `--risk`, `--strict`, `--preview`, `--bundle <dir>`,
+  `--force-bundle`, `--force-render`, `--audio-file`,
+  `--audio-script-only`, `--no-audio`, `--dry-run`.
+- Batch script: `scripts/render-all-narrated.sh` renders all five demos
+  with ElevenLabs in ~50s wall-clock.
+- Smoke test: 90+ assertions covering data mapping, template loading,
+  token substitution (with `$$` escape regression guard), JSON
+  injection, GSAP timeline registration, audio injection, bundle
+  round-trip, and env-detect contract.
+- Documentation: README, ROADMAP, ARCHITECTURE, CONTRIBUTING, SECURITY,
+  five SKILL.md files, ElevenLabs setup walkthrough, CoWork workflow,
+  template-mapping reference.
+
+### Roadmap (post-v1)
+See [ROADMAP.md](ROADMAP.md). Headline items:
+- v0.2 — Captions (mute-friendly + accessibility + SRT sidecar)
+- v0.3 — Portrait + square aspects for Slack / mobile / Reels
+- **v0.4 — HeyGen Avatars** (talking-head over the motion-graphic layout)
+- v0.5 — Templates for the 7 remaining ExChekSkills
+- v0.6 — Native batch mode for training-library generation
+- v0.7 — Hosted render service (closes the CoWork bundle hand-off)
+- v0.8 — Multi-language narration
+
+---
+
 ## [0.1.3] — 2026-05-04
 
 ### Changed (theme overhaul to match exchek.us)
